@@ -138,30 +138,13 @@ import DashboardPage from "./dashboard/DashboardPage";
             </>
           )}
                     
-          {filterType === "search" || filterType === "filter" ? (
+          {filterType === "search" && (
             <FlashCard
               words={filteredWords}
               selectedLanguages={selectedLanguages}
               onFavoriteToggle={toggleFavorite}
             />
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredWords.map((word, index) => (
-                <motion.div
-                  key={word.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <WordCard
-                    word={word}
-                    selectedLanguages={selectedLanguages}
-                    onFavoriteToggle={toggleFavorite} // ✅ Pasa solo la función
-                  />
-                </motion.div>
-              ))}
-            </div>
-          )}
+          ) }
         </main>
 
         <Toaster />

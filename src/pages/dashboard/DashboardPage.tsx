@@ -1,11 +1,17 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import WordCard from "@/components/WordCard";
+import { useWords } from "@/lib/Hooks/Word/useWord";
+import { Link } from "react-router-dom";
 
 const DashboardPage: React.FC = () => {
+  const { words, loading } = useWords();
+
   return (
     <>
       <h1 className="text-2xl font-bold text-[#1B3B48] mb-6">Featured Words</h1>
+
       <div className="flex gap-4 mb-8">
         {["Spanish", "English", "German"].map((lang) => (
           <motion.div
@@ -17,28 +23,46 @@ const DashboardPage: React.FC = () => {
           </motion.div>
         ))}
       </div>
-      <h2 className="text-xl font-semibold text-[#1B3B48] mb-4">
-        Search & Filter
-      </h2>
+
+      <h2 className="text-xl font-semibold text-[#1B3B48] mb-4">Search & Filter</h2>
+
       <div className="grid grid-cols-4 gap-4 mb-8">
         {[
-          { label: "Word Search", icon: "📚" },
-          { label: "Word Categories", icon: "🔍" },
-          { label: "Word Definition", icon: "📖" },
-          { label: "Word Example", icon: "✏️" },
-          { label: "Word Example", icon: "✏️" },
+          { label: "Word Search", icon: "📚", path: "/word-search" },
+          { label: "Word Categories", icon: "🔍", path: "/word-categories" },
+          { label: "Word Definition", icon: "📖", path: "/word-definition" },
+          { label: "Word Example", icon: "✏️", path: "/word-example" },
         ].map((item) => (
-          <Button
-            key={item.label}
-            variant="outline"
-            className="h-24 flex flex-col items-center justify-center bg-[#D9E6E9] rounded-2xl shadow-lg"
-          >
-            <span className="text-2xl mb-2">{item.icon}</span>
-            <span className="text-[#1B3B48]">{item.label}</span>
-          </Button>
+          <Link to={item.path} key={item.label}>
+            <Button
+              variant="outline"
+              className="h-24 w-full flex flex-col items-center justify-center bg-[#D9E6E9] rounded-2xl shadow-lg"
+            >
+              <span className="text-2xl mb-2">{item.icon}</span>
+              <span className="text-[#1B3B48]">{item.label}</span>
+            </Button>
+          </Link>
         ))}
       </div>
-      
+
+      <h2 className="text-xl font-semibold text-[#1B3B48] mb-4">Words in all languages</h2>
+
+      {loading ? (
+        <p className="text-gray-500">Loading words...</p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {words.map((word, index) => (
+            <motion.div
+              key={word.translationId}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05 }}
+            >
+              <WordCard word={word} />
+            </motion.div>
+          ))}
+        </div>
+      )}
     </>
   );
 };
