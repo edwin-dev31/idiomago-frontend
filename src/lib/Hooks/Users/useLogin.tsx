@@ -15,6 +15,11 @@ export function useLogin() {
         localStorage.setItem("token", token);
       }
 
+      const userId = response.data?.userId;
+      if (userId) {
+        localStorage.setItem("userId", userId);
+      }
+
       return response.data;
     } catch (error: any) {
       console.error("Login error:", error.response?.data?.message || error.message);

@@ -13,7 +13,7 @@ import {
   CommandInput,
   CommandItem,
 } from "@/components/ui/command";
-import { useLanguages } from "@/lib/Hooks/Language/useLanguage";
+import { useLanguages } from "@/lib/Hooks/Languages/useLanguages";
 
 type Props = {
   selectedLanguages: string[];

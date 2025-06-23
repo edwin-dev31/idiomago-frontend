@@ -6,7 +6,7 @@ import { User, Lock } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub, FaFacebookF } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useLogin } from "@/lib/Hooks/User/useLogin";
+import { useLogin } from "@/lib/Hooks/Users/useLogin";
 import { toast } from "react-hot-toast";
 
 const Login: React.FC = () => {

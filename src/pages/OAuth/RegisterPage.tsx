@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { User, Lock, Mail } from "lucide-react";
-import { useRegister } from "@/lib/Hooks/User/UseRegister";
+import { useRegister } from "@/lib/Hooks/Users/UseRegister";
 import { toast } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 

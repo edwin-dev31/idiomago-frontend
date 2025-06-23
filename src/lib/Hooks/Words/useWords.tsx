@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { javaAPI } from "@/lib/axios";
 
 export interface Word {
-  translationId: number;
+  wordTranslationId: number;
   wordId: number;
   originalWord: string;
   languageId: number;
