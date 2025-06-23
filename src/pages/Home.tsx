@@ -12,6 +12,8 @@
   import { Word } from "@/types/types"; 
 import { useNavigate } from "react-router-dom";
 import DashboardPage from "./dashboard/DashboardPage";
+import FilterPage from "./filters/FilterPage";
+import FavoritePage from "./favorite/FavoritePage";
 
   type FilterType = "dashboard" | "search" | "filter" | "favorites";
 
@@ -51,6 +53,7 @@ import DashboardPage from "./dashboard/DashboardPage";
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
     navigate("/login");
   };
     const [isAuthenticated, setIsAuthenticated] = React.useState(() => {
@@ -132,9 +135,9 @@ import DashboardPage from "./dashboard/DashboardPage";
             </>
           )}
 
-          {filterType === "filter" && (
+          {filterType === "favorites" && (
             <>
-              <DashboardPage/>
+              <FavoritePage/>
             </>
           )}
                     
