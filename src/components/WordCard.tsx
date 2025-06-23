@@ -1,26 +1,29 @@
 import React from "react";
-import { Word } from "@/lib/Hooks/Words/useWords";
+import { Word } from "@/lib/WordView";
 import { Heart } from "lucide-react";
-import { useFavorites } from "@/lib/Hooks/Favorites/useFavorites";
 
 interface Props {
   word: Word;
   isFavorite: boolean;
+  onFavoriteToggle: () => void; // esta función viene del padre
 }
 
-const WordCard: React.FC<Props> = ({ word, isFavorite }) => {
+const WordCard: React.FC<Props> = ({ word, isFavorite, onFavoriteToggle }) => {
   const fallbackImage = "https://images.unsplash.com/photo-1549287540-b5e39fc85fa1";
   const imageUrl = word.imageUrl || fallbackImage;
-  const { addFavorite } = useFavorites();
-
-  const handleFavorite = () => {
-    addFavorite(word.wordTranslationId);
-  };
 
   return (
     <div className="bg-[#EAF3F5] rounded-2xl shadow-md overflow-hidden border border-gray-200 relative">
-      <div className="absolute top-3 right-3 cursor-pointer" onClick={handleFavorite}>
-        <Heart className={`w-5 h-5 ${isFavorite ? "fill-red-500 text-red-500" : "text-gray-400"}`} />
+      <div
+        className="absolute top-3 right-3 cursor-pointer"
+        onClick={onFavoriteToggle}
+        title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+      >
+        <Heart
+          className={`w-5 h-5 transition-all duration-200 ${
+            isFavorite ? "fill-red-500 text-red-500" : "text-gray-400"
+          }`}
+        />
       </div>
 
       <img

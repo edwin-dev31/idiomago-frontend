@@ -1,26 +1,39 @@
 // src/pages/Favorites.tsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import WordCard from "@/components/WordCard";
 import { useWords } from "@/lib/Hooks/Words/useWords";
-import { useUserFavorites } from "@/lib/Hooks/Favorites/useUserFavorites";
+import { deleteFavorite } from "@/lib/Hooks/Favorites/useFavoriteActions";
+import { Word } from "@/lib/WordView";
 import DashboardHeader from "../dashboard/DashboardHeader";
 
 const FavoritePage: React.FC = () => {
   const { words, loading } = useWords();
-  const { favorites } = useUserFavorites();
+  const [favoriteWords, setFavoriteWords] = useState<Word[]>([]);
+  const userId = localStorage.getItem("userId");
 
-  // Extraemos solo los IDs de las palabras favoritas
-  const favoriteIds = favorites.map((fav) => fav.wordTranslationId);
+  // Sync con palabras favoritas
+  useEffect(() => {
+    setFavoriteWords(words.filter((word) => word.isFavorite));
+  }, [words]);
 
-  // Filtramos solo las palabras favoritas
-  const favoriteWords = words.filter((word) =>
-    favoriteIds.includes(word.wordTranslationId)
-  );
+  const handleUnfavorite = async (wordTranslationId: number) => {
+    if (!userId) return;
+
+    try {
+      await deleteFavorite(Number(userId), wordTranslationId);
+
+      setFavoriteWords((prev) =>
+        prev.filter((word) => word.wordTranslationId !== wordTranslationId)
+      );
+    } catch (error) {
+      console.error("❌ Error removing favorite:", error);
+    }
+  };
 
   return (
     <div className="mt-6">
-      <DashboardHeader/>
+      <DashboardHeader />
       <h1 className="text-2xl font-bold text-[#1B3B48] mb-6">Your Favorite Words</h1>
 
       {loading ? (
@@ -36,7 +49,13 @@ const FavoritePage: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
             >
-              <WordCard word={word} isFavorite={true} />
+              <WordCard
+                word={word}
+                isFavorite={true}
+                onFavoriteToggle={() =>
+                  handleUnfavorite(word.wordTranslationId)
+                }
+              />
             </motion.div>
           ))}
         </div>

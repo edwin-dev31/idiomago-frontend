@@ -1,36 +1,82 @@
-// src/components/FlashCard/FlashCard.tsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "./LanguageSelector";
 import { FlashCardNavigation } from "./FlashCardNavigation";
 import { FlashCardContent } from "./FlashCardContent";
-import { Word } from "@/types/types";
+import { useSearchWords } from "@/lib/Hooks/Search/useSearchWords";
+import { addFavorite, deleteFavorite } from "@/lib/Hooks/Favorites/useFavoriteActions";
+import { Word } from "@/lib/WordView";
 
-type FlashCardProps = {
-  words: Word[];
-  selectedLanguages: string[];
-  onFavoriteToggle: (id: number) => void;
-  onLanguageSelect?: (language: string) => void;
-};
+const FlashCard: React.FC = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [searchWord, setSearchWord] = useState("");
+  const [languageCodes, setLanguageCodes] = useState<string[]>([]);
 
-export const FlashCard: React.FC<FlashCardProps> = ({
-  words,
-  onFavoriteToggle,
-}) => {
-  const [currentIndex, setCurrentIndex] = React.useState(0);
-  const [searchWord, setSearchWord] = React.useState("");
-
+  const { results: words, loading, search, setResults } = useSearchWords();
   const currentWord = words[currentIndex];
+  const userId = localStorage.getItem("userId");
 
-  const handleNext = () => setCurrentIndex((prev) => (prev + 1) % words.length);
-  const handlePrevious = () => setCurrentIndex((prev) => (prev - 1 + words.length) % words.length);
+  // ⬇️ Recuperar búsqueda previa y códigos seleccionados
+  useEffect(() => {
+    const savedWord = localStorage.getItem("searchWord");
+    const selectedCodes = localStorage.getItem("selectedLanguageCodes");
 
-  if (!currentWord) return <div className="text-center text-gray-500">No words available</div>;
+    if (selectedCodes) {
+      const parsedCodes = JSON.parse(selectedCodes); // porque está en formato JSON string
+      setLanguageCodes(parsedCodes);
+    }
+
+    if (savedWord) {
+      setSearchWord(savedWord);
+      search(savedWord, JSON.parse(selectedCodes ?? "[]"));
+    }
+  }, []);
+
+  const handleSearch = () => {
+    localStorage.setItem("searchWord", searchWord);
+    localStorage.setItem("selectedLanguageCodes", JSON.stringify(languageCodes));
+
+    search(searchWord, languageCodes);
+    setCurrentIndex(0);
+  };
+
+  const handleNext = () => {
+    if (words.length > 0) {
+      setCurrentIndex((prev) => (prev + 1) % words.length);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (words.length > 0) {
+      setCurrentIndex((prev) => (prev - 1 + words.length) % words.length);
+    }
+  };
+
+  const handleFavoriteToggle = async (wordId: number, isFavorite: boolean) => {
+    if (!userId) return;
+
+    try {
+      if (isFavorite) {
+        await deleteFavorite(Number(userId), wordId);
+      } else {
+        await addFavorite(Number(userId), wordId);
+      }
+
+      setResults((prev: Word[]) =>
+        prev.map((word) =>
+          word.wordTranslationId === wordId
+            ? { ...word, isFavorite: !isFavorite }
+            : word
+        )
+      );
+    } catch (err) {
+      console.error("❌ Error updating favorite in search:", err);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-start min-h-[80vh] p-4">
-      {/* Search and language selector */}
       <div className="w-full max-w-4xl flex justify-between items-start mb-8">
         <div className="w-[300px]">
           <Input
@@ -43,18 +89,32 @@ export const FlashCard: React.FC<FlashCardProps> = ({
         </div>
 
         <div className="flex flex-col items-end gap-4">
-          <LanguageSelector  />
-         
-          <Button className="w-full bg-[#1B3B48] text-white rounded-full py-3 px-8 text-lg">
+          <LanguageSelector
+            onLanguageChange={setLanguageCodes}
+          />
+          <Button
+            onClick={handleSearch}
+            className="w-full bg-[#1B3B48] text-white rounded-full py-3 px-8 text-lg"
+          >
             SEND
           </Button>
         </div>
       </div>
 
-      {/* FlashCard Navigation */}
-      <FlashCardNavigation onPrevious={handlePrevious} onNext={handleNext}>
-        <FlashCardContent word={currentWord} onFavoriteToggle={onFavoriteToggle} />
-      </FlashCardNavigation>
+      {loading ? (
+        <p className="text-gray-500">Loading...</p>
+      ) : words.length === 0 ? (
+        <p className="text-gray-400 italic">No words found</p>
+      ) : (
+        <FlashCardNavigation onPrevious={handlePrevious} onNext={handleNext}>
+          <FlashCardContent
+            word={currentWord}
+            onFavoriteToggle={() =>
+              handleFavoriteToggle(currentWord.wordTranslationId, currentWord.isFavorite)
+            }
+          />
+        </FlashCardNavigation>
+      )}
     </div>
   );
 };

@@ -3,7 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Heart, Volume2 } from "lucide-react";
-import { Word } from "@/types/types";
+import { Word } from "@/lib/WordView";
 
 type Props = {
   word: Word;
@@ -11,6 +11,8 @@ type Props = {
 };
 
 export const FlashCardContent: React.FC<Props> = ({ word, onFavoriteToggle }) => {
+  const fallbackImage = "https://images.unsplash.com/photo-1549287540-b5e39fc85fa1";
+  const imageUrl = word.imageUrl || fallbackImage;
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -18,11 +20,11 @@ export const FlashCardContent: React.FC<Props> = ({ word, onFavoriteToggle }) =>
       className="bg-[#D9E6E9] rounded-3xl shadow-xl p-8 w-[600px]"
     >
       <div className="flex justify-between items-start mb-4">
-        <span className="text-[#1B3B48] text-xl font-medium">English</span>
-        <Button variant="ghost" size="icon" onClick={() => onFavoriteToggle(word.id)}>
+        <span className="text-[#1B3B48] text-xl font-medium">{word.languageName.toUpperCase()}</span>
+        <Button variant="ghost" size="icon" onClick={() => onFavoriteToggle(word.wordId)}>
           <Heart
-            className={`h-8 w-8 ${
-              word.favorite ? "fill-[#1B3B48] text-[#1B3B48]" : "text-[#1B3B48]"
+            className={`w-5 h-5 transition-all duration-200 ${
+              word.isFavorite ? "fill-red-500 text-red-500" : "text-gray-400"
             }`}
           />
         </Button>
@@ -32,12 +34,12 @@ export const FlashCardContent: React.FC<Props> = ({ word, onFavoriteToggle }) =>
         <img
           alt="Word illustration"
           className="w-full h-64 object-cover rounded-2xl"
-          src={word.image}
+          src={imageUrl}
         />
       </div>
 
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-5xl font-bold text-[#1B3B48]">{word.word}</h2>
+        <h2 className="text-5xl font-bold text-[#1B3B48]">{word.translatedWord}</h2>
         <Button variant="ghost" size="icon" className="bg-[#1B3B48] rounded-full h-12 w-12">
           <Volume2 className="h-6 w-6 text-white" />
         </Button>
@@ -46,11 +48,11 @@ export const FlashCardContent: React.FC<Props> = ({ word, onFavoriteToggle }) =>
       <div className="space-y-6">
         <div>
           <h4 className="text-lg font-semibold text-[#1B3B48] mb-2">Definition:</h4>
-          <p className="text-[#1B3B48] text-lg">{word.definition}</p>
+          <p className="text-[#1B3B48] text-lg">{word.translatedDescription}</p>
         </div>
         <div>
           <h4 className="text-lg font-semibold text-[#1B3B48] mb-2">Example:</h4>
-          <p className="text-[#1B3B48] text-lg italic">{word.example}</p>
+          <p className="text-[#1B3B48] text-lg italic">{word.translatedExample}</p>
         </div>
       </div>
     </motion.div>
