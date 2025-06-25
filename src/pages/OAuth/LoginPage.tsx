@@ -31,7 +31,6 @@ const Login: React.FC = () => {
       if (token) {
         localStorage.setItem("token", token);
         toast.success("Login successful!");
-        console.log(token)
         navigate("/"); 
       } else {
         toast.error("Token not received");

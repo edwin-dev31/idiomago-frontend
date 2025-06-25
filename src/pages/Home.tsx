@@ -7,6 +7,7 @@ import Login from "@/pages/OAuth/LoginPage";
 import { useNavigate } from "react-router-dom";
 import DashboardPage from "./dashboard/DashboardPage";
 import FavoritePage from "./favorite/FavoritePage";
+import FilterPage from "./filters/FilterPage";
 
 type FilterType = "dashboard" | "search" | "filter" | "favorites";
 
@@ -58,7 +59,9 @@ const handleLogout = () => {
         {filterType === "favorites" && (
           <FavoritePage/>
         )}
-                  
+        {filterType === "filter" && (
+          <FilterPage/>
+        )}    
         {filterType === "search" && (
           <FlashCard/>
         ) }

@@ -1,11 +1,10 @@
 import React from "react";
-import WordCard from "@/pages/dashboard/WordCard"; // (sin llaves {}, porque WordCard es export default)
-import { Word } from "@/types/types";
-
+import WordCard from "@/pages/dashboard/WordCard"; 
+import { Word } from "@/lib/WordView";
 type SearchProps = {
   words: Word[];
-  selectedLanguages: string[]; // Añadimos este prop
-  onFavoriteToggle: (id: number) => void; // Y este también
+  selectedLanguages: string[]; 
+  onFavoriteToggle: (id: number) => void; 
 };
 
 const SearchWordPage: React.FC<SearchProps> = ({ words, selectedLanguages, onFavoriteToggle }) => {
@@ -13,7 +12,7 @@ const SearchWordPage: React.FC<SearchProps> = ({ words, selectedLanguages, onFav
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {words.map((word) => (
         <WordCard
-          key={word.id}
+          key={word.wordId}
           word={word}
           selectedLanguages={selectedLanguages}
           onFavoriteToggle={onFavoriteToggle}

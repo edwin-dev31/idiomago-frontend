@@ -8,7 +8,7 @@ import { toast } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 
 const Register: React.FC = () => {
-  const navigate = useNavigate(); // ⬅️ para redirigir
+  const navigate = useNavigate(); 
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -25,12 +25,12 @@ const Register: React.FC = () => {
     e.preventDefault();
     try {
       const data = await register(form);
-      const token = data?.token; // asegúrate de que `token` venga en la respuesta
+      const token = data?.token; 
 
       if (token) {
         localStorage.setItem("token", token);
         toast.success("User registered!");
-        navigate("/"); // ⬅️ redirige al home
+        navigate("/"); 
       } else {
         toast.error("Token not received from server");
       }

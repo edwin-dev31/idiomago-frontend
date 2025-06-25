@@ -12,7 +12,6 @@ const FavoritePage: React.FC = () => {
   const [favoriteWords, setFavoriteWords] = useState<Word[]>([]);
   const userId = localStorage.getItem("userId");
 
-  // Sync con palabras favoritas
   useEffect(() => {
     setFavoriteWords(words.filter((word) => word.isFavorite));
   }, [words]);

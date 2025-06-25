@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import WordCard from "@/components/WordCard";
+import WordCard from "./WordCard";
 import { useWords } from "@/lib/Hooks/Words/useWords";
 import { Word } from "@/lib/WordView";
 import DashboardHeader from "./DashboardHeader";
 import {addFavorite, deleteFavorite} from "@/lib/Hooks/Favorites/useFavoriteActions";
+import { changeImage } from "@/lib/Hooks/Words/useChangeImage"; // ✅ nuevo hook
+
 
 const DashboardPage: React.FC = () => {
   const { words, loading } = useWords();
@@ -41,6 +43,19 @@ const DashboardPage: React.FC = () => {
     }
   };
 
+  const   handleChangeImage = async (wordTranslationId: number) => {
+  const newImageUrl = await changeImage(wordTranslationId);
+
+  if (newImageUrl) {
+    setLocalWords((prevWords) =>
+      prevWords.map((word) =>
+        word.wordTranslationId === wordTranslationId
+          ? { ...word, imageUrl: newImageUrl }
+          : word
+        )
+      );
+    }
+  };
   return (
     <>
       <DashboardHeader />
@@ -64,10 +79,10 @@ const DashboardPage: React.FC = () => {
             >
               <WordCard
                 word={word}
-                isFavorite={word.isFavorite}
                 onFavoriteToggle={() =>
                   handleFavoriteToggle(word.wordTranslationId, word.isFavorite)
                 }
+                onChangeImage={() => handleChangeImage(word.wordTranslationId)}
               />
             </motion.div>
           ))}

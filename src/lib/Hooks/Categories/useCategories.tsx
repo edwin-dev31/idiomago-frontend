@@ -1,41 +1,40 @@
 import { useEffect, useState } from "react";
 import { javaAPI } from "@/lib/axios";
-import { Language } from "@/types/language";
+import { Category } from "@/types/category";
 import { ColorQueue } from "@/types/colorQueue";
 
-
-export function useLanguages() {
-  const [languages, setLanguages] = useState<Language[]>([]);
+export function useCategories() {
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchLanguages = async () => {
+    const fetchCategories = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await javaAPI.get("/api/language", {
+        const response = await javaAPI.get("/api/category", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        console.log("📦 Idiomas recibidos:", response.data);
+        console.log("📦 Categorías recibidas:", response.data);
 
-        const enriched = response.data.map((lang: any, index: number) => ({
-          ...lang,
-          label: capitalize(lang.name),
+        const enriched = response.data.map((cat: any, index: number) => ({
+          ...cat,
+          label: capitalize(cat.name),
           color: ColorQueue[index % ColorQueue.length],
         }));
 
-        setLanguages(enriched);
+        setCategories(enriched);
       } catch (error) {
-        console.error("❌ Error loading languagues:", error);
+        console.error("❌ Error loading categories", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchLanguages();
+    fetchCategories();
   }, []);
 
-  return { languages, loading };
+  return { categories, loading };
 }
 
 function capitalize(text: string) {

@@ -1,14 +1,15 @@
 import React from "react";
 import { Word } from "@/lib/WordView";
-import { Heart } from "lucide-react";
-
+import { Heart, SwitchCamera } from "lucide-react";
+import { Button } from "@/components/ui/button";
 interface Props {
   word: Word;
   isFavorite: boolean;
-  onFavoriteToggle: () => void; // esta función viene del padre
+  onFavoriteToggle: () => void; 
+  onChangeImage: () => void;
 }
 
-const WordCard: React.FC<Props> = ({ word, isFavorite, onFavoriteToggle }) => {
+const WordCard: React.FC<Props> = ({ word, isFavorite, onFavoriteToggle, onChangeImage }) => {
   const fallbackImage = "https://images.unsplash.com/photo-1549287540-b5e39fc85fa1";
   const imageUrl = word.imageUrl || fallbackImage;
 
@@ -19,11 +20,27 @@ const WordCard: React.FC<Props> = ({ word, isFavorite, onFavoriteToggle }) => {
         onClick={onFavoriteToggle}
         title={isFavorite ? "Remove from favorites" : "Add to favorites"}
       >
-        <Heart
-          className={`w-5 h-5 transition-all duration-200 ${
-            isFavorite ? "fill-red-500 text-red-500" : "text-gray-400"
-          }`}
-        />
+        <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute top-4 right-4"
+                  onClick={() => onFavoriteToggle()} 
+                >
+                  <Heart
+                    className={`h-6 w-6 ${
+                      word.isFavorite ? "fill-red-500 text-red-500" : "text-white"
+                    }`}
+                  />
+                </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute top-4 left-4"
+          onClick={onChangeImage}
+        >
+          <SwitchCamera className="h-6 w-6 text-white" />
+        </Button>
+
       </div>
 
       <img
