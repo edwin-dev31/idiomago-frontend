@@ -18,9 +18,10 @@ import { toast } from "react-hot-toast";
 
 interface Props {
   onLanguageChange: (codes: string[]) => void;
+  className?: string; 
 }
 
-export const LanguageSelector: React.FC<Props> = ({ onLanguageChange }) => {
+export const LanguageSelector: React.FC<Props> = ({ onLanguageChange,  className = "", }) => {
   const [open, setOpen] = useState(false);
   const { languages } = useLanguages();
 
@@ -49,10 +50,10 @@ export const LanguageSelector: React.FC<Props> = ({ onLanguageChange }) => {
   };
 
   return (
-    <div>
+    <div className={className}>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button className="bg-[#D9E6E9] text-[#1B3B48] rounded-full px-6 py-3 flex items-center gap-2 w-[250px] justify-between hover:bg-[#c8d5d8]">
+          <Button className="bg-[#D9E6E9] text-[#1B3B48] rounded-full px-6 py-3 flex items-center gap-2 w-full justify-between hover:bg-[#c8d5d8]">
             <span>Languages Selected</span>
             <ChevronsUpDown className="h-5 w-5 text-[#1B3B48] opacity-50" />
           </Button>

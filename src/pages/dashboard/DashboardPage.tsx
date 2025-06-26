@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import WordCard from "./WordCard";
+import WordCardPaginator from "../../components/WordCardPaginator";
 import { useWords } from "@/lib/Hooks/Words/useWords";
 import { Word } from "@/lib/WordView";
 import DashboardHeader from "./DashboardHeader";
 import {addFavorite, deleteFavorite} from "@/lib/Hooks/Favorites/useFavoriteActions";
-import { changeImage } from "@/lib/Hooks/Words/useChangeImage"; // ✅ nuevo hook
+import { changeImage } from "@/lib/Hooks/Words/useChangeImage"; 
 
 
 const DashboardPage: React.FC = () => {
@@ -69,24 +69,11 @@ const DashboardPage: React.FC = () => {
       ) : localWords.length === 0 ? (
         <p className="text-gray-500">No words available.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-          {localWords.map((word, index) => (
-            <motion.div
-              key={word.wordTranslationId}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
-            >
-              <WordCard
-                word={word}
-                onFavoriteToggle={() =>
-                  handleFavoriteToggle(word.wordTranslationId, word.isFavorite)
-                }
-                onChangeImage={() => handleChangeImage(word.wordTranslationId)}
-              />
-            </motion.div>
-          ))}
-        </div>
+        <WordCardPaginator
+          words={localWords}
+          onFavoriteToggle={handleFavoriteToggle}
+          onChangeImage={handleChangeImage}
+        />
       )}
     </>
   );

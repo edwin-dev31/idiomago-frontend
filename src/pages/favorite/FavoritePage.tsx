@@ -1,11 +1,12 @@
 // src/pages/Favorites.tsx
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import WordCard from "@/components/WordCard";
+import WordCardPaginator from "@/components/WordCardPaginator";
 import { useWords } from "@/lib/Hooks/Words/useWords";
 import { deleteFavorite } from "@/lib/Hooks/Favorites/useFavoriteActions";
 import { Word } from "@/lib/WordView";
 import DashboardHeader from "../dashboard/DashboardHeader";
+import { changeImage } from "@/lib/Hooks/Words/useChangeImage";
 
 const FavoritePage: React.FC = () => {
   const { words, loading } = useWords();
@@ -30,6 +31,20 @@ const FavoritePage: React.FC = () => {
     }
   };
 
+  const handleChangeImage = async (wordTranslationId: number) => {
+    const newImageUrl = await changeImage(wordTranslationId);
+
+    if (newImageUrl) {
+      setFavoriteWords((prev) =>
+        prev.map((word) =>
+          word.wordTranslationId === wordTranslationId
+            ? { ...word, imageUrl: newImageUrl }
+            : word
+        )
+      );
+    }
+  };
+
   return (
     <div className="mt-6">
       <DashboardHeader />
@@ -40,24 +55,11 @@ const FavoritePage: React.FC = () => {
       ) : favoriteWords.length === 0 ? (
         <p className="text-gray-500">You don't have any favorite words yet.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-          {favoriteWords.map((word, index) => (
-            <motion.div
-              key={word.wordTranslationId}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
-            >
-              <WordCard
-                word={word}
-                isFavorite={true}
-                onFavoriteToggle={() =>
-                  handleUnfavorite(word.wordTranslationId)
-                }
-              />
-            </motion.div>
-          ))}
-        </div>
+         <WordCardPaginator
+            words={favoriteWords}
+            onFavoriteToggle={handleUnfavorite}
+            onChangeImage={handleChangeImage}
+          />
       )}
     </div>
   );

@@ -9,16 +9,20 @@ type Props = {
   children: React.ReactNode;
 };
 
-export const FlashCardNavigation: React.FC<Props> = ({ onPrevious, onNext, children }) => {
+export const FlashCardNavigation: React.FC<Props> = ({
+  onPrevious,
+  onNext,
+  children,
+}) => {
   return (
     <div className="flex items-center justify-center w-full">
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="mr-8 bg-[#D9E6E9] rounded-2xl p-6 shadow-lg"
         onClick={onPrevious}
+        className="mr-8 bg-[#D9E6E9] rounded-full w-14 h-14 flex items-center justify-center shadow-lg"
       >
-        <ChevronLeft className="h-8 w-8 text-[#1B3B48]" />
+        <ChevronLeft className="h-6 w-6 text-[#1B3B48]" />
       </motion.button>
 
       {children}
@@ -26,10 +30,10 @@ export const FlashCardNavigation: React.FC<Props> = ({ onPrevious, onNext, child
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="ml-8 bg-[#D9E6E9] rounded-2xl p-6 shadow-lg"
         onClick={onNext}
+        className="ml-8 bg-[#D9E6E9] rounded-full w-14 h-14 flex items-center justify-center shadow-lg"
       >
-        <ChevronRight className="h-8 w-8 text-[#1B3B48]" />
+        <ChevronRight className="h-6 w-6 text-[#1B3B48]" />
       </motion.button>
     </div>
   );

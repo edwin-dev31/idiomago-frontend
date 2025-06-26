@@ -1,4 +1,3 @@
-// src/lib/Hooks/Words/useSearchWords.ts
 import { useState } from "react";
 import { javaAPI } from "@/lib/axios";
 import { Word } from "@/lib/WordView";
@@ -7,8 +6,12 @@ export function useSearchWords() {
   const [results, setResults] = useState<Word[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const search = async (word: string, codes: string[]) => {
-    if (!word || codes.length === 0) return;
+  const search = async (
+    word: string,
+    codes: string[],
+    category: string
+  ): Promise<Word[]> => {
+    if (!word || codes.length === 0 || !category) return [];
 
     try {
       setLoading(true);
@@ -21,6 +24,7 @@ export function useSearchWords() {
           params: {
             word,
             codes: codes.join(","),
+            category,
           },
         }),
         javaAPI.get(`/api/favorites/${userId}`, {
@@ -38,12 +42,19 @@ export function useSearchWords() {
       }));
 
       setResults(enrichedResults);
+      return enrichedResults;
     } catch (err) {
       console.error("❌ Error fetching search words or favorites:", err);
+      return [];
     } finally {
       setLoading(false);
     }
   };
 
-  return { results, setResults, loading, search };
+  return {
+    results,
+    setResults,
+    loading,
+    search,
+  };
 }

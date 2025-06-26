@@ -25,6 +25,7 @@ interface Props {
   options: Option[];
   selected: string;
   onSelect: (value: string) => void;
+  className?: string; 
 }
 
 const SingleSelector: React.FC<Props> = ({
@@ -32,6 +33,7 @@ const SingleSelector: React.FC<Props> = ({
   options,
   selected,
   onSelect,
+  className = "",
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -43,20 +45,20 @@ const SingleSelector: React.FC<Props> = ({
   const selectedOption = options.find((opt) => opt.value === selected);
 
   return (
-    <div>
+    <div className={className}>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
-            className="bg-[#D9E6E9] text-[#1B3B48] rounded-full px-6 py-3 flex items-center gap-2 w-[250px] justify-between hover:bg-[#c8d5d8]"
-          >
+              className="bg-[#D9E6E9] text-[#1B3B48] rounded-full px-6 py-3 flex items-center gap-2 w-full justify-between hover:bg-[#c8d5d8]">
             <span>{selectedOption ? selectedOption.label : title}</span>
             <ChevronsUpDown className="h-5 w-5 text-[#1B3B48] opacity-50" />
           </Button>
+          
+
         </PopoverTrigger>
         <PopoverContent
-          className="w-[250px] p-0 max-h-60 overflow-y-auto"
-          align="end"
-        >
+          className="w-[350px] p-0 max-h-60 overflow-y-auto"
+          align="end">
           <Command>
             <CommandInput placeholder={`Search ${title.toLowerCase()}...`} />
             <CommandEmpty>No option found.</CommandEmpty>

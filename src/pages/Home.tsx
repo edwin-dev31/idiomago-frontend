@@ -1,8 +1,7 @@
 import React from "react";
-import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import Sidebar from "@/components/layout/Sidebar";
-import FlashCard from "@/pages/seachWord/flashcard/FlashCard";
+import SavePage from "@/pages/seachWord/SavePage";
 import Login from "@/pages/OAuth/LoginPage";
 import { useNavigate } from "react-router-dom";
 import DashboardPage from "./dashboard/DashboardPage";
@@ -34,8 +33,7 @@ const handleLogout = () => {
 
   const [filter, setFilter] = React.useState("");
   const [filterType, setFilterType] = React.useState<FilterType>("dashboard");
-  const [viewMode, setViewMode] = React.useState("flashcard");
-  const { toast } = useToast();
+
 
   if (!isAuthenticated) {
     return <Login  />;
@@ -63,7 +61,7 @@ const handleLogout = () => {
           <FilterPage/>
         )}    
         {filterType === "search" && (
-          <FlashCard/>
+          <SavePage/>
         ) }
       </main>
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FilterHeader from "./FilterHeader";
 import { Input } from "@/components/ui/input";
-import WordCard from "@/components/WordCard";
+import WordCardPaginator from "@/components/WordCardPaginator";
 import { Button } from "@/components/ui/button";
 import FilterButtonOptions from "./FilterButtonOptions";
 import SingleSelector from "@/components/layout/SingleSelector";
@@ -17,6 +17,7 @@ import { useCategories } from "@/lib/Hooks/Categories/useCategories";
 import { useUserFavorites } from "@/lib/Hooks/Favorites/useUserFavorites";
 import { addFavorite, deleteFavorite } from "@/lib/Hooks/Favorites/useFavoriteActions";
 import { Word } from "@/lib/WordView";
+import { changeImage } from "@/lib/Hooks/Words/useChangeImage"; 
 
 type FilterType = "language" | "category" | "description" | "example";
 
@@ -41,6 +42,7 @@ const FilterPage: React.FC = () => {
   const { languages } = useLanguages();
   const { categories } = useCategories();
   const { favorites } = useUserFavorites(); // traer favoritos reales
+  const [inputDraft, setInputDraft] = useState(inputValue);
 
   const { filter: filterLang } = useFilterByLanguage();
   const { filter: filterCat } = useFilterByCategories();
@@ -54,6 +56,21 @@ const FilterPage: React.FC = () => {
       isFavorite: favIds.has(word.wordTranslationId),
     }));
   };
+
+const handleChangeImage = async (wordTranslationId: number) => {
+  const newImageUrl = await changeImage(wordTranslationId);
+
+  if (newImageUrl) {
+    setResults((prevWords) =>
+      prevWords.map((word) =>
+        word.wordTranslationId === wordTranslationId
+          ? { ...word, imageUrl: newImageUrl }
+          : word
+      )
+    );
+  }
+};
+
 
   const handleSubmit = async () => {
     try {
@@ -130,6 +147,7 @@ const FilterPage: React.FC = () => {
     }
   }, [filterType, languages, categories, inputValue]);
 
+
   useEffect(() => {
     if (filterType === "language" && selectedLang) {
       handleSubmit();
@@ -147,20 +165,29 @@ const FilterPage: React.FC = () => {
       <FilterHeader />
       <FilterButtonOptions
         onFilterChange={(type) => {
-          setFilterType(type);
-          setResults([]);
-          setInputValue("");
-          setSelectedLang("");
-          setSelectedCategory("");
-          localStorage.setItem("filterType", type);
-          localStorage.removeItem("filterInput");
-          localStorage.removeItem("filterSelectedLang");
-          localStorage.removeItem("filterSelectedCategory");
-        }}
+        setFilterType(type);
+        setResults([]);
+        setInputValue("");
+        setSelectedLang("");
+        setSelectedCategory("");
+
+        localStorage.setItem("filterType", type);
+        localStorage.removeItem("filterInput");
+        localStorage.removeItem("filterSelectedLang");
+        localStorage.removeItem("filterSelectedCategory");
+
+        const storedInput = localStorage.getItem("filterInput") || "";
+        if (type === "description" || type === "example") {
+          setInputDraft(storedInput);
+        } else {
+          setInputDraft("");
+        }
+      }}
+
         activeFilter={filterType}
       />
 
-      <div className="mb-8">
+      <div className="mb-8 flex flex-col items-center gap-4">
         {filterType === "language" && (
           <SingleSelector
             title="Select Language"
@@ -187,22 +214,28 @@ const FilterPage: React.FC = () => {
           />
         )}
 
-
         {["description", "example"].includes(filterType) && (
-          <Input
-            placeholder={`Enter ${filterType}`}
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            className="mt-2 w-full max-w-md"
-          />
+          <div className="flex items-center gap-4 mt-2 w-full max-w-md">
+            <Input
+              placeholder={`Enter ${filterType}`}
+              value={inputDraft}
+              onChange={(e) => setInputDraft(e.target.value)}
+              className="flex-1"
+            />
+
+            <Button
+              className="bg-[#1B3B48] text-white px-6 py-2 rounded-full"
+              onClick={() => {
+                if (inputDraft.trim() !== "") {
+                  setInputValue(inputDraft);
+                }
+              }}
+            >
+              Search
+            </Button>
+          </div>
         )}
 
-        <Button
-          onClick={handleSubmit}
-          className="mt-4 bg-[#1B3B48] text-white rounded-full px-6 py-2"
-        >
-          Send
-        </Button>
         {results.length === 0 && (
           <p className="mt-6 text-gray-500 italic">
             No words found for the selected filter.
@@ -211,18 +244,11 @@ const FilterPage: React.FC = () => {
       </div>
 
       {results.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-          {results.map((word) => (
-            <WordCard
-              key={word.wordTranslationId}
-              word={word}
-              isFavorite={word.isFavorite}
-              onFavoriteToggle={() =>
-                handleFavoriteToggle(word.wordTranslationId, word.isFavorite)
-              }
-            />
-          ))}
-        </div>
+        <WordCardPaginator
+          words={results}
+          onFavoriteToggle={handleFavoriteToggle}
+          onChangeImage={handleChangeImage}
+        />
       )}
     </div>
   );

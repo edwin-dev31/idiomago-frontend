@@ -1,64 +1,94 @@
+// src/components/WordCard.tsx
+
 import React from "react";
-import { Word } from "@/lib/WordView";
-import { Heart, SwitchCamera } from "lucide-react";
+import { SwitchCamera, Heart, Volume2 } from "lucide-react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-interface Props {
+import { Word } from "@/lib/WordView";
+
+interface WordCardProps {
   word: Word;
-  isFavorite: boolean;
-  onFavoriteToggle: () => void; 
+  onFavoriteToggle: (id: number) => void;
   onChangeImage: () => void;
+  width?: number;  
+  height?: number; 
 }
 
-const WordCard: React.FC<Props> = ({ word, isFavorite, onFavoriteToggle, onChangeImage }) => {
-  const fallbackImage = "https://images.unsplash.com/photo-1549287540-b5e39fc85fa1";
-  const imageUrl = word.imageUrl || fallbackImage;
-
+const WordCard: React.FC<WordCardProps> = ({
+  word,
+  onFavoriteToggle,
+  onChangeImage,
+  width,
+  height,
+}) => {
   return (
-    <div className="bg-[#EAF3F5] rounded-2xl shadow-md overflow-hidden border border-gray-200 relative">
-      <div
-        className="absolute top-3 right-3 cursor-pointer"
-        onClick={onFavoriteToggle}
-        title={isFavorite ? "Remove from favorites" : "Add to favorites"}
-      >
-        <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute top-4 right-4"
-                  onClick={() => onFavoriteToggle()} 
-                >
-                  <Heart
-                    className={`h-6 w-6 ${
-                      word.isFavorite ? "fill-red-500 text-red-500" : "text-white"
-                    }`}
-                  />
-                </Button>
-        <Button
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden"
+      style={{ width: `${width}px`, height: `${height}px` }} 
+    >
+      <div className="relative">
+        <img
+          alt="Word illustration"
+          className="w-full h-48 object-cover"
+          src={
+            word.imageUrl ||
+            "https://images.unsplash.com/photo-1613235527857-bf2d37e5b350"
+          }
+        />
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute top-4 left-4"
+            onClick={onChangeImage} // ✅ usa el prop
+          >
+            <SwitchCamera className="h-6 w-6 text-white" />
+          </Button>
+
+
+          <Button
           variant="ghost"
           size="icon"
-          className="absolute top-4 left-4"
-          onClick={onChangeImage}
+          className="absolute top-4 right-4"
+          onClick={() => onFavoriteToggle(word.wordId)} // ✅ Directamente el id
         >
-          <SwitchCamera className="h-6 w-6 text-white" />
+          <Heart
+            className={`h-6 w-6 ${
+              word.isFavorite ? "fill-red-500 text-red-500" : "text-white"
+            }`}
+          />
         </Button>
-
       </div>
 
-      <img
-        src={imageUrl}
-        alt={word.originalWord}
-        className="w-full h-40 object-cover"
-      />
-      <div className="p-4">
-        <h3 className="text-lg font-bold text-[#1B3B48]">{word.translatedWord}</h3>
-        {word.translatedDescription && (
-          <p className="text-sm text-gray-600 mt-1">📖 {word.translatedDescription}</p>
-        )}
-        {word.translatedExample && (
-          <p className="text-sm text-gray-500 mt-1 italic">✏️ {word.translatedExample}</p>
-        )}
+      <div className="p-6">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold text-blue-900">{word.translatedWord.toUpperCase()}</h2>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="bg-blue-100 rounded-full"
+            onClick={() => {
+              // 👉 Aquí podrías agregar funcionalidad de Text-to-Speech
+            }}
+          >
+            <Volume2 className="h-5 w-5 text-blue-900" />
+          </Button>
+        </div>
+
+        <div className="space-y-4">
+          <div>
+            <h4 className="text-sm font-semibold text-blue-900">Description</h4>
+            <p className="text-gray-700">{word.translatedDescription}</p>
+          </div>
+
+          <div>
+            <h4 className="text-sm font-semibold text-blue-900">Example:</h4>
+            <p className="text-gray-700 italic">{word.translatedExample}</p>
+          </div>
+        </div>
         <p className="text-xs text-gray-400 mt-2 uppercase">🌐 Lang: {word.languageName}</p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
