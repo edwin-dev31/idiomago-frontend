@@ -31,7 +31,7 @@ const Login: React.FC = () => {
       if (token) {
         localStorage.setItem("token", token);
         toast.success("Login successful!");
-        navigate("/"); 
+        navigate("/home"); 
       } else {
         toast.error("Token not received");
       }
@@ -90,7 +90,6 @@ const Login: React.FC = () => {
             </div>
           </div>
 
-          {/* OAUTH buttons - aún sin funcionalidad */}
           <div className="space-y-3">
             <Button
               variant="outline"

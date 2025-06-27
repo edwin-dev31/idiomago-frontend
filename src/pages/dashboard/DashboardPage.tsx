@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import WordCardPaginator from "../../components/WordCardPaginator";
 import { useWords } from "@/lib/Hooks/Words/useWords";
 import { Word } from "@/lib/WordView";
-import DashboardHeader from "./DashboardHeader";
+import FilterAndSearchHeader from "./FilterAndSearchHeader";
 import {addFavorite, deleteFavorite} from "@/lib/Hooks/Favorites/useFavoriteActions";
 import { changeImage } from "@/lib/Hooks/Words/useChangeImage"; 
 
@@ -58,7 +57,7 @@ const DashboardPage: React.FC = () => {
   };
   return (
     <>
-      <DashboardHeader />
+      <FilterAndSearchHeader />
 
       <h2 className="text-xl font-semibold text-[#1B3B48] mb-4">
         Words in all languages

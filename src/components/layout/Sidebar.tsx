@@ -1,23 +1,32 @@
+// src/components/layout/Sidebar.tsx
 import React from "react";
-import { LayoutDashboard, Search, Filter, Bookmark, LogOut, User } from "lucide-react";
+import {
+  Home,
+  LayoutDashboard,
+  Search,
+  Filter,
+  Bookmark,
+  LogOut,
+  User,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface SidebarProps {
-  filterType: string;
-  setFilterType: (type: string) => void;
-  filter: string;
-  setFilter: (filter: string) => void;
   onLogout: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ filterType, setFilterType, filter, setFilter, onLogout }) => {
+const Sidebar: React.FC<SidebarProps> = ({ onLogout }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const menuItems = [
-    { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { id: "search", label: "Search word", icon: Search },
-    { id: "filter", label: "Filter", icon: Filter },
-    { id: "favorites", label: "Favorite", icon: Bookmark },
+    { id: "home", label: "Home", icon: Home, path: "/home" },
+    { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
+    { id: "search", label: "Search word", icon: Search, path: "/search" },
+    { id: "filter", label: "Filter", icon: Filter, path: "/filter" },
+    { id: "favorites", label: "Favorite", icon: Bookmark, path: "/favorites" },
   ];
 
   return (
@@ -28,20 +37,19 @@ const Sidebar: React.FC<SidebarProps> = ({ filterType, setFilterType, filter, se
       </div>
 
       <nav className="flex-1 space-y-2">
-        {menuItems.map((item) => {
-          const Icon = item.icon;
-          return (
-            <Button
-              key={item.id}
-              variant="ghost"
-              className={`w-full justify-start text-white hover:bg-white/10 ${filterType === item.id ? "bg-white/20" : ""}`}
-              onClick={() => setFilterType(item.id)}
-            >
-              <Icon className="mr-3 h-5 w-5" />
-              {item.label}
-            </Button>
-          );
-        })}
+        {menuItems.map(({ id, label, icon: Icon, path }) => (
+          <Button
+            key={id}
+            variant="ghost"
+            className={`w-full justify-start text-white hover:bg-white/10 ${
+              location.pathname === path ? "bg-white/20" : ""
+            }`}
+            onClick={() => navigate(path)}
+          >
+            <Icon className="mr-3 h-5 w-5" />
+            {label}
+          </Button>
+        ))}
       </nav>
 
       <Separator className="my-4 bg-white/20" />
@@ -56,6 +64,6 @@ const Sidebar: React.FC<SidebarProps> = ({ filterType, setFilterType, filter, se
       </Button>
     </div>
   );
-}
+};
 
 export default Sidebar;

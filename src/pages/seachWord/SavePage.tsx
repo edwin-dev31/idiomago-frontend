@@ -16,7 +16,6 @@ const SavePage: React.FC = () => {
   const userId = localStorage.getItem("userId");
   const [showCustom, setShowCustom] = useState(true);
 
-  // 👉 Para SaveMultipleWordForm
   const handleSaveMultiple = async (
     searchWord: string,
     languageCodes: string[],
@@ -28,7 +27,6 @@ const SavePage: React.FC = () => {
     console.log("Multiple Results:", results);
   };
 
-  // 👉 Para SaveCustomWordForm
   const handleSaveSingle = async (
     wordData: {
       word: string;

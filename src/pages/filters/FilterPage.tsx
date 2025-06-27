@@ -5,6 +5,7 @@ import WordCardPaginator from "@/components/WordCardPaginator";
 import { Button } from "@/components/ui/button";
 import FilterButtonOptions from "./FilterButtonOptions";
 import SingleSelector from "@/components/layout/SingleSelector";
+import { useSearchParams } from "react-router-dom";
 
 import {
   useFilterByLanguage,
@@ -48,6 +49,15 @@ const FilterPage: React.FC = () => {
   const { filter: filterCat } = useFilterByCategories();
   const { filter: filterDef } = useFilterByDescription();
   const { filter: filterEx } = useFilterByExample();
+
+  const [searchParams] = useSearchParams();
+  const queryType = searchParams.get("type") as FilterType;
+
+  useEffect(() => {
+  if (queryType) {
+    setFilterType(queryType);
+    }
+  }, [queryType]);
 
   const applyFavoritesToWords = (words: Word[]): Word[] => {
     const favIds = new Set(favorites.map((f) => f.wordTranslationId));

@@ -31,7 +31,7 @@ const Register: React.FC = () => {
       if (token) {
         localStorage.setItem("token", token);
         toast.success("User registered!");
-        navigate("/"); 
+        navigate("/home"); 
       } else {
         toast.error("Token not received from server");
       }

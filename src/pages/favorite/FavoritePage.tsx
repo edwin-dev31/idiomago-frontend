@@ -5,7 +5,7 @@ import WordCardPaginator from "@/components/WordCardPaginator";
 import { useWords } from "@/lib/Hooks/Words/useWords";
 import { deleteFavorite } from "@/lib/Hooks/Favorites/useFavoriteActions";
 import { Word } from "@/lib/WordView";
-import DashboardHeader from "../dashboard/DashboardHeader";
+import DashboardHeader from "../dashboard/FilterAndSearchHeader";
 import { changeImage } from "@/lib/Hooks/Words/useChangeImage";
 
 const FavoritePage: React.FC = () => {
