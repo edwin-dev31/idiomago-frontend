@@ -7,7 +7,7 @@ import SingleSelector from "@/components/layout/SingleSelector";
 import { toast } from "react-hot-toast";
 
 interface Props {
-  onSearch: (word: string, languages: string[], category: string) => void;
+  onSearch: (word: string, languages: string[], category: number) => void;
 }
 
 const SaveMultipleWordForm: React.FC<Props> = ({ onSearch }) => {
@@ -16,9 +16,11 @@ const SaveMultipleWordForm: React.FC<Props> = ({ onSearch }) => {
     const stored = localStorage.getItem("multi_selectedLanguageCodes");
     return stored ? JSON.parse(stored) : [];
   });
-  const [category, setCategory] = useState<string>(() => {
-    return localStorage.getItem("multi_selectedCategory") ?? "";
+  const [category, setCategory] = useState<number>(() => {
+    const stored = localStorage.getItem("multi_selectedCategory");
+    return stored ? parseInt(stored, 10) : 0;
   });
+
   const { categories } = useCategories();
 
 
@@ -53,7 +55,7 @@ const SaveMultipleWordForm: React.FC<Props> = ({ onSearch }) => {
 
     localStorage.setItem("multi_searchWord", word);
     localStorage.setItem("multi_selectedLanguageCodes", JSON.stringify(languageCodes));
-    localStorage.setItem("multi_selectedCategory", category);
+    localStorage.setItem("multi_selectedCategory", category.toString());
 
   
     onSearch(word, languageCodes, category);
@@ -99,16 +101,18 @@ const SaveMultipleWordForm: React.FC<Props> = ({ onSearch }) => {
           title="Select Category"
           options={categories.map((cat) => ({
             label: cat.name,
-            value: cat.id.toString(),
+            value: cat.id.toString(), 
             color: cat.color,
           }))}
-          selected={category}
+          selected={category.toString()} 
           onSelect={(val) => {
-            setCategory(val);
-            localStorage.setItem("multi_selectedCategory", val);
+            const numericVal = parseInt(val, 10); 
+            setCategory(numericVal);
+            localStorage.setItem("multi_selectedCategory", numericVal.toString());
           }}
           className="w-full"
         />
+
       </div>
 
       <Button

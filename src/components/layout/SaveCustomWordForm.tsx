@@ -6,15 +6,19 @@ import SingleSelector from "@/components/layout/SingleSelector";
 import { useLanguages } from "@/lib/Hooks/Languages/useLanguages";
 import { useCategories } from "@/lib/Hooks/Categories/useCategories";
 import { toast } from "react-hot-toast";
+import { SaveSingleWordDTO } from "@/types/SaveSingleWordDTO";
 
 interface Props {
-  onSearch: (word: string, languages: string[], category: string) => void;
+  onSearch: (data: SaveSingleWordDTO) => void
 }
 
 const SaveCustomWordForm: React.FC<Props> = ({ onSearch }) => {
   const [word, setWord] = useState("");
   const [language, setLanguage] = useState(() => localStorage.getItem("custom_selectedLanguage") ?? "");
-  const [category, setCategory] = useState(() => localStorage.getItem("custom_selectedCategory") ?? "");
+  const [category, setCategory] = useState<number>(() => {
+    const stored = localStorage.getItem("custom_selectedCategory");
+    return stored ? parseInt(stored, 10) : 0;
+  });
   const [description, setDescription] = useState("");
   const [example, setExample] = useState("");
 
@@ -38,7 +42,14 @@ const SaveCustomWordForm: React.FC<Props> = ({ onSearch }) => {
     }
 
 
-    onSearch(word, [language], category);
+    onSearch({
+      word,
+      languageCode: language,
+      categoryId: category,
+      description,
+      example,
+    });
+
   };
 
   return (
@@ -88,10 +99,11 @@ const SaveCustomWordForm: React.FC<Props> = ({ onSearch }) => {
             value: cat.id.toString(),
             color: cat.color,
           }))}
-          selected={category}
+          selected={category.toString()}
           onSelect={(val) => {
-            setCategory(val);
-            localStorage.setItem("custom_selectedCategory", val);
+            const numericVal = parseInt(val, 10); 
+            setCategory(numericVal);
+            localStorage.setItem("custom_selectedCategory", numericVal.toString());
           }}
           className="w-full"
         />
@@ -101,11 +113,11 @@ const SaveCustomWordForm: React.FC<Props> = ({ onSearch }) => {
         <label className="text-sm mb-1 block text-blue-900">Description</label>
         <Textarea
           rows={2}
-          maxLength={51}
+          maxLength={501}
           value={description}
           onChange={(e) => {
             const val = e.target.value;
-            if (val.length > 50) {
+            if (val.length > 500) {
               toast.error("Description must be 50 characters or less");
               return;
             }
@@ -119,11 +131,11 @@ const SaveCustomWordForm: React.FC<Props> = ({ onSearch }) => {
         <label className="text-sm mb-1 block text-blue-900">Example</label>
         <Textarea
           rows={2}
-          maxLength={51}
+          maxLength={501}
           value={example}
           onChange={(e) => {
             const val = e.target.value;
-            if (val.length > 50) {
+            if (val.length > 500) {
               toast.error("Example must be 50 characters or less");
               return;
             }

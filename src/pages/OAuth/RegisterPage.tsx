@@ -5,7 +5,8 @@ import { Input } from "@/components/ui/input";
 import { User, Lock, Mail } from "lucide-react";
 import { useRegister } from "@/lib/Hooks/Users/UseRegister";
 import { toast } from 'react-hot-toast';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { RiArrowGoBackFill } from "react-icons/ri";
 
 const Register: React.FC = () => {
   const navigate = useNavigate(); 
@@ -47,6 +48,15 @@ const Register: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         className="bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl w-96"
       >
+        
+  <Link
+          to="/login"
+          className="absolute top-4 left-4 flex items-center gap-1 text-blue-600 hover:underline text-sm"
+        >
+          <RiArrowGoBackFill className="w-4 h-4" />
+    
+        </Link>
+
         <h2 className="text-4xl font-bold text-center text-blue-900 mb-8">REGISTER</h2>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="relative">

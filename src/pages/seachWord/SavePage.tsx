@@ -11,21 +11,39 @@ import { addFavorite, deleteFavorite } from "@/lib/Hooks/Favorites/useFavoriteAc
 const SavePage: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [words, setWords] = useState<Word[]>([]);
-  const { search, loading } = useSearchWords();
+  const { saveMultiple, saveSingle, loading } = useSearchWords();
   const currentWord = words[currentIndex];
   const userId = localStorage.getItem("userId");
   const [showCustom, setShowCustom] = useState(true);
 
-  // Handlers que se pasan a ambos formularios
-  const handleSearch = async (
+  // 👉 Para SaveMultipleWordForm
+  const handleSaveMultiple = async (
     searchWord: string,
     languageCodes: string[],
-    category?: string
+    category: number
   ) => {
-    const results = await search(searchWord, languageCodes, "category");
+    const results = await saveMultiple(searchWord, languageCodes, category);
     setWords(results);
     setCurrentIndex(0);
-    console.log("Results: " + results)
+    console.log("Multiple Results:", results);
+  };
+
+  // 👉 Para SaveCustomWordForm
+  const handleSaveSingle = async (
+    wordData: {
+      word: string;
+      languageCode: string;
+      categoryId: number;
+      description: string;
+      example: string;
+    }
+  ) => {
+    const results = await saveSingle(wordData);
+    if (results) {
+      setWords(results);
+      setCurrentIndex(0);
+      console.log("Single Results:", results);
+    }
   };
 
   const handlePrevious = () => {
@@ -90,13 +108,12 @@ const SavePage: React.FC = () => {
 
           <div className="bg-white rounded-xl shadow-md border p-4 min-h-[540px] flex items-start justify-start">
             {showCustom ? (
-              <SaveCustomWordForm onSearch={handleSearch} />
+              <SaveCustomWordForm onSearch={handleSaveSingle} />
             ) : (
-              <SaveMultipleWordForm onSearch={handleSearch} />
+              <SaveMultipleWordForm onSearch={handleSaveMultiple} />
             )}
           </div>
         </div>
-
 
         <div className="flex-1 flex items-center justify-center">
           {loading ? (
