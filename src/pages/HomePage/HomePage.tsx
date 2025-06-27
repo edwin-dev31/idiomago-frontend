@@ -3,7 +3,7 @@ import { useUserInfo } from "@/lib/Hooks/Users/useUserInfo";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FaRocket, FaBook } from "react-icons/fa";
-
+import { Link } from "react-router-dom";
 const HomePage: React.FC = () => {
   const { user, loading } = useUserInfo();
 
@@ -38,15 +38,20 @@ const HomePage: React.FC = () => {
         </p>
 
         <div className="flex flex-wrap gap-4 pt-2 md:pl-10">
-          <Button className="bg-blue-600 text-white px-6 py-4 text-lg rounded-xl hover:bg-blue-700 flex items-center gap-2">
-            <FaRocket /> Start Learning
-          </Button>
-          <Button
-            variant="outline"
-            className="text-blue-600 border-blue-600 px-6 py-4 text-lg rounded-xl flex items-center gap-2"
-          >
-            <FaBook /> My Words
-          </Button>
+          <Link to="/dashboard">
+            <Button className="bg-blue-600 text-white px-6 py-4 text-lg rounded-xl hover:bg-blue-700 flex items-center gap-2">
+              <FaRocket /> Start Learning
+            </Button>
+          </Link>
+
+          <Link to="/myWords">
+            <Button
+              variant="outline"
+              className="text-blue-600 border-blue-600 px-6 py-4 text-lg rounded-xl flex items-center gap-2"
+            >
+              <FaBook /> My Words
+            </Button>
+          </Link>
         </div>
       </div>
 

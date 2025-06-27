@@ -3,7 +3,8 @@ import React from "react";
 import {
   Home,
   LayoutDashboard,
-  Search,
+  Brain,
+  DiamondPlus,
   Filter,
   Bookmark,
   LogOut,
@@ -24,7 +25,9 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout }) => {
   const menuItems = [
     { id: "home", label: "Home", icon: Home, path: "/home" },
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
-    { id: "search", label: "Search word", icon: Search, path: "/search" },
+    { id: "search", label: "Search word", icon: Brain, path: "/search" },
+    { id: "save", label: "Save word", icon: DiamondPlus, path: "/save" },
+    { id: "myWords", label: "My words", icon: DiamondPlus, path: "/myWords" },
     { id: "filter", label: "Filter", icon: Filter, path: "/filter" },
     { id: "favorites", label: "Favorite", icon: Bookmark, path: "/favorites" },
   ];

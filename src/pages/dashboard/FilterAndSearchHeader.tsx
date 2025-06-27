@@ -25,9 +25,10 @@ const FilterAndSearchHeader: React.FC = () => {
       <div className="grid grid-cols-5 gap-4 mb-8">
       {[
         { label: "Search with IA", icon: "📚", path: "/search" },
-        { label: "Save Personal word", icon: "🚀", path: "/search" },
+        { label: "Save Personal word", icon: "🚀", path: "/save" },
+
+        { label: "By Language", icon: "📖", path: "/filter?type=language" },
         { label: "By Categories", icon: "🔍", path: "/filter?type=category" },
-        { label: "By Definition", icon: "📖", path: "/filter?type=description" },
         { label: "By Example", icon: "✏️", path: "/filter?type=example" },
       ].map((item) => (
         <Link to={item.path} key={item.label}>

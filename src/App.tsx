@@ -10,7 +10,10 @@ import HomePage from "@/pages/HomePage/HomePage";
 import DashboardPage from "@/pages/dashboard/DashboardPage";
 import FavoritePage from "@/pages/favorite/FavoritePage";
 import FilterPage from "@/pages/filters/FilterPage";
-import SavePage from "@/pages/seachWord/SavePage";
+import SavePage from "@/pages/save/SavePage";
+import SaveCustomWordForm from "./components/layout/SaveCustomWordForm";
+import SearchPage from "./pages/seachWord/SearchPage";
+import MyWordsPage from "./pages/myWord/MyWordPage";
 
 const App: React.FC = () => {
   const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
@@ -33,10 +36,13 @@ const App: React.FC = () => {
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>}>
           <Route index element={<HomePage />} />
           <Route path="home" element={<HomePage />} />
-          <Route path="dashboard" element={<DashboardPage />} />
-          <Route path="favorites" element={<FavoritePage />} />
+          <Route path="dashboard" element={<DashboardPage />} />          
+          <Route path="search" element={<SearchPage />} />
+          <Route path="save" element={<SavePage />} />
           <Route path="filter" element={<FilterPage />} />
-          <Route path="search" element={<SavePage />} />
+          <Route path="favorites" element={<FavoritePage />} />
+
+          <Route path="myWords" element={<MyWordsPage />} />
         </Route>
       </Routes>
 
