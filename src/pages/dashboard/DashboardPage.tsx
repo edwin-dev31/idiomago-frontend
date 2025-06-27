@@ -1,44 +1,80 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import WordCardPaginator from "../../components/WordCardPaginator";
+import { useWords } from "@/lib/Hooks/Words/useWords";
+import { Word } from "@/lib/WordView";
+import DashboardHeader from "./DashboardHeader";
+import {addFavorite, deleteFavorite} from "@/lib/Hooks/Favorites/useFavoriteActions";
+import { changeImage } from "@/lib/Hooks/Words/useChangeImage"; 
+
 
 const DashboardPage: React.FC = () => {
+  const { words, loading } = useWords();
+  const [localWords, setLocalWords] = useState<Word[]>([]);
+  const userId = localStorage.getItem("userId");
+
+  useEffect(() => {
+    setLocalWords(words);
+  }, [words]);
+
+  const handleFavoriteToggle = async (
+    wordTranslationId: number,
+    isCurrentlyFavorite: boolean
+  ) => {
+    if (!userId) return;
+
+    try {
+      if (isCurrentlyFavorite) {
+        await deleteFavorite(Number(userId), wordTranslationId);
+      } else {
+        await addFavorite(Number(userId), wordTranslationId);
+      }
+
+      // Update local state
+      setLocalWords((prevWords) =>
+        prevWords.map((word) =>
+          word.wordTranslationId === wordTranslationId
+            ? { ...word, isFavorite: !isCurrentlyFavorite }
+            : word
+        )
+      );
+    } catch (error) {
+      console.error("❌ Error updating favorite:", error);
+    }
+  };
+
+  const   handleChangeImage = async (wordTranslationId: number) => {
+  const newImageUrl = await changeImage(wordTranslationId);
+
+  if (newImageUrl) {
+    setLocalWords((prevWords) =>
+      prevWords.map((word) =>
+        word.wordTranslationId === wordTranslationId
+          ? { ...word, imageUrl: newImageUrl }
+          : word
+        )
+      );
+    }
+  };
   return (
     <>
-      <h1 className="text-2xl font-bold text-[#1B3B48] mb-6">Featured Words</h1>
-      <div className="flex gap-4 mb-8">
-        {["Spanish", "English", "German"].map((lang) => (
-          <motion.div
-            key={lang}
-            whileHover={{ scale: 1.05 }}
-            className="bg-[#D9E6E9] rounded-2xl shadow-lg px-6 py-3"
-          >
-            <span className="text-[#1B3B48] font-medium">{lang}</span>
-          </motion.div>
-        ))}
-      </div>
+      <DashboardHeader />
+
       <h2 className="text-xl font-semibold text-[#1B3B48] mb-4">
-        Search & Filter
+        Words in all languages
       </h2>
-      <div className="grid grid-cols-4 gap-4 mb-8">
-        {[
-          { label: "Word Search", icon: "📚" },
-          { label: "Word Categories", icon: "🔍" },
-          { label: "Word Definition", icon: "📖" },
-          { label: "Word Example", icon: "✏️" },
-          { label: "Word Example", icon: "✏️" },
-        ].map((item) => (
-          <Button
-            key={item.label}
-            variant="outline"
-            className="h-24 flex flex-col items-center justify-center bg-[#D9E6E9] rounded-2xl shadow-lg"
-          >
-            <span className="text-2xl mb-2">{item.icon}</span>
-            <span className="text-[#1B3B48]">{item.label}</span>
-          </Button>
-        ))}
-      </div>
-      
+
+      {loading ? (
+        <p className="text-gray-500">Loading words...</p>
+      ) : localWords.length === 0 ? (
+        <p className="text-gray-500">No words available.</p>
+      ) : (
+        <WordCardPaginator
+          words={localWords}
+          onFavoriteToggle={handleFavoriteToggle}
+          onChangeImage={handleChangeImage}
+        />
+      )}
     </>
   );
 };

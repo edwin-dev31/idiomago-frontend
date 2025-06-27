@@ -3,12 +3,13 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { User, Lock, Mail } from "lucide-react";
-import { useRegister } from "@/lib/Hooks/User/UseRegister";
+import { useRegister } from "@/lib/Hooks/Users/UseRegister";
 import { toast } from 'react-hot-toast';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { RiArrowGoBackFill } from "react-icons/ri";
 
 const Register: React.FC = () => {
-  const navigate = useNavigate(); // ⬅️ para redirigir
+  const navigate = useNavigate(); 
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -25,12 +26,12 @@ const Register: React.FC = () => {
     e.preventDefault();
     try {
       const data = await register(form);
-      const token = data?.token; // asegúrate de que `token` venga en la respuesta
+      const token = data?.token; 
 
       if (token) {
         localStorage.setItem("token", token);
         toast.success("User registered!");
-        navigate("/"); // ⬅️ redirige al home
+        navigate("/"); 
       } else {
         toast.error("Token not received from server");
       }
@@ -47,6 +48,15 @@ const Register: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         className="bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-xl w-96"
       >
+        
+  <Link
+          to="/login"
+          className="absolute top-4 left-4 flex items-center gap-1 text-blue-600 hover:underline text-sm"
+        >
+          <RiArrowGoBackFill className="w-4 h-4" />
+    
+        </Link>
+
         <h2 className="text-4xl font-bold text-center text-blue-900 mb-8">REGISTER</h2>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="relative">

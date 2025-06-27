@@ -1,18 +1,8 @@
 import { useEffect, useState } from "react";
 import { javaAPI } from "@/lib/axios";
+import { Language } from "@/types/language";
+import { ColorQueue } from "@/types/colorQueue";
 
-interface Language {
-  id: number;
-  name: string;
-  code: string;
-  label?: string;
-  color?: string;
-}
-
-export const colorQueue = [
-  "#8DB7C1", "#5DCAD1", "#7B88C8", "#A2D2FF", "#B5CDA3",
-  "#F4A261", "#E76F51", "#9A8C98", "#F6BD60", "#CDB4DB"
-];
 
 export function useLanguages() {
   const [languages, setLanguages] = useState<Language[]>([]);
@@ -31,12 +21,12 @@ export function useLanguages() {
         const enriched = response.data.map((lang: any, index: number) => ({
           ...lang,
           label: capitalize(lang.name),
-          color: colorQueue[index % colorQueue.length],
+          color: ColorQueue[index % ColorQueue.length],
         }));
 
         setLanguages(enriched);
       } catch (error) {
-        console.error("❌ Error cargando idiomas:", error);
+        console.error("❌ Error loading languagues:", error);
       } finally {
         setLoading(false);
       }

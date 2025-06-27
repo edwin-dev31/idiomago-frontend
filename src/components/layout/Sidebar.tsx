@@ -24,7 +24,7 @@ const Sidebar: React.FC<SidebarProps> = ({ filterType, setFilterType, filter, se
     <div className="w-64 bg-[#1B3B48] text-white p-6 flex flex-col h-screen">
       <div className="flex items-center gap-3 mb-8">
         <User className="h-8 w-8" />
-        <h2 className="text-xl font-semibold">Language Learning</h2>
+        <h2 className="text-xl font-semibold">Idiomago</h2>
       </div>
 
       <nav className="flex-1 space-y-2">
