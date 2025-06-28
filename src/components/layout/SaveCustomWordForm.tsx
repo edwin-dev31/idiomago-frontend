@@ -7,6 +7,7 @@ import { useLanguages } from "@/lib/Hooks/Languages/useLanguages";
 import { useCategories } from "@/lib/Hooks/Categories/useCategories";
 import { toast } from "react-hot-toast";
 import { SaveSingleWordDTO } from "@/types/SaveSingleWordDTO";
+import { Visibility } from "@/types/Visibility";
 
 interface Props {
   onSearch: (data: SaveSingleWordDTO) => void
@@ -21,39 +22,35 @@ const SaveCustomWordForm: React.FC<Props> = ({ onSearch }) => {
   });
   const [description, setDescription] = useState("");
   const [example, setExample] = useState("");
+  const [visibility, setVisibility] = useState<Visibility>(Visibility.PRIVATE);
 
   const { languages } = useLanguages();
   const { categories } = useCategories();
 
-  const handleSubmit = () => {
-    if (!word.trim()) {
-      toast.error("Word is required");
-      return;
-    }
+const handleSubmit = () => {
+  if (!word.trim()) return toast.error("Word is required");
+  if (!language) return toast.error("Language is required");
+  if (!category) return toast.error("Category is required");
+  if (!description) return toast.error("Description is required");
+  if (!example) return toast.error("Example is required");
 
-    if (!language) {
-      toast.error("Language is required");
-      return;
-    }
+  const user = Number(localStorage.getItem("userId"));
+  if (!user) return toast.error("User not found");
 
-    if (!category) {
-      toast.error("Category is required");
-      return;
-    }
+  onSearch({
+    user,
+    word,
+    languageCode: language,
+    categoryId: category,
+    description,
+    example,
+    visibility,
+  });
+};
 
-
-    onSearch({
-      word,
-      languageCode: language,
-      categoryId: category,
-      description,
-      example,
-    });
-
-  };
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md w-full max-w-[550px] border">
+    <div className="bg-white p-6 rounded-xl shadow-md  dark:border-gray-100 w-full max-w-[550px] border">
       <h2 className="text-xl font-bold mb-4 text-center text-blue-900">Save personal word</h2>
 
       <div className="grid grid-cols-2 gap-2 mb-2">
@@ -86,7 +83,7 @@ const SaveCustomWordForm: React.FC<Props> = ({ onSearch }) => {
             setLanguage(val);
             localStorage.setItem("custom_selectedLanguage", val);
           }}
-          className="w-full"
+          className="w-full "
         />
       </div>
 
@@ -109,46 +106,59 @@ const SaveCustomWordForm: React.FC<Props> = ({ onSearch }) => {
         />
       </div>
 
+      <div className="grid grid-cols-2 gap-2 mb-2">
+        <label className="text-sm self-center text-blue-900">Visibility *</label>
+        <SingleSelector
+          title="Select Visibility"
+          options={[
+            { label: "Public", value: Visibility.PUBLIC },
+            { label: "Private", value: Visibility.PRIVATE },
+          ]}
+          selected={visibility}
+          onSelect={(val) => setVisibility(val as Visibility)}
+          className="w-full"
+        />
+      </div>
+
       <div className="mb-2">
-        <label className="text-sm mb-1 block text-blue-900">Description</label>
+        <label className="text-sm mb-1 block text-blue-900">Description *</label>
         <Textarea
           rows={2}
-          maxLength={501}
+          maxLength={51}
           value={description}
           onChange={(e) => {
             const val = e.target.value;
-            if (val.length > 500) {
+            if (val.length > 50) {
               toast.error("Description must be 50 characters or less");
               return;
             }
             setDescription(val);
           }}
-          className="resize-none"
+          className="resize-none dark:text-[#1B3B48] dark:border-[#D9E6E9]"
         />
       </div>
 
       <div className="mb-2">
-        <label className="text-sm mb-1 block text-blue-900">Example</label>
+        <label className="text-sm mb-1 block text-blue-900">Example *</label>
         <Textarea
           rows={2}
-          maxLength={501}
+          maxLength={51}
           value={example}
           onChange={(e) => {
             const val = e.target.value;
-            if (val.length > 500) {
+            if (val.length > 50) {
               toast.error("Example must be 50 characters or less");
               return;
             }
             setExample(val);
           }}
-          className="resize-none"
+          className="resize-none dark:text-[#1B3B48] dark:border-[#D9E6E9]"
         />
       </div>
 
       <Button
         onClick={handleSubmit}
-        className="w-full bg-[#1B3B48] text-white rounded-full py-2 mb-4"
-      >
+        className="w-full bg-[#1B3B48] text-white rounded-full py-2 mb-4 hover:bg-[#162f39] dark:hover:bg-[#10242e]">
         Send
       </Button>
     </div>

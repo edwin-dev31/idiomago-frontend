@@ -1,6 +1,6 @@
 // src/lib/Hooks/Filter/useFilter.ts
 import { javaAPI } from "@/lib/axios";
-import { Word } from "@/lib/WordView";
+import { Word } from "@/types/WordView";
 
 const token = localStorage.getItem("token");
 

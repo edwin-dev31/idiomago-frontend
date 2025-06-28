@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SaveMultipleWordForm from "@/components/layout/SaveMultipleWordForm";
-import { Word } from "@/lib/WordView";
+import { Word } from "@/types/WordView";
 import { useSearchWords } from "@/lib/Hooks/Search/useSearchWords";
 import { FlashCardNavigation } from "@/pages/seachWord/flashcard/FlashCardNavigation";
 import WordCard from "@/components/WordCard";

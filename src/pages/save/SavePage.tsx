@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import SaveCustomWordForm from "@/components/layout/SaveCustomWordForm";
-import { Word } from "@/lib/WordView";
+import { Word } from "@/types/WordView";
 import { useSearchWords } from "@/lib/Hooks/Search/useSearchWords";
 import { FlashCardNavigation } from "@/pages/seachWord/flashcard/FlashCardNavigation";
 import WordCard from "@/components/WordCard";
 import { addFavorite, deleteFavorite } from "@/lib/Hooks/Favorites/useFavoriteActions";
 import { changeImage } from "@/lib/Hooks/Words/useChangeImage";
 import FilterAndSearchHeader from "@/pages/dashboard/FilterAndSearchHeader";
+import { Visibility } from "@/types/Visibility";
 
 const SavePage: React.FC = () => {
   const { saveSingle, loading } = useSearchWords();
@@ -17,11 +18,13 @@ const SavePage: React.FC = () => {
   const currentWord = words[currentIndex];
 
   const handleSaveSingle = async (wordData: {
+    user: number;
     word: string;
     languageCode: string;
     categoryId: number;
     description: string;
     example: string;
+    visibility: Visibility
   }) => {
     const results = await saveSingle(wordData);
     if (results) {
@@ -71,10 +74,9 @@ const SavePage: React.FC = () => {
       <FilterAndSearchHeader />
       <div className="flex flex-col items-center min-h-[80vh] p-4">
         <div className="w-full max-w-7xl flex justify-between gap-8 mt-6">
-          <div className="w-[550px] bg-white rounded-xl shadow-md border p-4 min-h-[500px]">
-            <SaveCustomWordForm onSearch={handleSaveSingle} />
-          </div>
-
+        <div className="w-[550px] bg-white rounded-xl shadow-md border border-gray-200 p-4 min-h-[500px]">
+          <SaveCustomWordForm onSearch={handleSaveSingle} />
+        </div>
           <div className="flex-1 flex items-center justify-center">
             {loading ? (
               <p className="text-gray-500">Loading...</p>

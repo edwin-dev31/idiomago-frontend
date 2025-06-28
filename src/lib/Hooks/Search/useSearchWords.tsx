@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { javaAPI } from "@/lib/axios";
-import { Word } from "@/lib/WordView";
+import { Word } from "@/types/WordView";
 import { SaveSingleWordDTO } from "@/types/SaveSingleWordDTO";
 
 export function useSearchWords() {
@@ -19,14 +19,17 @@ export function useSearchWords() {
       const token = localStorage.getItem("token");
       const userId = localStorage.getItem("userId");
 
+      // 📦 Construye el DTO tal como el backend espera
+      const dto = {
+        userId: Number(userId),
+        word,
+        categoryId: category,
+        languageCodes: codes,
+      };
+
       const [wordsRes, favoritesRes] = await Promise.all([
-        javaAPI.get("/api/view/save/word/multiple", {
+        javaAPI.post("/api/view/save/word/multiple", dto, {
           headers: { Authorization: `Bearer ${token}` },
-          params: {
-            word,
-            codes: codes.join(","),
-            category,
-          },
         }),
         javaAPI.get(`/api/favorites/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },

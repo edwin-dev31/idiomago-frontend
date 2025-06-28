@@ -32,12 +32,12 @@ const Home: React.FC = () => {
   if (!isAuthenticated) return <Login />;
 
   return (
-    <div className="flex h-screen bg-[#EBF4F6]">
-      {/* Sidebar: Condicional */}
-      {showSidebar && <Sidebar onLogout={handleLogout} />}
+    <div className="flex h-screen bg-[#EBF4F6] dark:bg-[#1A1A1A]">
+      {/* showSidebar && <Sidebar onLogout={handleLogout} /> */}
+      <Sidebar onLogout={handleLogout} />
 
-      <div className="flex-1 flex flex-col">
-        {/* Botón para mostrar/ocultar el sidebar */}
+      <div className="flex-1 flex flex-col p-4">
+        {/* 
         <div className="p-4">
           <Button
             variant="ghost"
@@ -48,8 +48,9 @@ const Home: React.FC = () => {
             {showSidebar ? "Hide Sidebar" : "Show Sidebar"}
           </Button>
         </div>
+        */}
 
-        <main className="flex-1 px-8 overflow-auto">
+        <main className="flex-1 px-8 overflow-auto scrollbar-hide" >
           <Outlet />
         </main>
       </div>

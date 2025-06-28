@@ -17,7 +17,7 @@ import { useLanguages } from "@/lib/Hooks/Languages/useLanguages";
 import { useCategories } from "@/lib/Hooks/Categories/useCategories";
 import { useUserFavorites } from "@/lib/Hooks/Favorites/useUserFavorites";
 import { addFavorite, deleteFavorite } from "@/lib/Hooks/Favorites/useFavoriteActions";
-import { Word } from "@/lib/WordView";
+import { Word } from "@/types/WordView";
 import { changeImage } from "@/lib/Hooks/Words/useChangeImage"; 
 
 type FilterType = "language" | "category" | "description" | "example";

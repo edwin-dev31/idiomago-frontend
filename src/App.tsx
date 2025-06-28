@@ -11,7 +11,9 @@ import DashboardPage from "@/pages/dashboard/DashboardPage";
 import FavoritePage from "@/pages/favorite/FavoritePage";
 import FilterPage from "@/pages/filters/FilterPage";
 import SavePage from "@/pages/save/SavePage";
-import SaveCustomWordForm from "./components/layout/SaveCustomWordForm";
+import { ThemeProvider } from "@/components/ThemeProvider";
+
+
 import SearchPage from "./pages/seachWord/SearchPage";
 import MyWordsPage from "./pages/myWord/MyWordPage";
 
@@ -27,7 +29,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <>
+   <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -47,7 +49,7 @@ const App: React.FC = () => {
       </Routes>
 
       <Toaster position="top-right" />
-    </>
+    </ThemeProvider>
   );
 };
 

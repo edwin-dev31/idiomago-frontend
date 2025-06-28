@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import WordCardPaginator from "../../components/WordCardPaginator";
+import WordCardPaginator from "@/components/WordCardPaginator";
 import { useWords } from "@/lib/Hooks/Words/useWords";
-import { Word } from "@/lib/WordView";
-import FilterAndSearchHeader from "./FilterAndSearchHeader";
+import { Word } from "@/types/WordView";
+import FilterAndSearchHeader from "@/pages/dashboard/FilterAndSearchHeader";
 import {addFavorite, deleteFavorite} from "@/lib/Hooks/Favorites/useFavoriteActions";
 import { changeImage } from "@/lib/Hooks/Words/useChangeImage"; 
 
@@ -29,7 +29,6 @@ const DashboardPage: React.FC = () => {
         await addFavorite(Number(userId), wordTranslationId);
       }
 
-      // Update local state
       setLocalWords((prevWords) =>
         prevWords.map((word) =>
           word.wordTranslationId === wordTranslationId
@@ -59,7 +58,7 @@ const DashboardPage: React.FC = () => {
     <>
       <FilterAndSearchHeader />
 
-      <h2 className="text-xl font-semibold text-[#1B3B48] mb-4">
+      <h2 className="text-xl font-semibold text-[#1B3B48] dark:text-white mb-4">
         Words in all languages
       </h2>
 

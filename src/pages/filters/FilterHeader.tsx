@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const FilterHeader: React.FC = () => {
   return (
     <>
-      <h1 className="text-2xl font-bold text-[#1B3B48] mb-6">Featured Words</h1>
+      <h1 className="text-2xl font-bold text-[#1B3B48] dark:text-white mb-6">Featured Words</h1>
 
       <div className="flex gap-4 mb-8">
         {["Spanish", "English", "German"].map((lang) => (

@@ -4,7 +4,7 @@ import { useUserFavorites } from "@/lib/Hooks/Favorites/useUserFavorites";
 import { Word } from "@/types/WordView";
 
 
-function useWordsFromEndpoint(endpoint: string) {
+export function useMyWords() {
   const [words, setWords] = useState<Word[]>([]);
   const [loading, setLoading] = useState(true);
   const { favorites, loading: favoritesLoading } = useUserFavorites();
@@ -13,8 +13,9 @@ function useWordsFromEndpoint(endpoint: string) {
     const fetchWords = async () => {
       try {
         const token = localStorage.getItem("token");
+        const userId = localStorage.getItem("userId");
 
-        const response = await javaAPI.get(endpoint, {
+        const response = await javaAPI.get(`/api/view/my-words/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -27,7 +28,7 @@ function useWordsFromEndpoint(endpoint: string) {
 
         setWords(wordsWithFavorites);
       } catch (err) {
-        console.error(`❌ Error fetching words from ${endpoint}:`, err);
+        console.error("❌ Error fetching words:", err);
       } finally {
         setLoading(false);
       }
@@ -36,15 +37,7 @@ function useWordsFromEndpoint(endpoint: string) {
     if (!favoritesLoading) {
       fetchWords();
     }
-  }, [endpoint, favorites, favoritesLoading]);
+  }, [favorites, favoritesLoading]);
 
   return { words, loading: loading || favoritesLoading };
-}
-
-export function useWords() {
-  return useWordsFromEndpoint("/api/view");
-}
-
-export function useWordsTFavorite() {
-  return useWordsFromEndpoint("/api/view/favorite");
 }

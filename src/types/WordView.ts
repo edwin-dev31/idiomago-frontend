@@ -1,5 +1,8 @@
+import { Visibility } from "./Visibility";
+
 export interface Word {
   wordTranslationId: number;
+  userId: number;
   wordId: number;
   originalWord: string;
   languageId: number;
@@ -11,4 +14,6 @@ export interface Word {
   createdAt: string;
   languageName: string;
   isFavorite: boolean;
+  visibility: Visibility;
 }
+

@@ -22,7 +22,7 @@ export async function changeImage(wordTranslationId: number) {
     );
 
     toast.success("Image updated successfully 📷");
-    return response.data.message; // Assumes the new image URL is returned here
+    return response.data.message; 
   } catch (error) {
     toast.error("Failed to change image");
     console.error("❌ Error changing image:", error);

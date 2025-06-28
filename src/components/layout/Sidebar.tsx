@@ -1,18 +1,13 @@
 // src/components/layout/Sidebar.tsx
 import React from "react";
 import {
-  Home,
-  LayoutDashboard,
-  Brain,
-  DiamondPlus,
-  Filter,
-  Bookmark,
-  LogOut,
-  User,
+  Home, LayoutDashboard, Brain, DiamondPlus,
+  BookText, Filter, Bookmark, LogOut, User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useLocation, useNavigate } from "react-router-dom";
+import ThemeToggle from "@/components/layout/ThemeToggle";
 
 interface SidebarProps {
   onLogout: () => void;
@@ -27,13 +22,13 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout }) => {
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
     { id: "search", label: "Search word", icon: Brain, path: "/search" },
     { id: "save", label: "Save word", icon: DiamondPlus, path: "/save" },
-    { id: "myWords", label: "My words", icon: DiamondPlus, path: "/myWords" },
+    { id: "myWords", label: "My words", icon: BookText, path: "/myWords" },
     { id: "filter", label: "Filter", icon: Filter, path: "/filter" },
     { id: "favorites", label: "Favorite", icon: Bookmark, path: "/favorites" },
   ];
 
   return (
-    <div className="w-64 bg-[#1B3B48] text-white p-6 flex flex-col h-screen">
+    <div className="w-64 bg-[#1B3B48] text-white dark:bg-background dark:text-foreground p-6 flex flex-col h-screen">
       <div className="flex items-center gap-3 mb-8">
         <User className="h-8 w-8" />
         <h2 className="text-xl font-semibold">Idiomago</h2>
@@ -56,7 +51,8 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout }) => {
       </nav>
 
       <Separator className="my-4 bg-white/20" />
-
+      <ThemeToggle /> 
+      
       <Button
         variant="ghost"
         className="w-full justify-start text-white hover:bg-white/10"
