@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/layout/LanguageSelector";
-import { useCategories } from "@/lib/Hooks/Categories/useCategories";
+import { useCategories } from "@/lib/hooks/Categories/useCategories";
 import SingleSelector from "@/components/layout/SingleSelector";
 import { toast } from "react-hot-toast";
 
@@ -65,7 +65,7 @@ const SaveMultipleWordForm: React.FC<Props> = ({ onSearch }) => {
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-md w-full dark:border-gray-100 max-w-[550px] border">
-      <h2 className="text-xl font-bold mb-4 text-center text-blue-900">Save multiple words</h2>
+      <h2 className="text-xl font-bold mb-4 text-center text-blue-900">Search or save words with IA</h2>
 
       <div className="mb-4">
         <label className="text-sm block mb-1 text-blue-900">Word *</label>

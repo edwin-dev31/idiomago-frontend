@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { User, Eye, EyeOff, Lock, Mail } from "lucide-react";
-import { useRegister } from "@/lib/Hooks/Users/UseRegister";
+import { useRegister } from "@/lib/hooks/Users/UseRegister";
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from "react-router-dom";
 import { RiArrowGoBackFill } from "react-icons/ri";

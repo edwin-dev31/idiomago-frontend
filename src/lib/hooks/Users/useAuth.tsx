@@ -1,16 +1,17 @@
-// src/lib/hooks/useAuth.ts
 import { useNavigate } from "react-router-dom";
+import { useAuthStorage } from "@/lib/hooks/useAuthStorage";
 
 export const useAuth = () => {
   const navigate = useNavigate();
+  const { token, clearAuth } = useAuthStorage();
 
   const logout = () => {
-    localStorage.removeItem("token");
+    clearAuth(); 
     navigate("/login");
   };
 
   const isAuthenticated = () => {
-    return !!localStorage.getItem("token");
+    return !!token;
   };
 
   return {
@@ -18,4 +19,4 @@ export const useAuth = () => {
     isAuthenticated,
   };
 };
-
+ 

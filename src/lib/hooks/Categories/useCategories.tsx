@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { javaAPI } from "@/lib/axios";
+import { apiRoutes } from "@/lib/constants/apiRoutes";
+import { useAuthStorage } from "@/lib/hooks/useAuthStorage";
 import { Category } from "@/types/category";
 import { ColorQueue } from "@/types/colorQueue";
 
 export function useCategories() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
+  const { authHeaders } = useAuthStorage();
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const response = await javaAPI.get("/api/category", {
-          headers: { Authorization: `Bearer ${token}` },
+        const response = await javaAPI.get(apiRoutes.categories, {
+          headers: authHeaders,
         });
-
-        console.log("📦 Categorías recibidas:", response.data);
 
         const enriched = response.data.map((cat: any, index: number) => ({
           ...cat,
@@ -32,7 +32,7 @@ export function useCategories() {
     };
 
     fetchCategories();
-  }, []);
+  }, [authHeaders]);
 
   return { categories, loading };
 }

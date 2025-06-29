@@ -1,11 +1,11 @@
 // src/pages/Favorites.tsx
 import React, { useEffect, useState } from "react";
 import WordCardPaginator from "@/components/WordCardPaginator";
-import { useWordsTFavorite } from "@/lib/Hooks/Words/useWords";
-import { deleteFavorite } from "@/lib/Hooks/Favorites/useFavoriteActions";
+import { useWordsTFavorite } from "@/lib/hooks/Words/useWords";
+import { deleteFavorite } from "@/lib/hooks/Favorites/useFavoriteActions";
 import { Word } from "@/types/WordView";
 import DashboardHeader from "../dashboard/FilterAndSearchHeader";
-import { changeImage } from "@/lib/Hooks/Words/useChangeImage";
+import { changeImage } from "@/lib/hooks/Words/useChangeImage";
 
 const FavoritePage: React.FC = () => {
   const { words, loading } = useWordsTFavorite();
@@ -20,7 +20,7 @@ const FavoritePage: React.FC = () => {
     if (!userId) return;
 
     try {
-      await deleteFavorite(Number(userId), wordTranslationId);
+      await deleteFavorite(wordTranslationId);
 
       setFavoriteWords((prev) =>
         prev.filter((word) => word.wordTranslationId !== wordTranslationId)

@@ -6,7 +6,7 @@ import { User, Eye, EyeOff, Lock } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub, FaFacebookF } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useLogin } from "@/lib/Hooks/Users/useLogin";
+import { useLogin } from "@/lib/hooks/Users/useLogin";
 import { toast } from "react-hot-toast";
 import ThemeToggle from "@/components/layout/ThemeToggle";
 

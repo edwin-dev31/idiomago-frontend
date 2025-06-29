@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import WordCardPaginator from "@/components/WordCardPaginator";
-import { useWords } from "@/lib/Hooks/Words/useWords";
+import { useWords } from "@/lib/hooks/Words/useWords";
 import { Word } from "@/types/WordView";
 import FilterAndSearchHeader from "@/pages/dashboard/FilterAndSearchHeader";
-import {addFavorite, deleteFavorite} from "@/lib/Hooks/Favorites/useFavoriteActions";
-import { changeImage } from "@/lib/Hooks/Words/useChangeImage"; 
+import {addFavorite, deleteFavorite }from "@/lib/hooks/Favorites/useFavoriteActions";
+import { changeImage } from "@/lib/hooks/Words/useChangeImage"; 
 
 
 const DashboardPage: React.FC = () => {
@@ -24,9 +24,9 @@ const DashboardPage: React.FC = () => {
 
     try {
       if (isCurrentlyFavorite) {
-        await deleteFavorite(Number(userId), wordTranslationId);
+        await deleteFavorite(wordTranslationId);
       } else {
-        await addFavorite(Number(userId), wordTranslationId);
+        await addFavorite(wordTranslationId);
       }
 
       setLocalWords((prevWords) =>

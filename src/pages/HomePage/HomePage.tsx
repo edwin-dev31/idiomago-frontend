@@ -1,5 +1,5 @@
 import React from "react";
-import { useUserInfo } from "@/lib/Hooks/Users/useUserInfo";
+import { useUserInfo } from "@/lib/hooks/Users/useUserInfo";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FaRocket, FaBook } from "react-icons/fa";

@@ -13,7 +13,7 @@ import {
   CommandInput,
   CommandItem,
 } from "@/components/ui/command";
-import { useLanguages } from "@/lib/Hooks/Languages/useLanguages";
+import { useLanguages } from "@/lib/hooks/Languages/useLanguages";
 import { toast } from "react-hot-toast";
 
 interface Props {

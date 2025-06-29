@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import SaveCustomWordForm from "@/components/layout/SaveCustomWordForm";
 import { Word } from "@/types/WordView";
-import { useSearchWords } from "@/lib/Hooks/Search/useSearchWords";
+import { useSearchWords } from "@/lib/hooks/Search/useSearchWords";
 import { FlashCardNavigation } from "@/pages/seachWord/flashcard/FlashCardNavigation";
 import WordCard from "@/components/WordCard";
-import { addFavorite, deleteFavorite } from "@/lib/Hooks/Favorites/useFavoriteActions";
-import { changeImage } from "@/lib/Hooks/Words/useChangeImage";
+import { addFavorite, deleteFavorite } from "@/lib/hooks/Favorites/useFavoriteActions";
+import { changeImage } from "@/lib/hooks/Words/useChangeImage";
 import FilterAndSearchHeader from "@/pages/dashboard/FilterAndSearchHeader";
 import { Visibility } from "@/types/Visibility";
 
@@ -45,8 +45,8 @@ const SavePage: React.FC = () => {
     if (!userId) return;
 
     try {
-      if (isFavorite) await deleteFavorite(Number(userId), id);
-      else await addFavorite(Number(userId), id);
+      if (isFavorite) await deleteFavorite(id);
+      else await addFavorite(id);
 
       setWords((prev) =>
         prev.map((w) =>

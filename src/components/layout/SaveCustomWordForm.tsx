@@ -3,11 +3,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import SingleSelector from "@/components/layout/SingleSelector";
-import { useLanguages } from "@/lib/Hooks/Languages/useLanguages";
-import { useCategories } from "@/lib/Hooks/Categories/useCategories";
+import { useLanguages } from "@/lib/hooks/Languages/useLanguages";
+import { useCategories } from "@/lib/hooks/Categories/useCategories";
 import { toast } from "react-hot-toast";
 import { SaveSingleWordDTO } from "@/types/SaveSingleWordDTO";
 import { Visibility } from "@/types/Visibility";
+import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 
 interface Props {
   onSearch: (data: SaveSingleWordDTO) => void
@@ -46,6 +47,15 @@ const handleSubmit = () => {
     example,
     visibility,
   });
+
+  setWord("");
+  setLanguage("");
+  setCategory(0);
+  setDescription("");
+  setExample("");
+  setVisibility(Visibility.PRIVATE);
+  localStorage.removeItem("custom_selectedLanguage");
+  localStorage.removeItem("custom_selectedCategory");
 };
 
 
@@ -108,17 +118,38 @@ const handleSubmit = () => {
 
       <div className="grid grid-cols-2 gap-2 mb-2">
         <label className="text-sm self-center text-blue-900">Visibility *</label>
-        <SingleSelector
-          title="Select Visibility"
-          options={[
-            { label: "Public", value: Visibility.PUBLIC },
-            { label: "Private", value: Visibility.PRIVATE },
-          ]}
-          selected={visibility}
-          onSelect={(val) => setVisibility(val as Visibility)}
-          className="w-full"
-        />
+        <RadioGroup
+          value={visibility}
+          onValueChange={(val) => setVisibility(val as Visibility)}
+          className="flex gap-4 w-full"
+        >
+          {[{ label: "Private", value: Visibility.PRIVATE }, { label: "Public", value: Visibility.PUBLIC }].map((option) => (
+            <label
+              key={option.value}
+              htmlFor={option.value}
+              className={`
+                flex items-center justify-center gap-2 w-full px-4 py-2 rounded-md
+                text-sm font-bold cursor-pointer bg-white text-[#1B3B48] dark:bg-white dark:text-[#1B3B48]
+              `}
+            >
+              <RadioGroupItem
+                value={option.value}
+                id={option.value}
+                className="peer hidden"
+              />
+              <div className="w-4 h-4 rounded-full border-2 border-blue-900 flex items-center justify-center">
+                {visibility === option.value && (
+                  <div className="w-2 h-2 rounded-full bg-blue-900" />
+                )}
+              </div>
+              {option.label}
+            </label>
+          ))}
+        </RadioGroup>
       </div>
+
+
+
 
       <div className="mb-2">
         <label className="text-sm mb-1 block text-blue-900">Description *</label>

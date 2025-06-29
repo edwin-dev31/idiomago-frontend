@@ -12,13 +12,13 @@ import {
   useFilterByCategories,
   useFilterByDescription,
   useFilterByExample,
-} from "@/lib/Hooks/Filters/useFilter";
-import { useLanguages } from "@/lib/Hooks/Languages/useLanguages";
-import { useCategories } from "@/lib/Hooks/Categories/useCategories";
-import { useUserFavorites } from "@/lib/Hooks/Favorites/useUserFavorites";
-import { addFavorite, deleteFavorite } from "@/lib/Hooks/Favorites/useFavoriteActions";
+} from "@/lib/hooks/Filters/useFilter";
+import { useLanguages } from "@/lib/hooks/Languages/useLanguages";
+import { useCategories } from "@/lib/hooks/Categories/useCategories";
+import { useUserFavorites } from "@/lib/hooks/Favorites/useUserFavorites";
+import { addFavorite, deleteFavorite } from "@/lib/hooks/Favorites/useFavoriteActions";
 import { Word } from "@/types/WordView";
-import { changeImage } from "@/lib/Hooks/Words/useChangeImage"; 
+import { changeImage } from "@/lib/hooks/Words/useChangeImage"; 
 
 type FilterType = "language" | "category" | "description" | "example";
 
@@ -113,9 +113,9 @@ const handleChangeImage = async (wordTranslationId: number) => {
 
     try {
       if (isFavorite) {
-        await deleteFavorite(Number(userId), id);
+        await deleteFavorite(id);
       } else {
-        await addFavorite(Number(userId), id);
+        await addFavorite(id);
       }
 
       setResults((prev) =>

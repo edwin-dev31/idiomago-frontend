@@ -1,22 +1,25 @@
+// src/lib/hooks/Words/useMyWords.ts
 import { useEffect, useState } from "react";
 import { javaAPI } from "@/lib/axios";
-import { useUserFavorites } from "@/lib/Hooks/Favorites/useUserFavorites";
+import { useAuthStorage } from "@/lib/hooks/useAuthStorage";
+import { useUserFavorites } from "@/lib/hooks/Favorites/useUserFavorites";
+import { apiRoutes } from "@/lib/constants/apiRoutes";
 import { Word } from "@/types/WordView";
-
 
 export function useMyWords() {
   const [words, setWords] = useState<Word[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const { userId, authHeaders } = useAuthStorage();
   const { favorites, loading: favoritesLoading } = useUserFavorites();
 
   useEffect(() => {
     const fetchWords = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const userId = localStorage.getItem("userId");
+      if (!userId) return;
 
-        const response = await javaAPI.get(`/api/view/my-words/${userId}`, {
-          headers: { Authorization: `Bearer ${token}` },
+      try {
+        const response = await javaAPI.get(apiRoutes.words.myWords(userId), {
+          headers: authHeaders,
         });
 
         const wordsWithFavorites: Word[] = response.data.map((word: any) => ({
@@ -37,7 +40,7 @@ export function useMyWords() {
     if (!favoritesLoading) {
       fetchWords();
     }
-  }, [favorites, favoritesLoading]);
+  }, [favorites, favoritesLoading, userId, authHeaders]);
 
   return { words, loading: loading || favoritesLoading };
 }

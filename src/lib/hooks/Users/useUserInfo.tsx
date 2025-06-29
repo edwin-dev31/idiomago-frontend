@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
 import { javaAPI } from "@/lib/axios";
+import { apiRoutes } from "@/lib/constants/apiRoutes";
+import { useAuthStorage } from "@/lib/hooks/useAuthStorage";
 import { User } from "@/types/user";
 
 export function useUserInfo() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const { userId, authHeaders } = useAuthStorage();
+
   useEffect(() => {
     const fetchUser = async () => {
+      if (!userId) return;
+
       try {
-        const token = localStorage.getItem("token");
-        const userId = localStorage.getItem("userId");
-
-        if (!token || !userId) return;
-
-        const response = await javaAPI.get(`/api/users/${userId}`, {
-          headers: { Authorization: `Bearer ${token}` },
+        const response = await javaAPI.get(apiRoutes.users.byId(userId), {
+          headers: authHeaders,
         });
 
         setUser(response.data);
@@ -27,7 +28,7 @@ export function useUserInfo() {
     };
 
     fetchUser();
-  }, []);
+  }, [userId, authHeaders]);
 
   return { user, loading };
 }

@@ -1,30 +1,25 @@
-// src/lib/Hooks/useUserFavorites.ts
+// src/lib/hooks/useUserFavorites.ts
 import { useEffect, useState } from "react";
 import { javaAPI } from "@/lib/axios";
-
-export interface Favorite {
-  userId: number;
-  wordTranslationId: number;
-  createdAt: string;
-}
+import { apiRoutes } from "@/lib/constants/apiRoutes";
+import { useAuthStorage } from "@/lib/hooks/useAuthStorage";
+import { Favorite } from "@/types/favorite";
 
 export function useUserFavorites() {
   const [favorites, setFavorites] = useState<Favorite[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const { userId, authHeaders } = useAuthStorage();
+
   useEffect(() => {
     const fetchFavorites = async () => {
-      const userId = localStorage.getItem("userId");
-      const token = localStorage.getItem("token");
-
-      if (!userId || !token) return;
+      if (!userId) return;
 
       try {
-        const response = await javaAPI.get(`/api/favorites/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await javaAPI.get(
+          apiRoutes.favorites.byUser(userId),
+          { headers: authHeaders }
+        );
 
         setFavorites(response.data);
       } catch (err) {
@@ -35,7 +30,7 @@ export function useUserFavorites() {
     };
 
     fetchFavorites();
-  }, []);
+  }, [userId, authHeaders]);
 
   return { favorites, loading };
 }

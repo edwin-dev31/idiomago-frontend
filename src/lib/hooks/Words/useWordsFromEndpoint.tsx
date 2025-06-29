@@ -1,21 +1,22 @@
+// src/lib/hooks/Words/useWordsFromEndpoint.ts
 import { useEffect, useState } from "react";
 import { javaAPI } from "@/lib/axios";
-import { useUserFavorites } from "@/lib/Hooks/Favorites/useUserFavorites";
+import { useAuthStorage } from "@/lib/hooks/useAuthStorage";
+import { useUserFavorites } from "@/lib/hooks/Favorites/useUserFavorites";
 import { Word } from "@/types/WordView";
-
 
 function useWordsFromEndpoint(endpoint: string) {
   const [words, setWords] = useState<Word[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const { authHeaders } = useAuthStorage();
   const { favorites, loading: favoritesLoading } = useUserFavorites();
 
   useEffect(() => {
     const fetchWords = async () => {
       try {
-        const token = localStorage.getItem("token");
-
         const response = await javaAPI.get(endpoint, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: authHeaders,
         });
 
         const wordsWithFavorites: Word[] = response.data.map((word: any) => ({
@@ -36,15 +37,9 @@ function useWordsFromEndpoint(endpoint: string) {
     if (!favoritesLoading) {
       fetchWords();
     }
-  }, [endpoint, favorites, favoritesLoading]);
+  }, [endpoint, favorites, favoritesLoading, authHeaders]);
 
   return { words, loading: loading || favoritesLoading };
 }
 
-export function useWords() {
-  return useWordsFromEndpoint("/api/view");
-}
-
-export function useWordsTFavorite() {
-  return useWordsFromEndpoint("/api/view/favorite");
-}
+export default useWordsFromEndpoint;

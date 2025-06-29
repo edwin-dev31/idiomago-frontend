@@ -1,22 +1,21 @@
 import { useEffect, useState } from "react";
 import { javaAPI } from "@/lib/axios";
+import { apiRoutes } from "@/lib/constants/apiRoutes";
+import { useAuthStorage } from "@/lib/hooks/useAuthStorage";
 import { Language } from "@/types/language";
 import { ColorQueue } from "@/types/colorQueue";
-
 
 export function useLanguages() {
   const [languages, setLanguages] = useState<Language[]>([]);
   const [loading, setLoading] = useState(true);
+  const { authHeaders } = useAuthStorage();
 
   useEffect(() => {
     const fetchLanguages = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const response = await javaAPI.get("/api/language", {
-          headers: { Authorization: `Bearer ${token}` },
+        const response = await javaAPI.get(apiRoutes.languages, {
+          headers: authHeaders,
         });
-
-        console.log("📦 Idiomas recibidos:", response.data);
 
         const enriched = response.data.map((lang: any, index: number) => ({
           ...lang,
@@ -26,14 +25,14 @@ export function useLanguages() {
 
         setLanguages(enriched);
       } catch (error) {
-        console.error("❌ Error loading languagues:", error);
+        console.error("❌ Error loading languages:", error);
       } finally {
         setLoading(false);
       }
     };
 
     fetchLanguages();
-  }, []);
+  }, [authHeaders]);
 
   return { languages, loading };
 }
