@@ -12,10 +12,10 @@ import FavoritePage from "@/pages/favorite/FavoritePage";
 import FilterPage from "@/pages/filters/FilterPage";
 import SavePage from "@/pages/save/SavePage";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import EmailVerification from "@/pages/OAuth/EmailVerification";
 
-
-import SearchPage from "./pages/seachWord/SearchPage";
-import MyWordsPage from "./pages/myWord/MyWordPage";
+import SearchPage from "@/pages/seachWord/SearchPage";
+import MyWordsPage from "@/pages/myWord/MyWordPage";
 
 const App: React.FC = () => {
   const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
@@ -34,7 +34,8 @@ const App: React.FC = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/oauth2/success" element={<OAuthSuccess />} />
-
+        <Route path="/email-verification" element={<EmailVerification />} />
+        
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>}>
           <Route index element={<HomePage />} />
           <Route path="home" element={<HomePage />} />
@@ -45,6 +46,8 @@ const App: React.FC = () => {
           <Route path="favorites" element={<FavoritePage />} />
 
           <Route path="myWords" element={<MyWordsPage />} />
+
+
         </Route>
       </Routes>
 

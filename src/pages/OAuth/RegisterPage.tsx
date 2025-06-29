@@ -24,24 +24,22 @@ const Register: React.FC = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const data = await register(form);
-      const token = data?.token; 
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  try {
+    const result = await register(form);
 
-      if (token) {
-        localStorage.setItem("token", token);
-        toast.success("User registered!");
-        navigate("/home"); 
-      } else {
-        toast.error("Token not received from server");
-      }
-    } catch (error: any) {
-      const backendMessage = error?.response?.data?.message || "Registration failed. Please try again.";
-      toast.error(backendMessage);
+    if (result.success) {
+      toast.success(result.message || "Registration successful. Please check your email.");
+      navigate("/login"); 
+    } else {
+      toast.error(result.message || "Registration failed.");
     }
-  };
+  } catch (error: any) {
+    toast.error("An unexpected error occurred.");
+  }
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 dark:from-black">

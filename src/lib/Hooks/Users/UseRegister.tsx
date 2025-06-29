@@ -9,22 +9,17 @@ interface RegisterData {
 export function useRegister() {
   const register = async ({ username, email, password }: RegisterData) => {
     try {
-      const response = await javaAPI.post("/auth/register", {username, email, password })
-      
-      const token = response.data?.token;
-      console.log(response.data)
-      if (token) {
-        localStorage.setItem("token", token);
-      }
+      const response = await javaAPI.post("/auth/register", { username, email, password })
 
-      const userId = response.data?.userId;
-      if (userId) {
-        localStorage.setItem("userId", userId);
-      }
-      return response.data
+      const message = response.data?.message;
+      console.log("Register success:", message);
+      
+      return { success: true, message }
     } catch (error: any) {
-      console.error("Error in register", error.response?.data || error.message)
-      throw error
+      const errorMessage = error.response?.data?.message || "Unexpected error during registration.";
+      console.error("Error in register:", errorMessage);
+
+      return { success: false, message: errorMessage }
     }
   }
 
