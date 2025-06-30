@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast";
 
 const OAuthSuccess = () => {
   const navigate = useNavigate();
-  const alreadyHandled = useRef(false); // ⬅️ Anti doble ejecución
+  const alreadyHandled = useRef(false); 
 
   useEffect(() => {
     if (alreadyHandled.current) return;
@@ -18,14 +18,15 @@ const OAuthSuccess = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("userId", userId);
       toast.success("Login with OAuth successful!");
-      navigate("/");
+      setTimeout(() => navigate("/home"), 100);
     } else {
       toast.error("No token received from OAuth");
-      navigate("/login");
+      setTimeout(() => navigate("/login"), 100);
     }
   }, [navigate]);
 
-  return null;
+  return <p style={{ textAlign: "center", marginTop: "2rem" }}>Processing login...</p>;
+
 };
 
 export default OAuthSuccess;
