@@ -18,10 +18,12 @@ const OAuthSuccess = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("userId", userId);
       toast.success("Login with OAuth successful!");
-      setTimeout(() => navigate("/home"), 100);
+      console.log("Login with OAuth successful!")
+      setTimeout(() => navigate("/home"), 300);
     } else {
       toast.error("No token received from OAuth");
-      setTimeout(() => navigate("/login"), 100);
+      console.log("No token received from OAuth")
+      setTimeout(() => navigate("/login"), 300);
     }
   }, [navigate]);
 
