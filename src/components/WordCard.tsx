@@ -4,7 +4,7 @@ import React from "react";
 import { SwitchCamera, Heart, Volume2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Word } from "@/lib/WordView";
+import { Word } from "@/types/WordView";
 
 interface WordCardProps {
   word: Word;
@@ -24,7 +24,7 @@ const WordCard: React.FC<WordCardProps> = ({
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
-      className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden"
+      className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden dark:bg-white"
       style={{ width: `${width}px`, height: `${height}px` }} 
     >
       <div className="relative">

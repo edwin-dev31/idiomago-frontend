@@ -5,19 +5,20 @@ import WordCardPaginator from "@/components/WordCardPaginator";
 import { Button } from "@/components/ui/button";
 import FilterButtonOptions from "./FilterButtonOptions";
 import SingleSelector from "@/components/layout/SingleSelector";
+import { useSearchParams } from "react-router-dom";
 
 import {
   useFilterByLanguage,
   useFilterByCategories,
   useFilterByDescription,
   useFilterByExample,
-} from "@/lib/Hooks/Filters/useFilter";
-import { useLanguages } from "@/lib/Hooks/Languages/useLanguages";
-import { useCategories } from "@/lib/Hooks/Categories/useCategories";
-import { useUserFavorites } from "@/lib/Hooks/Favorites/useUserFavorites";
-import { addFavorite, deleteFavorite } from "@/lib/Hooks/Favorites/useFavoriteActions";
-import { Word } from "@/lib/WordView";
-import { changeImage } from "@/lib/Hooks/Words/useChangeImage"; 
+} from "@/lib/hooks/Filters/useFilter";
+import { useLanguages } from "@/lib/hooks/Languages/useLanguages";
+import { useCategories } from "@/lib/hooks/Categories/useCategories";
+import { useUserFavorites } from "@/lib/hooks/Favorites/useUserFavorites";
+import { addFavorite, deleteFavorite } from "@/lib/hooks/Favorites/useFavoriteActions";
+import { Word } from "@/types/WordView";
+import { changeImage } from "@/lib/hooks/Words/useChangeImage"; 
 
 type FilterType = "language" | "category" | "description" | "example";
 
@@ -48,6 +49,15 @@ const FilterPage: React.FC = () => {
   const { filter: filterCat } = useFilterByCategories();
   const { filter: filterDef } = useFilterByDescription();
   const { filter: filterEx } = useFilterByExample();
+
+  const [searchParams] = useSearchParams();
+  const queryType = searchParams.get("type") as FilterType;
+
+  useEffect(() => {
+  if (queryType) {
+    setFilterType(queryType);
+    }
+  }, [queryType]);
 
   const applyFavoritesToWords = (words: Word[]): Word[] => {
     const favIds = new Set(favorites.map((f) => f.wordTranslationId));
@@ -103,9 +113,9 @@ const handleChangeImage = async (wordTranslationId: number) => {
 
     try {
       if (isFavorite) {
-        await deleteFavorite(Number(userId), id);
+        await deleteFavorite(id);
       } else {
-        await addFavorite(Number(userId), id);
+        await addFavorite(id);
       }
 
       setResults((prev) =>

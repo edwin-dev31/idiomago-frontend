@@ -13,7 +13,7 @@ import {
   CommandInput,
   CommandItem,
 } from "@/components/ui/command";
-import { useLanguages } from "@/lib/Hooks/Languages/useLanguages";
+import { useLanguages } from "@/lib/hooks/Languages/useLanguages";
 import { toast } from "react-hot-toast";
 
 interface Props {
@@ -59,19 +59,20 @@ export const LanguageSelector: React.FC<Props> = ({ onLanguageChange,  className
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="w-[250px] p-0 max-h-60 overflow-y-auto"
+          className="w-[250px] p-0 max-h-60 overflow-y-auto scrollbar-hide"
           align="end"
         >
           <Command>
             <CommandInput placeholder="Search languages..." className="h-9" />
             <CommandEmpty>No language found.</CommandEmpty>
-            <CommandGroup>
+            <CommandGroup className="dark:bg-white">
               {languages.map((lang) => (
                 <CommandItem
                   key={lang.code}
                   value={lang.code}
                   onSelect={() => toggleCode(lang.code)}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 dark:text-black
+                  hover:bg-gray-200 dark:hover:bg-gray-100" 
                 >
                   <div
                     className="w-3 h-3 rounded-full"

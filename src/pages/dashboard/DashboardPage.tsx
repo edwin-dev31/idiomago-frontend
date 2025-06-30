@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import WordCardPaginator from "../../components/WordCardPaginator";
-import { useWords } from "@/lib/Hooks/Words/useWords";
-import { Word } from "@/lib/WordView";
-import DashboardHeader from "./DashboardHeader";
-import {addFavorite, deleteFavorite} from "@/lib/Hooks/Favorites/useFavoriteActions";
-import { changeImage } from "@/lib/Hooks/Words/useChangeImage"; 
+import WordCardPaginator from "@/components/WordCardPaginator";
+import { useWords } from "@/lib/hooks/Words/useWords";
+import { Word } from "@/types/WordView";
+import FilterAndSearchHeader from "@/pages/dashboard/FilterAndSearchHeader";
+import {addFavorite, deleteFavorite }from "@/lib/hooks/Favorites/useFavoriteActions";
+import { changeImage } from "@/lib/hooks/Words/useChangeImage"; 
 
 
 const DashboardPage: React.FC = () => {
@@ -25,12 +24,11 @@ const DashboardPage: React.FC = () => {
 
     try {
       if (isCurrentlyFavorite) {
-        await deleteFavorite(Number(userId), wordTranslationId);
+        await deleteFavorite(wordTranslationId);
       } else {
-        await addFavorite(Number(userId), wordTranslationId);
+        await addFavorite(wordTranslationId);
       }
 
-      // Update local state
       setLocalWords((prevWords) =>
         prevWords.map((word) =>
           word.wordTranslationId === wordTranslationId
@@ -58,9 +56,9 @@ const DashboardPage: React.FC = () => {
   };
   return (
     <>
-      <DashboardHeader />
+      <FilterAndSearchHeader />
 
-      <h2 className="text-xl font-semibold text-[#1B3B48] mb-4">
+      <h2 className="text-xl font-semibold text-[#1B3B48] dark:text-white mb-4">
         Words in all languages
       </h2>
 

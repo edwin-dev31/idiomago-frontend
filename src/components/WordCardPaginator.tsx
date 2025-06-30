@@ -1,7 +1,7 @@
 // src/components/WordCardPaginator.tsx
 import React, { useState } from "react";
 import WordCard from "./WordCard";
-import { Word } from "@/lib/WordView";
+import { Word } from "@/types/WordView";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils"; // si tienes utilidades tailwind para clx
 
@@ -78,7 +78,7 @@ const WordCardPaginator: React.FC<WordCardPaginatorProps> = ({
       {/* ✅ Custom pagination controls */}
       <div className="flex items-center justify-center gap-2 mt-6">
         <button
-          className="px-3 py-1 text-sm text-white bg-[#1B3B48] rounded disabled:opacity-30"
+          className="px-3 py-1 text-sm text-white bg-[#1B3B48] dark:bg-white dark:text-black rounded disabled:opacity-30"
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
@@ -89,11 +89,11 @@ const WordCardPaginator: React.FC<WordCardPaginatorProps> = ({
           <button
             key={index}
             className={cn(
-              "px-3 py-1 text-sm rounded",
+              "px-3 py-1 text-sm rounded dark:text-white",
               page === "..."
                 ? "text-gray-400 cursor-default"
                 : page === currentPage
-                ? "bg-[#1B3B48] text-white"
+                ? "bg-[#1B3B48] text-white dark:bg-white dark:text-black "
                 : "text-[#1B3B48] hover:bg-[#1B3B48]/10"
             )}
             onClick={() => typeof page === "number" && handlePageChange(page)}
@@ -104,7 +104,7 @@ const WordCardPaginator: React.FC<WordCardPaginatorProps> = ({
         ))}
 
         <button
-          className="px-3 py-1 text-sm text-white bg-[#1B3B48] rounded disabled:opacity-30"
+          className="px-3 py-1 text-sm text-white bg-[#1B3B48] dark:bg-white dark:text-black rounded disabled:opacity-30"
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
