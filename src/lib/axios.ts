@@ -1,8 +1,8 @@
 import axios from "axios"
 
 const javaAPI = axios.create({
-  baseURL: "http://localhost:1731/idiomago",
+  baseURL: "https://idiomago-app-84aa3f1a7db9.herokuapp.com/idiomago",
 })
 
-
-export { javaAPI}
+const javaOauth = "https://idiomago-app-84aa3f1a7db9.herokuapp.com/idiomago/oauth2/authorization"
+export { javaAPI, javaOauth}

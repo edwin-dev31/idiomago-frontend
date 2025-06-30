@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLogin } from "@/lib/hooks/Users/useLogin";
 import { toast } from "react-hot-toast";
 import ThemeToggle from "@/components/layout/ThemeToggle";
-
+import { javaOauth } from "@/lib/axios";
 const Login: React.FC = () => {
   const { login } = useLogin();
   const navigate = useNavigate();
@@ -116,7 +116,7 @@ const Login: React.FC = () => {
               variant="outline"
               className="w-full h-12 rounded-xl flex items-center justify-center space-x-2 "
               onClick={() =>
-                (window.location.href = "http://localhost:1731/idiomago/oauth2/authorization/facebook")
+                (window.location.href = `${javaOauth}/facebook` )
               }
             >
               <FaFacebookF className="w-5 h-5 text-blue-600" />
@@ -127,7 +127,7 @@ const Login: React.FC = () => {
               variant="outline"
               className="w-full h-12 rounded-xl flex items-center justify-center space-x-2 "
               onClick={() =>
-                (window.location.href = "http://localhost:1731/idiomago/oauth2/authorization/google")
+                (window.location.href = `${javaOauth}/google`)
               }
             >
               <FcGoogle className="w-5 h-5" />
@@ -138,7 +138,7 @@ const Login: React.FC = () => {
               variant="outline"
               className="w-full h-12 rounded-xl flex items-center justify-center space-x-2"
               onClick={() =>
-                (window.location.href = "http://localhost:1731/idiomago/oauth2/authorization/github")
+                (window.location.href = `${javaOauth}/github`)
               }
             >
               <FaGithub className="w-5 h-5 text-gray-800" />
