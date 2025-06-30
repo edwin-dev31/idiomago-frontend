@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 const OAuthSuccess = () => {
+  console.log("✅ Componente OAuthSuccess montado");
   const navigate = useNavigate();
   const alreadyHandled = useRef(false); 
 
