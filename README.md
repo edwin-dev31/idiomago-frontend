@@ -1,6 +1,23 @@
-# 🌐 Language Learning App - Frontend
+# 🌐 IdiomaGo - Language Learning App (Frontend)
 
-This is the frontend for a language learning application. It consumes a Java-based API that provides translations, usage examples, and descriptions in multiple languages to support language learners.
+This is the frontend for **IdiomaGo**, a modern language learning web application.  
+It is built using **React + Vite**, styled with **Tailwind CSS** and **shadcn/ui**, and communicates with a backend written in **Spring Boot (Java)** using **PostgreSQL** as the database.
+
+🌍 Live Demo: [idiomago-frontend on Azure](https://delightful-field-0bf6cfa0f.2.azurestaticapps.net)
+
+---
+
+## ✨ Features
+
+- ✅ **OAuth Login**: Authenticate using **Google**, **GitHub**, or **Facebook**
+- ✅ **Email verification**: Sends a confirmation email upon registration to ensure valid addresses
+- 🌐 **Supports 40+ languages** for translation and practice
+- 🤖 **AI-Powered Vocabulary Expansion**:
+  - Add new words via AI
+  - Supports up to **4 languages per request**
+- 🧠 **Word management**:
+  - Save, search, favorite, and organize learned words
+- 🔒 **Protected routes** using token-based authentication
 
 ---
 
@@ -11,6 +28,21 @@ This is the frontend for a language learning application. It consumes a Java-bas
 - [Tailwind CSS](https://tailwindcss.com/) – Utility-first CSS framework
 - [shadcn/ui](https://ui.shadcn.com/) – Styled components for Tailwind
 - [Axios](https://axios-http.com/) – HTTP client to consume the API
+- [react-router-dom](https://reactrouter.com/) – SPA routing
+- [react-hot-toast](https://react-hot-toast.com/) – Toast notifications
+
+---
+
+## 🔧 Backend
+
+The frontend connects to a backend service developed with:
+
+- **Spring Boot (Java)** – RESTful API
+- **PostgreSQL** – Persistent database
+- **Spring Security** – Authentication and OAuth
+- **Email service** – To confirm user registration
+
+You can find or connect it via the corresponding backend repository.
 
 ---
 
@@ -19,16 +51,18 @@ This is the frontend for a language learning application. It consumes a Java-bas
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/CodeNinjaHero/idiomago-frontend.git
-```
+git clone https://github.com/edwin-dev31/idiomago-frontend.git
 
 cd idiomago-frontend
-2. Install dependencies
+```
+
+### 2. Install dependencies
+
 ```bash
 npm install
 ```
 
-3. Start the development server
+### 3. Start the development server
 ```bash
-npm run dev
+npm run build
 ```
