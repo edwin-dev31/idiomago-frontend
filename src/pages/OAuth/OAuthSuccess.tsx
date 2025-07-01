@@ -16,7 +16,7 @@ const OAuthSuccess = () => {
     const userId = params.get("userId");
 
     if (token && userId) {
-      localStorage.setItem("token", token);
+      localStorage.setItem("token", token); 
       localStorage.setItem("userId", userId);
       toast.success("Login with OAuth successful!");
       console.log("Login with OAuth successful!")

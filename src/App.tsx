@@ -33,7 +33,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/oauth2/success" element={<OAuthSuccess />} />
+        <Route path="/oauth2-success" element={<OAuthSuccess />} />
         <Route path="/email-verification" element={<EmailVerification />} />
         
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>}>
