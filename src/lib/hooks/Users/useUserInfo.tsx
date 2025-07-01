@@ -32,3 +32,28 @@ export function useUserInfo() {
 
   return { user, loading };
 }
+
+export function useUpdateUserAvatar() {
+  const { userId, authHeaders } = useAuthStorage();
+
+  const uploadAvatar = async (file: File) => {
+    if (!userId) throw new Error("User ID not found");
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const response = await javaAPI.put(
+      apiRoutes.users.uploadAvatar(userId),
+      formData,
+      {
+        headers: {
+          ...authHeaders,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    return response.data;
+  };
+
+  return { uploadAvatar };
+}

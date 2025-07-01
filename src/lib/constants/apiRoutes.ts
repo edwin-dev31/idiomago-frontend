@@ -6,6 +6,8 @@ export const apiRoutes = {
     languages: "/api/language",
     users: {
         byId: (userId: number | string) => `/api/users/${userId}`,
+        uploadAvatar: (userId: number | string) => `/api/users/${userId}/avatar`,
+
     },
     
     words: {
