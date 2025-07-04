@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FilterHeader from "./FilterHeader";
 import { Input } from "@/components/ui/input";
-import WordCardPaginator from "@/components/WordCardPaginator";
+import WordCardPaginator from "@/components/wordCard/WordCardPaginator";
 import { Button } from "@/components/ui/button";
 import FilterButtonOptions from "./FilterButtonOptions";
 import SingleSelector from "@/components/layout/SingleSelector";

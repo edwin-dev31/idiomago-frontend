@@ -148,19 +148,16 @@ const handleSubmit = () => {
         </RadioGroup>
       </div>
 
-
-
-
       <div className="mb-2">
         <label className="text-sm mb-1 block text-blue-900">Description *</label>
         <Textarea
           rows={2}
-          maxLength={51}
+          maxLength={101}
           value={description}
           onChange={(e) => {
             const val = e.target.value;
-            if (val.length > 50) {
-              toast.error("Description must be 50 characters or less");
+            if (val.length > 100) {
+              toast.error("Description must be 100 characters or less");
               return;
             }
             setDescription(val);
@@ -173,12 +170,12 @@ const handleSubmit = () => {
         <label className="text-sm mb-1 block text-blue-900">Example *</label>
         <Textarea
           rows={2}
-          maxLength={51}
+          maxLength={101}
           value={example}
           onChange={(e) => {
             const val = e.target.value;
-            if (val.length > 50) {
-              toast.error("Example must be 50 characters or less");
+            if (val.length > 100) {
+              toast.error("Example must be 100 characters or less");
               return;
             }
             setExample(val);

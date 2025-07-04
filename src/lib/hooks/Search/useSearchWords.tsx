@@ -5,6 +5,7 @@ import { Word } from "@/types/WordView";
 import { SaveSingleWordDTO } from "@/types/SaveSingleWordDTO";
 import { useAuthStorage } from "@/lib/hooks/useAuthStorage";
 import { getFavorites } from "@/lib/hooks/Favorites/useFavoriteActions"; // ✅ Import directo
+import toast from "react-hot-toast";
 
 export function useSearchWords() {
   const [results, setResults] = useState<Word[]>([]);
@@ -66,12 +67,16 @@ export function useSearchWords() {
         getFavorites(),
       ]);
 
+      console.log("wordRes.data →", wordRes.data);
+      console.log("Array.isArray →", Array.isArray(wordRes.data));
+
       const enriched = enrichWithFavorites(wordRes.data, favoriteIds);
       setResults(enriched);
       return enriched;
-    } catch (err) {
-      console.error("❌ Error saving single word:", err);
-      return null;
+    } catch (err: any) {
+      const message = err.response?.data?.message ?? "Unknown error";
+      toast.error(message);
+      return null; 
     } finally {
       setLoading(false);
     }

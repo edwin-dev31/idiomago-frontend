@@ -3,7 +3,7 @@ import SaveMultipleWordForm from "@/components/layout/SaveMultipleWordForm";
 import { Word } from "@/types/WordView";
 import { useSearchWords } from "@/lib/hooks/Search/useSearchWords";
 import { FlashCardNavigation } from "@/pages/seachWord/flashcard/FlashCardNavigation";
-import WordCard from "@/components/WordCard";
+import WordCard from "@/components/wordCard/WordCard";
 import { addFavorite, deleteFavorite } from "@/lib/hooks/Favorites/useFavoriteActions";
 import { changeImage } from "@/lib/hooks/Words/useChangeImage";
 import FilterAndSearchHeader from "@/pages/dashboard/FilterAndSearchHeader";

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import WordCardPaginator from "@/components/WordCardPaginator";
+import WordCardPaginator from "@/components/wordCard/WordCardPaginator";
 import { useMyWords } from "@/lib/hooks/Words/useMyWords";
 import { Word } from "@/types/WordView";
 import FilterAndSearchHeader from "@/pages/dashboard/FilterAndSearchHeader";

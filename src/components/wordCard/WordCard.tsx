@@ -1,17 +1,16 @@
-// src/components/WordCard.tsx
-
 import React from "react";
 import { SwitchCamera, Heart, Volume2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Word } from "@/types/WordView";
-
+import WordCardFooterManager from "./WordCardFooterManager";
 interface WordCardProps {
   word: Word;
   onFavoriteToggle: (id: number) => void;
   onChangeImage: () => void;
   width?: number;  
   height?: number; 
+  hideShare?: boolean;
 }
 
 const WordCard: React.FC<WordCardProps> = ({
@@ -20,9 +19,11 @@ const WordCard: React.FC<WordCardProps> = ({
   onChangeImage,
   width,
   height,
+  hideShare
 }) => {
   return (
     <motion.div
+    id={`word-card-${word.wordTranslationId}`}
       whileHover={{ scale: 1.02 }}
       className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden dark:bg-white"
       style={{ width: `${width}px`, height: `${height}px` }} 
@@ -50,7 +51,7 @@ const WordCard: React.FC<WordCardProps> = ({
           variant="ghost"
           size="icon"
           className="absolute top-4 right-4"
-          onClick={() => onFavoriteToggle(word.wordId)} // ✅ Directamente el id
+          onClick={() => onFavoriteToggle(word.wordId)} 
         >
           <Heart
             className={`h-6 w-6 ${
@@ -86,8 +87,17 @@ const WordCard: React.FC<WordCardProps> = ({
             <p className="text-gray-700 italic">{word.translatedExample}</p>
           </div>
         </div>
-        <p className="text-xs text-gray-400 mt-2 uppercase">🌐 Lang: {word.languageName}</p>
       </div>
+
+<div className="mb-4">
+  <WordCardFooterManager
+    word={word}
+    hideShare={hideShare}
+  />
+</div>
+
+
+
     </motion.div>
   );
 };

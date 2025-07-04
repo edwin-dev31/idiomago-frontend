@@ -1,6 +1,6 @@
 // src/pages/Favorites.tsx
 import React, { useEffect, useState } from "react";
-import WordCardPaginator from "@/components/WordCardPaginator";
+import WordCardPaginator from "@/components/wordCard/WordCardPaginator";
 import { useWordsTFavorite } from "@/lib/hooks/Words/useWords";
 import { deleteFavorite } from "@/lib/hooks/Favorites/useFavoriteActions";
 import { Word } from "@/types/WordView";

@@ -32,6 +32,7 @@ export const apiRoutes = {
         changeImage: (wordTranslationId: number) => `/api/view/images/change/${wordTranslationId}`,
         allWords: "/api/view",
         favoriteWords: "/api/view/favorite",
+        wordFooter: "/api/footer"
     },
 
     

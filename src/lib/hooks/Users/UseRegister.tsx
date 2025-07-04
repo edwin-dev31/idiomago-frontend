@@ -18,7 +18,6 @@ export function useRegister() {
       });
 
       const message = response.data?.message || "Registration successful.";
-      console.log("✅ Register success:", message);
 
       return { success: true, message };
     } catch (error: any) {
@@ -26,7 +25,6 @@ export function useRegister() {
         error.response?.data?.message ||
         "Unexpected error during registration.";
 
-      console.error("❌ Error in register:", errorMessage);
       return { success: false, message: errorMessage };
     }
   };
