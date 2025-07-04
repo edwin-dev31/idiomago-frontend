@@ -1,4 +1,3 @@
-// src/lib/hooks/useUserFavorites.ts
 import { useEffect, useState } from "react";
 import { javaAPI } from "@/lib/axios";
 import { apiRoutes } from "@/lib/constants/apiRoutes";

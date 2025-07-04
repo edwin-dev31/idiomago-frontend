@@ -26,13 +26,7 @@ const WordCardFooterManager: React.FC<Props> = ({ word, hideShare }) => {
         postedAt={formatPostedAt(footer.createdAt)}
       />
       <WordCardFooterActions
-        reactions={{
-          like: footer.reactionLike,
-          dislike: footer.reactionDislike,
-          love: footer.reactionLove,
-          fire: footer.reactionFire,
-          perfect: footer.reactionPerfect,
-        }}
+
         word={word}
         hideShare={hideShare}
       />

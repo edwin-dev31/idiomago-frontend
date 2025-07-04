@@ -1,58 +1,37 @@
 import React, { useState } from "react";
 import { FaShareAlt } from "react-icons/fa";
-import { SmilePlus } from "lucide-react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
 import WordShareModal from "@/components/wordCard/WordShareModal";
 import { Word } from "@/types/WordView";
+import WordReactionsController from "./WordReactionsController";
+import { useReactions } from "@/lib/hooks/Reactions/useReactionsManager";
+import { reactionTypes } from "@/types/reactionTypes";
+
+
 
 interface Props {
-  reactions: {
-    like: number;
-    dislike: number;
-    love: number;
-    fire: number;
-    perfect: number;
-  };
   word: Word;
   hideShare?: boolean;
 }
 
-const emojiMap = [
-  { emoji: "👍", key: "like" },
-  { emoji: "👎", key: "dislike" },
-  { emoji: "❤️", key: "love" },
-  { emoji: "🔥", key: "fire" },
-  { emoji: "💯", key: "perfect" },
-];
 
-const WordCardFooterActions: React.FC<Props> = ({
-  reactions,
-  word,
-  hideShare,
-}) => {
+const WordCardFooterActions: React.FC<Props> = ({ word, hideShare }) => {
   const [openShare, setOpenShare] = useState(false);
-  const [openReactions, setOpenReactions] = useState(false);
+  const { reactions, addReaction, deleteReaction } = useReactions(word.wordTranslationId);
 
-  const topReactions = emojiMap
-    .map(({ emoji, key }) => ({
+  const topReactions = reactionTypes
+    .map(({ emoji }) => ({
       emoji,
-      count: reactions[key as keyof typeof reactions] || 0,
+      count: reactions.filter((r) => r.emoji === emoji).length,
     }))
     .filter((r) => r.count > 0)
     .sort((a, b) => b.count - a.count)
     .slice(0, 3);
 
-  const handleReact = (reactionKey: string) => {
-    console.log("➡️ Usuario eligió reacción:", reactionKey);
-    // Aquí luego llamaremos a un hook para guardar en backend
-    setOpenReactions(false);
-  };
+  const totalCount = reactions.length;
 
   return (
     <>
-      <div className="flex flex-col items-center text-gray-500 text-sm">
-
-        {/* Botón para compartir */}
+      <div className="flex flex-col items-center text-gray-500 text-sm pt-2">
         {!hideShare && (
           <div
             className="flex items-center gap-2 cursor-pointer hover:text-blue-500"
@@ -63,47 +42,33 @@ const WordCardFooterActions: React.FC<Props> = ({
           </div>
         )}
 
-        {/* Reacciones visibles + botón */}
-        <div className="flex gap-2 mt-3 items-center">
-          {/* Top 3 emojis */}
-          {topReactions.map(({ emoji }) => (
-            <span key={emoji} className="text-xl">{emoji}</span>
-          ))}
+        <div className="flex gap-1 mt-2 items-center">
+          <div className="flex -space-x-1">
+            {topReactions.map(({ emoji }) => (
+              <span
+                key={emoji}
+                className="text-lg bg-white rounded-full shadow-sm px-[2px] border border-gray-300"
+              >
+                {emoji}
+              </span>
+            ))}
+          </div>
 
-          {/* Botón para abrir modal */}
-          <button
-            className="ml-1 text-gray-500 hover:text-blue-600"
-            onClick={() => setOpenReactions(true)}
-            title="Reaccionar"
-          >
-            <SmilePlus className="w-5 h-5" />
-          </button>
+          {totalCount > 0 && (
+            <span className="text-sm text-gray-600 ml-2 font-medium">
+              {Intl.NumberFormat("en", { notation: "compact" }).format(totalCount)}
+            </span>
+          )}
+
+          <WordReactionsController
+            reactions={reactions}
+            addReaction={addReaction}
+            deleteReaction={deleteReaction}
+          />
         </div>
       </div>
 
-      {/* Modal de emojis tipo WhatsApp */}
-      <Dialog open={openReactions} onOpenChange={setOpenReactions}>
-        <DialogContent className="max-w-fit p-2 bg-black text-white rounded-full flex gap-2">
-          {emojiMap.map(({ emoji, key }) => (
-            <button
-              key={key}
-              onClick={() => handleReact(key)}
-              className="text-2xl hover:scale-125 transition-transform"
-              title={key}
-            >
-              {emoji}
-            </button>
-          ))}
-        </DialogContent>
-      </Dialog>
-
-      {/* Modal de compartir */}
-      {openShare && (
-        <WordShareModal
-          word={word}
-          onClose={() => setOpenShare(false)}
-        />
-      )}
+      {openShare && <WordShareModal word={word} onClose={() => setOpenShare(false)} />}
     </>
   );
 };

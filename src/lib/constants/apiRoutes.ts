@@ -35,5 +35,11 @@ export const apiRoutes = {
         wordFooter: "/api/footer"
     },
 
+    reactions: {
+  base: "/api/reactions",
+  byWord: (wordId: number) => `/api/reactions/word/${wordId}`,
+  byId: (reactionId: number) => `/api/reactions/${reactionId}`,
+}
+
     
 };
