@@ -4,12 +4,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import SingleSelector from "@/components/layout/SingleSelector";
 import { useLanguages } from "@/lib/hooks/Languages/useLanguages";
-import { useCategories } from "@/lib/hooks/Categories/useCategories";
 import { toast } from "react-hot-toast";
 import { SaveSingleWordDTO } from "@/types/SaveSingleWordDTO";
 import { Visibility } from "@/types/Visibility";
-import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
-
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import CategorySelectorWithCreate from "./CategorySelectorWithCreate";
 interface Props {
   onSearch: (data: SaveSingleWordDTO) => void
 }
@@ -26,37 +25,36 @@ const SaveCustomWordForm: React.FC<Props> = ({ onSearch }) => {
   const [visibility, setVisibility] = useState<Visibility>(Visibility.PRIVATE);
 
   const { languages } = useLanguages();
-  const { categories } = useCategories();
 
-const handleSubmit = () => {
-  if (!word.trim()) return toast.error("Word is required");
-  if (!language) return toast.error("Language is required");
-  if (!category) return toast.error("Category is required");
-  if (!description) return toast.error("Description is required");
-  if (!example) return toast.error("Example is required");
+  const handleSubmit = () => {
+    if (!word.trim()) return toast.error("Word is required");
+    if (!language) return toast.error("Language is required");
+    if (!category) return toast.error("Category is required");
+    if (!description) return toast.error("Description is required");
+    if (!example) return toast.error("Example is required");
 
-  const user = Number(localStorage.getItem("userId"));
-  if (!user) return toast.error("User not found");
+    const user = Number(localStorage.getItem("userId"));
+    if (!user) return toast.error("User not found");
 
-  onSearch({
-    user,
-    word,
-    languageCode: language,
-    categoryId: category,
-    description,
-    example,
-    visibility,
-  });
+    onSearch({
+      user,
+      word,
+      languageCode: language,
+      categoryId: category,
+      description,
+      example,
+      visibility,
+    });
 
-  setWord("");
-  setLanguage("");
-  setCategory(0);
-  setDescription("");
-  setExample("");
-  setVisibility(Visibility.PRIVATE);
-  localStorage.removeItem("custom_selectedLanguage");
-  localStorage.removeItem("custom_selectedCategory");
-};
+    setWord("");
+    setLanguage("");
+    setCategory(0);
+    setDescription("");
+    setExample("");
+    setVisibility(Visibility.PRIVATE);
+    localStorage.removeItem("custom_selectedLanguage");
+    localStorage.removeItem("custom_selectedCategory");
+  };
 
 
   return (
@@ -96,23 +94,15 @@ const handleSubmit = () => {
           className="w-full "
         />
       </div>
-
       <div className="grid grid-cols-2 gap-2 mb-2">
         <label className="text-sm self-center text-blue-900">Category *</label>
-        <SingleSelector
-          title="Select Category"
-          options={categories.map((cat) => ({
-            label: cat.name,
-            value: cat.id.toString(),
-            color: cat.color,
-          }))}
+        <CategorySelectorWithCreate
           selected={category.toString()}
           onSelect={(val) => {
-            const numericVal = parseInt(val, 10); 
+            const numericVal = parseInt(val, 10);
             setCategory(numericVal);
             localStorage.setItem("custom_selectedCategory", numericVal.toString());
           }}
-          className="w-full"
         />
       </div>
 

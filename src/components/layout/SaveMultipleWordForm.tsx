@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/layout/LanguageSelector";
-import { useCategories } from "@/lib/hooks/Categories/useCategories";
-import SingleSelector from "@/components/layout/SingleSelector";
 import { toast } from "react-hot-toast";
+import CategorySelectorWithCreate from "./CategorySelectorWithCreate";
 
 interface Props {
   onSearch: (word: string, languages: string[], category: number) => void;
@@ -21,7 +20,6 @@ const SaveMultipleWordForm: React.FC<Props> = ({ onSearch }) => {
     return stored ? parseInt(stored, 10) : 0;
   });
 
-  const { categories } = useCategories();
 
 
   useEffect(() => {
@@ -95,25 +93,20 @@ const SaveMultipleWordForm: React.FC<Props> = ({ onSearch }) => {
         />
       </div>
 
-      <div className="mb-4">
-        <label className="text-sm block mb-1 text-blue-900">Category *</label>
-        <SingleSelector
-          title="Select Category"
-          options={categories.map((cat) => ({
-            label: cat.name,
-            value: cat.id.toString(), 
-            color: cat.color,
-          }))}
-          selected={category.toString()} 
-          onSelect={(val) => {
-            const numericVal = parseInt(val, 10); 
-            setCategory(numericVal);
-            localStorage.setItem("multi_selectedCategory", numericVal.toString());
-          }}
-          className="w-full"
-        />
 
+        
+      <div className="grid grid-cols-2 gap-2 mb-2">
+        <label className="text-sm self-center text-blue-900">Category *</label>
+        <CategorySelectorWithCreate
+          selected={category.toString()}
+          onSelect={(val) => {
+            const numericVal = parseInt(val, 10);
+            setCategory(numericVal);
+            localStorage.setItem("custom_selectedCategory", numericVal.toString());
+          }}
+        />
       </div>
+
 
       <Button
         onClick={handleSubmit}
