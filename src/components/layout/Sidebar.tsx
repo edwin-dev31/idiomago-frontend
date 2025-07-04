@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useLocation, useNavigate } from "react-router-dom";
 import ThemeToggle from "@/components/layout/ThemeToggle";
-
+import UserUpdateTrigger from "./UserUpdateTrigger";
 interface SidebarProps {
   onLogout: () => void;
 }
@@ -52,7 +52,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout }) => {
 
       <Separator className="my-4 bg-white/20" />
       <ThemeToggle /> 
-      
+      <UserUpdateTrigger />
       <Button
         variant="ghost"
         className="w-full justify-start text-white hover:bg-white/10"

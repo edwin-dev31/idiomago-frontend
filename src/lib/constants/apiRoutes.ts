@@ -12,7 +12,7 @@ export const apiRoutes = {
     users: {
         byId: (userId: number | string) => `/api/users/${userId}`,
         uploadAvatar: (userId: number | string) => `/api/users/${userId}/avatar`,
-
+        update: (userId: number | string) => `/api/users/${userId}`,
     },
 
     words: {
