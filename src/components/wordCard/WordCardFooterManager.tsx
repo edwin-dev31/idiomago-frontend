@@ -5,10 +5,9 @@ import WordCardFooterActions from "./WordCardFooterActions";
 import { Word } from "@/types/WordView";
 interface Props {
   word: Word;
-  hideShare?: boolean;
 }
 
-const WordCardFooterManager: React.FC<Props> = ({ word, hideShare }) => {
+const WordCardFooterManager: React.FC<Props> = ({ word }) => {
   const { footers, loading } = useWordFooters();
 
   if (loading) return null;
@@ -26,9 +25,7 @@ const WordCardFooterManager: React.FC<Props> = ({ word, hideShare }) => {
         postedAt={formatPostedAt(footer.createdAt)}
       />
       <WordCardFooterActions
-
         word={word}
-        hideShare={hideShare}
       />
     </div>
   );

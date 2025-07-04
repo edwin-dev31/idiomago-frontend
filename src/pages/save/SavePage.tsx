@@ -74,9 +74,9 @@ const SavePage: React.FC = () => {
       <FilterAndSearchHeader />
       <div className="flex flex-col items-center min-h-[80vh] p-4">
         <div className="w-full max-w-7xl flex justify-between gap-8 mt-6">
-        <div className="w-[550px] bg-white rounded-xl shadow-md border border-gray-200 p-4 min-h-[500px]">
-          <SaveCustomWordForm onSearch={handleSaveSingle} />
-        </div>
+          <div className="w-[550px] bg-white rounded-xl shadow-md border border-gray-200 p-4 min-h-[500px]">
+            <SaveCustomWordForm onSearch={handleSaveSingle} />
+          </div>
           <div className="flex-1 flex items-center justify-center">
             {loading ? (
               <p className="text-gray-500">Loading...</p>
@@ -89,17 +89,36 @@ const SavePage: React.FC = () => {
                   onFavoriteToggle={() =>
                     handleFavoriteToggle(currentWord.wordTranslationId, currentWord.isFavorite)
                   }
-                  onChangeImage={() => handleChangeImage(currentWord.wordTranslationId)}
+                  onChangeImage={() =>
+                    handleChangeImage(currentWord.wordTranslationId)
+                  }
+                  onDelete={() => {
+                    setWords(prev => {
+                      const newWords = prev.filter(w => w.wordTranslationId !== currentWord.wordTranslationId);
+                      if (currentIndex >= newWords.length) {
+                        setCurrentIndex(newWords.length - 1 >= 0 ? newWords.length - 1 : 0);
+                      }
+                      return newWords;
+                    });
+                  }}
+                  onUpdate={(updatedWord) => {
+                    setWords(prev =>
+                      prev.map(w =>
+                        w.wordTranslationId === updatedWord.wordTranslationId ? updatedWord : w
+                      )
+                    );
+                  }}
                   width={500}
                   height={500}
                 />
+
               </FlashCardNavigation>
             )}
           </div>
         </div>
       </div>
     </>
-    
+
   );
 };
 

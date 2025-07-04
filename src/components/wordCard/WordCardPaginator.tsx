@@ -1,9 +1,8 @@
-// src/components/WordCardPaginator.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import WordCard from "./WordCard";
 import { Word } from "@/types/WordView";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils"; // si tienes utilidades tailwind para clx
+import { cn } from "@/lib/utils";
 
 interface WordCardPaginatorProps {
   words: Word[];
@@ -16,13 +15,18 @@ interface WordCardPaginatorProps {
 const CARDS_PER_PAGE = 8;
 
 const WordCardPaginator: React.FC<WordCardPaginatorProps> = ({
-  words,
+  words: initialWords,
   onFavoriteToggle,
   onChangeImage,
   cardWidth,
   cardHeight,
 }) => {
+  const [words, setWords] = useState<Word[]>(initialWords);
   const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setWords(initialWords);
+  }, [initialWords]);
 
   const totalPages = Math.ceil(words.length / CARDS_PER_PAGE);
   const startIndex = (currentPage - 1) * CARDS_PER_PAGE;
@@ -33,6 +37,19 @@ const WordCardPaginator: React.FC<WordCardPaginatorProps> = ({
       setCurrentPage(page);
     }
   };
+
+  const removeWordFromState = (id: number) => {
+    setWords((prev) => prev.filter((w) => w.wordTranslationId !== id));
+  };
+
+  const updateWordInState = (updatedWord: Word) => {
+  setWords((prev) =>
+    prev.map((w) =>
+      w.wordTranslationId === updatedWord.wordTranslationId ? updatedWord : w
+    )
+  );
+};
+
 
   const getPageNumbers = () => {
     const pages = [];
@@ -68,6 +85,9 @@ const WordCardPaginator: React.FC<WordCardPaginatorProps> = ({
                 onFavoriteToggle(word.wordTranslationId, word.isFavorite)
               }
               onChangeImage={() => onChangeImage(word.wordTranslationId)}
+              onDelete={() => removeWordFromState(word.wordTranslationId)} 
+              onUpdate={(updated: Word) => updateWordInState(updated)}
+
               width={cardWidth}
               height={cardHeight}
             />
@@ -75,7 +95,7 @@ const WordCardPaginator: React.FC<WordCardPaginatorProps> = ({
         ))}
       </div>
 
-      {/* ✅ Custom pagination controls */}
+      {/* Pagination */}
       <div className="flex items-center justify-center gap-2 mt-6">
         <button
           className="px-3 py-1 text-sm text-white bg-[#1B3B48] dark:bg-white dark:text-black rounded disabled:opacity-30"
@@ -93,7 +113,7 @@ const WordCardPaginator: React.FC<WordCardPaginatorProps> = ({
               page === "..."
                 ? "text-gray-400 cursor-default"
                 : page === currentPage
-                ? "bg-[#1B3B48] text-white dark:bg-white dark:text-black "
+                ? "bg-[#1B3B48] text-white dark:bg-white dark:text-black"
                 : "text-[#1B3B48] hover:bg-[#1B3B48]/10"
             )}
             onClick={() => typeof page === "number" && handlePageChange(page)}

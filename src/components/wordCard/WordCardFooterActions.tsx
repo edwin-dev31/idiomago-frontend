@@ -1,21 +1,15 @@
-import React, { useState } from "react";
-import { FaShareAlt } from "react-icons/fa";
-import WordShareModal from "@/components/wordCard/WordShareModal";
+import React from "react";
 import { Word } from "@/types/WordView";
 import WordReactionsController from "./WordReactionsController";
 import { useReactions } from "@/lib/hooks/Reactions/useReactionsManager";
 import { reactionTypes } from "@/types/reactionTypes";
 
-
-
 interface Props {
   word: Word;
-  hideShare?: boolean;
 }
 
-
-const WordCardFooterActions: React.FC<Props> = ({ word, hideShare }) => {
-  const [openShare, setOpenShare] = useState(false);
+const WordCardFooterActions: React.FC<Props> = ({ word }) => {
+  
   const { reactions, addReaction, deleteReaction } = useReactions(word.wordTranslationId);
 
   const topReactions = reactionTypes
@@ -32,15 +26,6 @@ const WordCardFooterActions: React.FC<Props> = ({ word, hideShare }) => {
   return (
     <>
       <div className="flex flex-col items-center text-gray-500 text-sm pt-2">
-        {!hideShare && (
-          <div
-            className="flex items-center gap-2 cursor-pointer hover:text-blue-500"
-            onClick={() => setOpenShare(true)}
-          >
-            <FaShareAlt className="text-xl" />
-            <span className="text-xs">Share</span>
-          </div>
-        )}
 
         <div className="flex gap-1 mt-2 items-center">
           <div className="flex -space-x-1">
@@ -67,8 +52,6 @@ const WordCardFooterActions: React.FC<Props> = ({ word, hideShare }) => {
           />
         </div>
       </div>
-
-      {openShare && <WordShareModal word={word} onClose={() => setOpenShare(false)} />}
     </>
   );
 };

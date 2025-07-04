@@ -1,4 +1,3 @@
-// src/components/FlashCard/FlashCardNavigation.tsx
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import React from "react";

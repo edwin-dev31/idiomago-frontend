@@ -4,12 +4,17 @@ export const apiRoutes = {
     register: "/auth/register",
     categories: "/api/category",
     languages: "/api/language",
+    translations: {
+        update: (id: number) => `/api/translations/${id}`,
+        delete: (id: number, userId: number | string) => `/api/translations/${id}?userId=${userId}`,
+    },
+
     users: {
         byId: (userId: number | string) => `/api/users/${userId}`,
         uploadAvatar: (userId: number | string) => `/api/users/${userId}/avatar`,
 
     },
-    
+
     words: {
         saveMultiple: "/api/view/save/word/multiple",
         saveSingle: "/api/view/save/word/single",
@@ -19,7 +24,7 @@ export const apiRoutes = {
 
     favorites: {
         base: "/api/favorites",
-        byUser: (userId: number | string)  => `/api/favorites/${userId}`,
+        byUser: (userId: number | string) => `/api/favorites/${userId}`,
         byUserAndWord: (userId: number, wordId: number) => `/api/favorites/${userId}/${wordId}`,
     },
     search: {
@@ -36,10 +41,10 @@ export const apiRoutes = {
     },
 
     reactions: {
-  base: "/api/reactions",
-  byWord: (wordId: number) => `/api/reactions/word/${wordId}`,
-  byId: (reactionId: number) => `/api/reactions/${reactionId}`,
-}
+        base: "/api/reactions",
+        byWord: (wordId: number) => `/api/reactions/word/${wordId}`,
+        byId: (reactionId: number) => `/api/reactions/${reactionId}`,
+    }
 
-    
+
 };

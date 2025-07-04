@@ -66,37 +66,54 @@ const SearchPage: React.FC = () => {
 
 
     <>
-        <FilterAndSearchHeader />
-        <div className="flex flex-col items-center min-h-[80vh] p-4">
-        
-        <div className="w-full max-w-7xl flex justify-between gap-8 mt-6">
-            <div className="w-[550px] bg-white rounded-xl shadow-md border p-4 min-h-[500px]">
-            <SaveMultipleWordForm onSearch={handleSaveMultiple} />
-            </div>
+      <FilterAndSearchHeader />
+      <div className="flex flex-col items-center min-h-[80vh] p-4">
 
-            <div className="flex-1 flex items-center justify-center">
+        <div className="w-full max-w-7xl flex justify-between gap-8 mt-6">
+          <div className="w-[550px] bg-white rounded-xl shadow-md border p-4 min-h-[500px]">
+            <SaveMultipleWordForm onSearch={handleSaveMultiple} />
+          </div>
+
+          <div className="flex-1 flex items-center justify-center">
             {loading ? (
-                <p className="text-gray-500">Loading...</p>
+              <p className="text-gray-500">Loading...</p>
             ) : words.length === 0 ? (
-                <p className="text-gray-400 italic">No words found</p>
+              <p className="text-gray-400 italic">No words found</p>
             ) : (
-                <FlashCardNavigation onPrevious={handlePrevious} onNext={handleNext}>
+              <FlashCardNavigation onPrevious={handlePrevious} onNext={handleNext}>
                 <WordCard
-                    word={currentWord}
-                    onFavoriteToggle={() =>
+                  word={currentWord}
+                  onFavoriteToggle={() =>
                     handleFavoriteToggle(currentWord.wordTranslationId, currentWord.isFavorite)
-                    }
-                    onChangeImage={() => handleChangeImage(currentWord.wordTranslationId)}
-                    width={500}
-                    height={500}
+                  }
+                  onChangeImage={() => handleChangeImage(currentWord.wordTranslationId)}
+                  onDelete={() => {
+                    setWords(prev => {
+                      const newWords = prev.filter(w => w.wordTranslationId !== currentWord.wordTranslationId);
+                      if (currentIndex >= newWords.length) {
+                        setCurrentIndex(newWords.length - 1 >= 0 ? newWords.length - 1 : 0);
+                      }
+                      return newWords;
+                    });
+                  }}
+                  onUpdate={(updatedWord) => {
+                    setWords(prev =>
+                      prev.map(w =>
+                        w.wordTranslationId === updatedWord.wordTranslationId ? updatedWord : w
+                      )
+                    );
+                  }}
+                  width={500}
+                  height={500}
                 />
-                </FlashCardNavigation>
+
+              </FlashCardNavigation>
             )}
-            </div>
+          </div>
         </div>
-        </div>
+      </div>
     </>
-    
+
   );
 };
 

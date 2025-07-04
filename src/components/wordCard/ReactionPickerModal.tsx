@@ -1,7 +1,7 @@
 import React from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-import { X } from "lucide-react"; // o cualquier ícono de cerrar
+import { X } from "lucide-react"; 
 import { reactionTypes } from "@/types/reactionTypes";
 
 interface Props {
@@ -19,9 +19,7 @@ const ReactionPickerModal: React.FC<Props> = ({
 }) => (
   <Dialog open={open} onOpenChange={onClose}>
     <DialogContent
-      className="max-w-fit p-3 bg-gray-900 text-white rounded-full flex gap-3 items-center border border-white/20"
-
-    >
+      className="max-w-fit p-3 bg-gray-900 text-white rounded-full flex gap-3 items-center border border-white/20">
       {reactionTypes.map(({ emoji, key }) => (
         <button
           key={key}
@@ -36,7 +34,6 @@ const ReactionPickerModal: React.FC<Props> = ({
         </button>
       ))}
 
-      {/* ❌ Botón de cerrar como parte de la fila */}
       <button
         onClick={onClose}
         title="Close"
