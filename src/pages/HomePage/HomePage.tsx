@@ -92,7 +92,7 @@ const HomePage: React.FC = () => {
 
         <div className="flex flex-wrap gap-4 pt-2 justify-center">
           <Link to="/dashboard">
-            <Button className="bg-blue-600 text-white px-6 py-4 text-lg rounded-xl hover:bg-blue-700 flex items-center gap-2">
+            <Button className="bg-blue-600 text-white px-4 py-2 h-10 text-base rounded-xl hover:bg-blue-700 flex items-center gap-2 md:px-6 md:py-4 md:text-lg">
               <FaRocket /> Start Learning
             </Button>
           </Link>
@@ -100,7 +100,7 @@ const HomePage: React.FC = () => {
           <Link to="/myWords">
             <Button
               variant="outline"
-              className="text-blue-600 border-blue-600 px-6 py-4 text-lg rounded-xl flex items-center gap-2 dark:bg-[#B5CFD4] dark:border-[6EA0AB] dark:text-[6EA0AB]"
+              className="text-blue-600 border-blue-600 px-4 py-2 h-10 text-base rounded-xl flex items-center gap-2 dark:bg-[#B5CFD4] dark:border-[6EA0AB] dark:text-[6EA0AB] md:px-6 md:py-4 md:text-lg"
             >
               <FaBook /> My Words
             </Button>
@@ -108,7 +108,7 @@ const HomePage: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex justify-center mt-10 md:mt-0">
+      <div className="flex justify-center mt-10 md:mt-0 hidden md:block">
         <img
           src={isDark ? "/idiomago-dark.svg" : "/idiomago-white.svg"}
           alt="Idiomago Logo"

@@ -34,8 +34,8 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout, userInfo }) => {
   return (
     <div className="w-64 bg-[#1B3B48] text-white dark:bg-background dark:text-foreground p-6 flex flex-col h-screen">
       <div className="flex items-center gap-3 mb-8">
-        <UserIcon className="h-8 w-8" />
-        <h2 className="text-xl font-semibold">Idiomago</h2>
+        <img src="/idiomago-white.svg" alt="idiomago" className="w-20 dark:hidden" />
+        <img src="/idiomago-dark.svg" alt="idiomago" className="w-20 hidden dark:block" />
       </div>
 
       <nav className="flex-1 space-y-2">

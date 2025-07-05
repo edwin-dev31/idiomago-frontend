@@ -24,9 +24,9 @@ const WordCardFooterInfo: React.FC<FooterInfoProps> = ({
 
       <div className="flex flex-col justify-center text-xs leading-tight text-gray-600 dark:text-gray-400">
         <span className="text-sm font-semibold text-blue-900 dark:text-gray-600">{username}</span>
-        <div className="flex items-center gap-1">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-0 sm:gap-1">
           <span>🌐 {language.toUpperCase()}</span>
-          <span>· {postedAt}</span>
+          <span className="mt-1 sm:mt-0">· {postedAt}</span>
         </div>
       </div>
     </div>

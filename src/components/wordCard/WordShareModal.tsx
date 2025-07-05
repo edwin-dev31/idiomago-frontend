@@ -77,13 +77,13 @@ const WordShareModal: React.FC<Props> = ({ word, onClose, open }) => {
 
 
 
-      <DialogContent className="max-w-4xl">
+      <DialogContent className="max-w-xs mx-auto p-4 md:p-6 md:max-w-4xl">
         <DialogTitle>
           <VisuallyHidden>Share Word</VisuallyHidden>
         </DialogTitle>
 
-        <div className="flex flex-col md:flex-row gap-8">
-          <div className="flex-1 flex items-center justify-center min-h-[360px]">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-8">
+          <div className="flex-1 flex items-center justify-center">
             <div
               id="word-card-preview"
               className="bg-white rounded-2xl shadow-xl p-4"
@@ -104,7 +104,7 @@ const WordShareModal: React.FC<Props> = ({ word, onClose, open }) => {
             </div>
           </div>
 
-          <div className="w-[260px] flex flex-col justify-center gap-4">
+          <div className="w-full md:w-[260px] flex flex-col justify-center gap-4">
             <h2 className="text-2xl font-bold text-blue-900 text-center dark:text-white">Save word</h2>
 
             <div>
@@ -118,12 +118,13 @@ const WordShareModal: React.FC<Props> = ({ word, onClose, open }) => {
 
             <div>
               <Label>Escalar</Label>
-              <div className="flex gap-2 mt-1">
+              <div className="flex gap-2 mt-1 w-full">
                 {[1, 2, 3].map((s) => (
                   <Button
                     key={s}
                     variant={scale === s ? "default" : "outline"}
                     onClick={() => setScale(s)}
+                    className="flex-1"
                   >
                     {s}x
                   </Button>
@@ -131,8 +132,8 @@ const WordShareModal: React.FC<Props> = ({ word, onClose, open }) => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-2">
-              <div className="flex gap-2">
+            <div className="flex flex-col gap-2 items-center">
+              <div className="flex gap-2 w-full">
                 <Button onClick={() => handleDownload("png")} className="flex-1">
                   <Download className="w-4 h-4 mr-1" />
                   PNG
@@ -143,7 +144,7 @@ const WordShareModal: React.FC<Props> = ({ word, onClose, open }) => {
                 </Button>
               </div>
 
-              <Button onClick={handleCopyToClipboard}>
+              <Button onClick={handleCopyToClipboard} className="w-full">
                 <ClipboardCopy className="w-4 h-4 mr-1" />
                 Copiar al portapapeles
               </Button>

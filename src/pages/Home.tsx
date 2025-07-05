@@ -36,8 +36,7 @@ const Home: React.FC = () => {
           <Sidebar onLogout={handleLogout} userInfo={userInfo} />
       </div>
       <div className="md:hidden">
-        <header className="sticky top-0 z-10 flex h-16 items-center justify-between border-b bg-background px-4">
-          <div /> 
+        <header className="sticky top-0 z-10 flex h-16 items-center justify-end border-b bg-background px-4">
           <MobileMenu onLogout={handleLogout} userInfo={userInfo} />
         </header>
       </div>
