@@ -7,17 +7,17 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useUserInfo } from "@/lib/hooks/Users/useUserInfo";
 import { useUpdateUserInfo } from "@/lib/hooks/Users/useUpdateUserInfo";
 import { toast } from "react-hot-toast";
+import { User } from "@/types/user";
 
 interface Props {
   open: boolean;
   onClose: () => void;
+  userInfo: User | null;
 }
 
-const UserUpdateModal: React.FC<Props> = ({ open, onClose }) => {
-  const { user } = useUserInfo();
+const UserUpdateModal: React.FC<Props> = ({ open, onClose, userInfo }) => {
   const { updateUserInfo } = useUpdateUserInfo();
 
   const [username, setUsername] = useState("");
@@ -25,11 +25,11 @@ const UserUpdateModal: React.FC<Props> = ({ open, onClose }) => {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    if (user) {
-      setUsername(user.username ?? "");
-      setEmail(user.email ?? "");
+    if (userInfo) {
+      setUsername(userInfo.username ?? "");
+      setEmail(userInfo.email ?? "");
     }
-  }, [user]);
+  }, [userInfo]);
 
   const handleUpdate = async () => {
     const payload: {
@@ -43,7 +43,7 @@ const UserUpdateModal: React.FC<Props> = ({ open, onClose }) => {
     const trimmedPassword = password.trim();
 
     // Username validation
-    if (trimmedUsername && trimmedUsername !== user?.username) {
+    if (trimmedUsername && trimmedUsername !== userInfo?.username) {
       if (trimmedUsername.length < 3 || trimmedUsername.length > 20) {
         toast.error("Username must be between 3 and 20 characters");
         return;
@@ -52,7 +52,7 @@ const UserUpdateModal: React.FC<Props> = ({ open, onClose }) => {
     }
 
     // Email validation
-    if (trimmedEmail && trimmedEmail !== user?.email) {
+    if (trimmedEmail && trimmedEmail !== userInfo?.email) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(trimmedEmail)) {
         toast.error("Email must be valid");
@@ -88,7 +88,7 @@ const UserUpdateModal: React.FC<Props> = ({ open, onClose }) => {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="border bg-white p-6 rounded-xl shadow-md dark:bg-[#1A1A1A] dark:border-gray-900">
+      <DialogContent className="border bg-white p-6 rounded-xl shadow-md dark:bg-[#1A1A1A] dark:border-gray-900 max-w-xs mx-auto md:max-w-lg">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-center text-blue-900 dark:text-white">
             Update Profile

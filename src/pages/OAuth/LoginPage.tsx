@@ -44,26 +44,26 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 dark:from-black">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 dark:from-black px-4">
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white/80 dark:bg-[#191919] dark:border-[#424242] border backdrop-blur-sm p-8 rounded-3xl shadow-xl w-96"
+        className="bg-white/80 dark:bg-[#191919] dark:border-[#424242] border backdrop-blur-sm p-4 sm:p-8 rounded-3xl shadow-xl max-w-xs mx-auto sm:max-w-sm"
       >
-        <h2 className="text-4xl font-bold text-center text-blue-900 mb-8 dark:text-[#38b6ff]">LOGIN</h2>
-        <form className="space-y-6" onSubmit={handleLogin}>
+        <h2 className="text-3xl font-bold text-center text-blue-900 mb-6 dark:text-[#38b6ff]">LOGIN</h2>
+        <form className="space-y-4" onSubmit={handleLogin}>
           <div className="relative">
-            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-400 h-5 w-5" />
+            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-400 h-4 w-4" />
             <Input
               name="email"
               type="email"
               placeholder="Email"
               value={form.email}
               onChange={handleChange}
-              className="pl-10 h-12 rounded-xl bg-blue-50/50 border-blue-100 
+              className="pl-10 h-10 rounded-xl bg-blue-50/50 border-blue-100 
                 dark:bg-[#2a2a2a] dark:border-[#424242] text-black dark:text-white 
                 placeholder:text-gray-400 dark:placeholder:text-gray-500"
 
@@ -71,16 +71,16 @@ const Login: React.FC = () => {
             />
           </div>
           <div className="relative">
-            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-400 h-5 w-5" />
+            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-400 h-4 w-4" />
             {showPassword ? (
               <EyeOff
                 onClick={() => setShowPassword(false)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-400 cursor-pointer h-5 w-5"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-400 cursor-pointer h-4 w-4"
               />
             ) : (
               <Eye
                 onClick={() => setShowPassword(true)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-400 cursor-pointer h-5 w-5"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-400 cursor-pointer h-4 w-4"
               />
             )}
             <Input
@@ -89,7 +89,7 @@ const Login: React.FC = () => {
               placeholder="Password"
               value={form.password}
               onChange={handleChange}
-              className="pl-10 h-12 rounded-xl bg-blue-50/50 border-blue-100 
+              className="pl-10 h-10 rounded-xl bg-blue-50/50 border-blue-100 
                 dark:bg-[#2a2a2a] dark:border-[#424242] text-black dark:text-white 
                 placeholder:text-gray-400 dark:placeholder:text-gray-500"
               required  
@@ -97,7 +97,7 @@ const Login: React.FC = () => {
           </div>
           <Button
             type="submit"
-            className="w-full h-12 bg-blue-500 hover:bg-blue-600 rounded-xl text-lg font-semibold dark:text-white "
+            className="w-full h-10 bg-blue-500 hover:bg-blue-600 rounded-xl text-lg font-semibold dark:text-white "
           >
             Login
           </Button>
@@ -111,37 +111,37 @@ const Login: React.FC = () => {
             </div>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2">
             <Button
               variant="outline"
-              className="w-full h-12 rounded-xl flex items-center justify-center space-x-2 "
+              className="w-full h-10 rounded-xl flex items-center justify-center space-x-2 "
               onClick={() =>
                 (window.location.href = `${javaOauth}/facebook` )
               }
             >
-              <FaFacebookF className="w-5 h-5 text-blue-600" />
+              <FaFacebookF className="w-4 h-4 text-blue-600" />
               <span className="text-blue-900 dark:text-[#38b6ff]">Login with Facebook</span>
             </Button>
 
             <Button
               variant="outline"
-              className="w-full h-12 rounded-xl flex items-center justify-center space-x-2 "
+              className="w-full h-10 rounded-xl flex items-center justify-center space-x-2 "
               onClick={() =>
                 (window.location.href = `${javaOauth}/google`)
               }
             >
-              <FcGoogle className="w-5 h-5" />
+              <FcGoogle className="w-4 h-4" />
               <span className="text-blue-900 dark:text-[#38b6ff]">Login with Google</span>
             </Button>
 
             <Button
               variant="outline"
-              className="w-full h-12 rounded-xl flex items-center justify-center space-x-2"
+              className="w-full h-10 rounded-xl flex items-center justify-center space-x-2"
               onClick={() =>
                 (window.location.href = `${javaOauth}/github`)
               }
             >
-              <FaGithub className="w-5 h-5 text-gray-800" />
+              <FaGithub className="w-4 h-4 text-gray-800" />
               <span className="text-blue-900 dark:text-[#38b6ff]">Login with GitHub</span>
             </Button>
 

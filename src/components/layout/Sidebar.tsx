@@ -1,21 +1,25 @@
-// src/components/layout/Sidebar.tsx
 import React from "react";
 import {
   Home, LayoutDashboard, Brain, DiamondPlus,
-  BookText, Filter, Bookmark, LogOut, User,
+  BookText, Filter, Bookmark, LogOut, User as UserIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useLocation, useNavigate } from "react-router-dom";
 import ThemeToggle from "@/components/layout/ThemeToggle";
 import UserUpdateTrigger from "./UserUpdateTrigger";
+import { User } from "@/types/user";
+
 interface SidebarProps {
   onLogout: () => void;
+  userInfo: User | null;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ onLogout }) => {
+const Sidebar: React.FC<SidebarProps> = ({ onLogout, userInfo }) => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const isLoggedIn = !!userInfo;
 
   const menuItems = [
     { id: "home", label: "Home", icon: Home, path: "/home" },
@@ -30,7 +34,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout }) => {
   return (
     <div className="w-64 bg-[#1B3B48] text-white dark:bg-background dark:text-foreground p-6 flex flex-col h-screen">
       <div className="flex items-center gap-3 mb-8">
-        <User className="h-8 w-8" />
+        <UserIcon className="h-8 w-8" />
         <h2 className="text-xl font-semibold">Idiomago</h2>
       </div>
 
@@ -51,8 +55,8 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout }) => {
       </nav>
 
       <Separator className="my-4 bg-white/20" />
-      <ThemeToggle /> 
-      <UserUpdateTrigger />
+      <ThemeToggle isLoggedIn={isLoggedIn} /> 
+      <UserUpdateTrigger userInfo={userInfo} />
       <Button
         variant="ghost"
         className="w-full justify-start text-white hover:bg-white/10"

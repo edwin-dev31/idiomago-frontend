@@ -62,7 +62,7 @@ const SaveMultipleWordForm: React.FC<Props> = ({ onSearch }) => {
 
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md w-full dark:border-gray-100 max-w-[550px] border">
+    <div className="bg-white p-4 rounded-xl shadow-md w-full dark:border-gray-100 max-w-[550px] border">
       <h2 className="text-xl font-bold mb-4 text-center text-blue-900">Search or save words with IA</h2>
 
       <div className="mb-4">
@@ -95,8 +95,8 @@ const SaveMultipleWordForm: React.FC<Props> = ({ onSearch }) => {
 
 
         
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
-        <label className="text-sm self-center text-blue-900">Category *</label>
+      <div className="flex flex-col md:grid md:grid-cols-2 gap-2 mb-4">
+        <label className="text-sm block mb-1 text-blue-900">Category *</label>
         <CategorySelectorWithCreate
           selected={category.toString()}
           onSelect={(val) => {
@@ -110,7 +110,7 @@ const SaveMultipleWordForm: React.FC<Props> = ({ onSearch }) => {
 
       <Button
         onClick={handleSubmit}
-          className="w-full bg-[#1B3B48] text-white rounded-full py-2 mb-4 hover:bg-[#162f39] dark:hover:bg-[#10242e]">
+          className="w-full bg-[#1B3B48] text-white rounded-full py-2 mb-2 hover:bg-[#162f39] dark:hover:bg-[#10242e]">
         Search
       </Button>
     </div>

@@ -73,11 +73,11 @@ const SavePage: React.FC = () => {
     <>
       <FilterAndSearchHeader />
       <div className="flex flex-col items-center min-h-[80vh] p-4">
-        <div className="w-full max-w-7xl flex justify-between gap-8 mt-6">
-          <div className="w-[550px] bg-white rounded-xl shadow-md border border-gray-200 p-4 min-h-[500px]">
+        <div className="w-full max-w-7xl flex flex-col md:flex-row md:items-start justify-center gap-4 md:gap-8 mt-6">
+          <div className="w-full md:w-[450px] bg-white rounded-xl shadow-md border border-gray-200 p-4">
             <SaveCustomWordForm onSearch={handleSaveSingle} />
           </div>
-          <div className="flex-1 flex items-center justify-center">
+          <div className="flex-1 w-full flex items-center justify-center">
             {loading ? (
               <p className="text-gray-500">Loading...</p>
             ) : words.length === 0 ? (
@@ -108,8 +108,6 @@ const SavePage: React.FC = () => {
                       )
                     );
                   }}
-                  width={500}
-                  height={500}
                 />
 
               </FlashCardNavigation>
