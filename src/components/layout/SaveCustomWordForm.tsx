@@ -61,7 +61,7 @@ const SaveCustomWordForm: React.FC<Props> = ({ onSearch }) => {
     <div className="bg-white p-6 rounded-xl shadow-md  dark:border-gray-100 w-full max-w-[550px] border">
       <h2 className="text-xl font-bold mb-4 text-center text-blue-900">Save personal word</h2>
 
-      <div className="grid grid-cols-2 gap-2 mb-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
         <label className="text-sm self-center text-blue-900">Word *</label>
         <Input
           maxLength={21}
@@ -77,7 +77,7 @@ const SaveCustomWordForm: React.FC<Props> = ({ onSearch }) => {
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-2 mb-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
         <label className="text-sm self-center text-blue-900">Language *</label>
         <SingleSelector
           title="Select Language"
@@ -94,7 +94,7 @@ const SaveCustomWordForm: React.FC<Props> = ({ onSearch }) => {
           className="w-full "
         />
       </div>
-      <div className="grid grid-cols-2 gap-2 mb-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
         <label className="text-sm self-center text-blue-900">Category *</label>
         <CategorySelectorWithCreate
           selected={category.toString()}
@@ -106,12 +106,12 @@ const SaveCustomWordForm: React.FC<Props> = ({ onSearch }) => {
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-2 mb-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
         <label className="text-sm self-center text-blue-900">Visibility *</label>
         <RadioGroup
           value={visibility}
           onValueChange={(val) => setVisibility(val as Visibility)}
-          className="flex gap-4 w-full"
+          className="flex flex-wrap gap-4 w-full"
         >
           {[{ label: "Private", value: Visibility.PRIVATE }, { label: "Public", value: Visibility.PUBLIC }].map((option) => (
             <label

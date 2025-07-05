@@ -17,7 +17,7 @@ const WordCardFooterManager: React.FC<Props> = ({ word }) => {
   if (!footer) return null;
 
   return (
-    <div className="border-t pt-3 px-6 flex items-center justify-between">
+    <div className="border-t pt-3 px-4 flex flex-col md:flex-row items-center justify-between gap-2 md:gap-0">
       <WordCardFooterInfo
         imageUrl={footer.imageUrl}
         username={footer.username}

@@ -19,7 +19,7 @@ const ReactionPickerModal: React.FC<Props> = ({
 }) => (
   <Dialog open={open} onOpenChange={onClose}>
     <DialogContent
-      className="max-w-fit p-3 bg-gray-900 text-white rounded-full flex gap-3 items-center border border-white/20">
+      className="p-3 bg-gray-900 text-white rounded-full flex gap-2 items-center border border-white/20">
       {reactionTypes.map(({ emoji, key }) => (
         <button
           key={key}

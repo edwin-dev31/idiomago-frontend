@@ -39,7 +39,7 @@ const Home: React.FC = () => {
           <MobileMenu onLogout={handleLogout} />
         </header>
       </div>
-      <main className="flex-1 md:ml-64 p-4 overflow-y-auto">
+      <main className="flex-1 md:ml-64 p-4 overflow-y-auto scrollbar-hide">
         <Outlet />
       </main>
       <Toaster />

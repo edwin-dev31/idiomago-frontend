@@ -6,7 +6,7 @@ const FilterHeader: React.FC = () => {
     <>
       <h1 className="text-2xl font-bold text-[#1B3B48] dark:text-white mb-6">Featured Words</h1>
 
-      <div className="flex gap-4 mb-8">
+      <div className="flex flex-wrap gap-4 mb-8">
         {["Spanish", "English", "German"].map((lang) => (
           <motion.div
             key={lang}

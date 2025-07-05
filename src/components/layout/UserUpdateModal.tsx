@@ -88,7 +88,7 @@ const UserUpdateModal: React.FC<Props> = ({ open, onClose }) => {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-[550px] border bg-white p-6 rounded-xl shadow-md dark:bg-[#1A1A1A] dark:border-gray-900">
+      <DialogContent className="border bg-white p-6 rounded-xl shadow-md dark:bg-[#1A1A1A] dark:border-gray-900">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-center text-blue-900 dark:text-white">
             Update Profile
@@ -96,7 +96,7 @@ const UserUpdateModal: React.FC<Props> = ({ open, onClose }) => {
         </DialogHeader>
 
         <div className="space-y-3">
-          <div className="grid grid-cols-2 gap-2 mb-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
             <label className="text-sm self-center text-blue-900 dark:text-white">Username</label>
             <Input
               placeholder="Username"
@@ -106,7 +106,7 @@ const UserUpdateModal: React.FC<Props> = ({ open, onClose }) => {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-2 mb-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
             <label className="text-sm self-center text-blue-900 dark:text-white">Email</label>
             <Input
               placeholder="Email"
@@ -117,7 +117,7 @@ const UserUpdateModal: React.FC<Props> = ({ open, onClose }) => {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-2 mb-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
             <label className="text-sm self-center text-blue-900 dark:text-white">Password</label>
             <Input
               placeholder="Password"

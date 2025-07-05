@@ -51,7 +51,7 @@ const EditTranslationModal: React.FC<Props> = ({ word, onClose, open, onUpdate }
 
     return (
         <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
-            <DialogContent className="max-w-lg border dark:border-gray-100 bg-white p-6 rounded-xl shadow-md w-full">
+            <DialogContent className="border dark:border-gray-100 bg-white p-4 md:p-6 rounded-xl shadow-md w-full">
                 <h2 className="text-xl font-bold mb-4 text-center text-blue-900">Edit translation</h2>
 
                 <div className="mb-2">

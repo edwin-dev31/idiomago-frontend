@@ -47,13 +47,12 @@ const WordCard: React.FC<WordCardProps> = ({
       <motion.div
         id={`word-card-${word.wordTranslationId}`}
         whileHover={{ scale: 1.02 }}
-        className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden dark:bg-white"
-        style={{ width: `${width}px`, height: `${height}px` }}
+        className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden dark:bg-white h-full"
       >
         <div className="relative">
           <img
             alt="Word illustration"
-            className="w-full h-48 object-cover"
+            className="w-full h-40 md:h-48 object-cover"
             src={
               word.imageUrl ||
               "https://images.unsplash.com/photo-1613235527857-bf2d37e5b350"
@@ -61,7 +60,7 @@ const WordCard: React.FC<WordCardProps> = ({
           />
 
           {!hideShape && (
-            <div className="absolute top-4 left-4">
+            <div className="absolute top-2 left-2 md:top-4 md:left-4">
               <WordCardOptionsDropdown
                 onChangeImage={onChangeImage}
                 onEditTranslation={() => openEditModal(word, onUpdate)}
@@ -72,23 +71,23 @@ const WordCard: React.FC<WordCardProps> = ({
             </div>
           )}
 
-          <div className="absolute top-4 right-4">
+          <div className="absolute top-2 right-2 md:top-4 md:right-4">
             <Button
               variant="ghost"
               size="icon"
               onClick={() => onFavoriteToggle(word.wordId)}
             >
               <Heart
-                className={`h-6 w-6 ${word.isFavorite ? "fill-red-500 text-red-500" : "text-white"
+                className={`h-5 w-5 md:h-6 md:w-6 ${word.isFavorite ? "fill-red-500 text-red-500" : "text-white"
                   }`}
               />
             </Button>
           </div>
         </div>
 
-        <div className="p-6">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-bold text-blue-900">
+        <div className="p-4 md:p-6">
+          <div className="flex justify-between items-center mb-2 md:mb-4">
+            <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-blue-900">
               {word.translatedWord.toUpperCase()}
             </h2>
             <Button
@@ -99,26 +98,26 @@ const WordCard: React.FC<WordCardProps> = ({
                 // Aquí podrías agregar funcionalidad de Text-to-Speech
               }}
             >
-              <Volume2 className="h-5 w-5 text-blue-900" />
+              <Volume2 className="h-4 w-4 md:h-5 md:w-5 text-blue-900" />
             </Button>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-2 md:space-y-4">
             <div>
               <h4 className="text-sm font-semibold text-blue-900">
                 Description
               </h4>
-              <p className="text-gray-700">{word.translatedDescription}</p>
+              <p className="text-gray-700 text-sm">{word.translatedDescription}</p>
             </div>
 
             <div>
               <h4 className="text-sm font-semibold text-blue-900">Example:</h4>
-              <p className="text-gray-700 italic">{word.translatedExample}</p>
+              <p className="text-gray-700 italic text-xs md:text-sm">{word.translatedExample}</p>
             </div>
           </div>
         </div>
 
-        <div className="mb-4">
+        <div className="mb-2 md:mb-4">
           <WordCardFooterManager word={word} />
         </div>
       </motion.div>

@@ -95,7 +95,7 @@ const SaveMultipleWordForm: React.FC<Props> = ({ onSearch }) => {
 
 
         
-      <div className="grid grid-cols-2 gap-2 mb-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
         <label className="text-sm self-center text-blue-900">Category *</label>
         <CategorySelectorWithCreate
           selected={category.toString()}
