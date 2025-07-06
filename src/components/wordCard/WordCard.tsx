@@ -18,6 +18,7 @@ interface WordCardProps {
   width?: number;
   height?: number;
   hideShape?: boolean;
+  hideReactions?: boolean;
 }
 
 const WordCard: React.FC<WordCardProps> = ({
@@ -28,7 +29,8 @@ const WordCard: React.FC<WordCardProps> = ({
   onUpdate,
   width,
   height,
-  hideShape
+  hideShape,
+  hideReactions
 }) => {
   const { openModal: openShareModal, ShareModal } = useShareModal();
   const { openModal: openEditModal, EditModal } = useEditModal();
@@ -120,7 +122,7 @@ const WordCard: React.FC<WordCardProps> = ({
         </div>
 
         <div className="mb-2 md:mb-4">
-          <WordCardFooterManager word={word} />
+          <WordCardFooterManager word={word} hideReactions={hideReactions} />
         </div>
       </motion.div>
 

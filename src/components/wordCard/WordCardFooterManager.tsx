@@ -5,9 +5,10 @@ import WordCardFooterActions from "./WordCardFooterActions";
 import { Word } from "@/types/WordView";
 interface Props {
   word: Word;
+  hideReactions?: boolean;
 }
 
-const WordCardFooterManager: React.FC<Props> = ({ word }) => {
+const WordCardFooterManager: React.FC<Props> = ({ word, hideReactions }) => {
   const { footers, loading } = useWordFooters();
 
   if (loading) return null;
@@ -26,6 +27,7 @@ const WordCardFooterManager: React.FC<Props> = ({ word }) => {
       />
       <WordCardFooterActions
         word={word}
+        hideReactions={hideReactions}
       />
     </div>
   );

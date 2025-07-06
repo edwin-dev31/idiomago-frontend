@@ -106,6 +106,7 @@ const WordShareModal: React.FC<Props> = ({ word, onClose, open }) => {
                   onDelete={() => { }}
                   onUpdate={() => { }}
                   hideShape={true}
+                  hideReactions={true}
                 />
               </div>
             </div>
