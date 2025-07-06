@@ -28,7 +28,7 @@ const WordShareModal: React.FC<Props> = ({ word, onClose, open }) => {
   const previewScaleMap: Record<number, number> = {
     1: 0.6,
     2: 0.8,
-    3: 1,
+    3: 1.2,
   };
 
   const captureCard = async (): Promise<Blob | null> => {
@@ -41,7 +41,7 @@ const WordShareModal: React.FC<Props> = ({ word, onClose, open }) => {
     const canvas = await html2canvas(preview, {
       scale,
       useCORS: true,
-      backgroundColor: "#ffffff",
+      backgroundColor: null, // <--- clave para fondo transparente
       removeContainer: true,
       logging: false,
     });
@@ -85,23 +85,31 @@ const WordShareModal: React.FC<Props> = ({ word, onClose, open }) => {
         <div className="flex flex-col md:flex-row gap-4 md:gap-8">
           <div className="flex-1 flex items-center justify-center">
             <div
-              id="word-card-preview"
-              className="bg-white rounded-2xl shadow-xl p-4"
+              id="word-card-preview-wrapper"
               style={{
-                transform: `scale(${previewScaleMap[scale]})`,
-                transformOrigin: "center",
-                display: "inline-block",
+                padding: "32px",
+                backgroundColor: "transparent",
               }}
             >
-              <WordCard
-                word={word}
-                onChangeImage={() => {}}
-                onFavoriteToggle={() => {}}
-                onDelete={() => {}}
-                onUpdate={() => {}}
-                hideShape={true}
-              />
+              <div
+                id="word-card-preview"
+                style={{
+                  transform: `scale(${previewScaleMap[scale]})`,
+                  transformOrigin: "center",
+                  display: "inline-block",
+                }}
+              >
+                <WordCard
+                  word={word}
+                  onChangeImage={() => { }}
+                  onFavoriteToggle={() => { }}
+                  onDelete={() => { }}
+                  onUpdate={() => { }}
+                  hideShape={true}
+                />
+              </div>
             </div>
+
           </div>
 
           <div className="w-full md:w-[260px] flex flex-col justify-center gap-4">

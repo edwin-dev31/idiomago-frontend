@@ -47,8 +47,10 @@ const WordCard: React.FC<WordCardProps> = ({
       <motion.div
         id={`word-card-${word.wordTranslationId}`}
         whileHover={{ scale: 1.02 }}
-        className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden dark:bg-white h-full"
+        className="relative rounded-3xl shadow-2xl overflow-hidden bg-white dark:bg-white transition-all"
+        style={{ background: "rgba(255, 255, 255, 0.85)", backdropFilter: "blur(8px)" }}
       >
+
         <div className="relative">
           <img
             alt="Word illustration"
