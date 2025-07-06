@@ -9,7 +9,6 @@ interface Props {
 }
 
 const WordCardFooterActions: React.FC<Props> = ({ word }) => {
-  
   const { reactions, addReaction, deleteReaction } = useReactions(word.wordTranslationId);
 
   const topReactions = reactionTypes
@@ -24,35 +23,32 @@ const WordCardFooterActions: React.FC<Props> = ({ word }) => {
   const totalCount = reactions.length;
 
   return (
-    <>
-      <div className="flex flex-col items-center text-gray-500 text-sm pt-2">
-
-        <div className="flex gap-1 mt-2 items-center">
-          <div className="flex -space-x-1">
-            {topReactions.map(({ emoji }) => (
-              <span
-                key={emoji}
-                className="text-lg bg-white rounded-full shadow-sm px-[2px] border border-gray-300"
-              >
-                {emoji}
-              </span>
-            ))}
-          </div>
-
-          {totalCount > 0 && (
-            <span className="text-sm text-gray-600 ml-2 font-medium">
-              {Intl.NumberFormat("en", { notation: "compact" }).format(totalCount)}
+    <div className="flex gap-1 mt-2 items-center">
+      <div className="flex -space-x-1">
+        {topReactions.map(({ emoji }) => (
+          <span
+            key={emoji}
+            className="w-6 h-6 flex items-center justify-center bg-white rounded-full border border-gray-300 font-emoji text-[14px] leading-none relative"
+          >
+            <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+              {emoji}
             </span>
-          )}
-
-          <WordReactionsController
-            reactions={reactions}
-            addReaction={addReaction}
-            deleteReaction={deleteReaction}
-          />
-        </div>
+          </span>
+        ))}
       </div>
-    </>
+
+      {totalCount > 0 && (
+        <span className="text-sm text-gray-600 ml-2 font-medium">
+          {Intl.NumberFormat("en", { notation: "compact" }).format(totalCount)}
+        </span>
+      )}
+
+      <WordReactionsController
+        reactions={reactions}
+        addReaction={addReaction}
+        deleteReaction={deleteReaction}
+      />
+    </div>
   );
 };
 

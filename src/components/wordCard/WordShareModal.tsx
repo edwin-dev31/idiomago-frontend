@@ -26,8 +26,8 @@ const WordShareModal: React.FC<Props> = ({ word, onClose, open }) => {
   const [scale, setScale] = useState(1);
 
   const previewScaleMap: Record<number, number> = {
-    1: 0.6,
-    2: 0.8,
+    1: 0.8,
+    2: 1.0,
     3: 1.2,
   };
 
