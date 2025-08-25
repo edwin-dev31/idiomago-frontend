@@ -1,9 +1,9 @@
-import axios from "axios"
+import axios from "axios";
 
 const javaAPI = axios.create({
-  baseURL: "https://idiomago-app-84aa3f1a7db9.herokuapp.com/idiomago"
+  baseURL: "http://partial-sabine-idiomago-c4716f6f.koyeb.app/idiomago",
+});
 
-})
-
-const javaOauth = "https://idiomago-app-84aa3f1a7db9.herokuapp.com/idiomago/oauth2/authorization"
-export { javaAPI, javaOauth }
+const javaOauth =
+  "http://partial-sabine-idiomago-c4716f6f.koyeb.app/idiomago/oauth2/authorization";
+export { javaAPI, javaOauth };
