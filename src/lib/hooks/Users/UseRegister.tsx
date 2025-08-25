@@ -11,11 +11,13 @@ interface RegisterData {
 export function useRegister() {
   const register = async ({ username, email, password }: RegisterData) => {
     try {
+      console.log(`➡️ Requesting Register: ${javaAPI.defaults.baseURL}${apiRoutes.register}`); // Log the full URL
       const response = await javaAPI.post(apiRoutes.register, {
         username,
         email,
         password,
       });
+      console.log(`✅ Response from Register:`, response.data); // Log the response data
 
       const message = response.data?.message || "Registration successful.";
 

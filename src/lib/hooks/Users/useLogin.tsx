@@ -13,7 +13,9 @@ export function useLogin() {
 
   const login = async ({ email, password }: LoginData) => {
     try {
+      console.log(`➡️ Requesting Login: ${javaAPI.defaults.baseURL}${apiRoutes.login}`); // Log the full URL
       const response = await javaAPI.post(apiRoutes.login, { email, password });
+      console.log(`✅ Response from Login:`, response.data); // Log the response data
 
       const token = response.data?.token;
       const userId = response.data?.userId;

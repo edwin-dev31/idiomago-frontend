@@ -6,7 +6,7 @@ export function useFilterByLanguage() {
   const { filterMultiple } = useWordFilter();
 
   const filter = async (codes: string[]): Promise<Word[]> => {
-    const urls = codes.map(code => apiRoutes.search.byLanguage(code));
+    const urls = codes.map((code) => apiRoutes.search.byLanguage(code));
     return await filterMultiple(urls);
   };
 

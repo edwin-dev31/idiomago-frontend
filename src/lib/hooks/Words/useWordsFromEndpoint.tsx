@@ -15,9 +15,11 @@ function useWordsFromEndpoint(endpoint: string) {
   useEffect(() => {
     const fetchWords = async () => {
       try {
+        console.log(`➡️ Requesting: ${javaAPI.defaults.baseURL}${endpoint}`); // Log the full URL
         const response = await javaAPI.get(endpoint, {
           headers: authHeaders,
         });
+        console.log(`✅ Response from ${endpoint}:`, response.data); // Log the response data
 
         const wordsWithFavorites: Word[] = response.data.map((word: any) => ({
           ...word,
