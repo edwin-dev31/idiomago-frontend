@@ -1,4 +1,3 @@
-// src/lib/hooks/useLogin.ts
 import { javaAPI } from "@/lib/axios";
 import { apiRoutes } from "@/lib/constants/apiRoutes";
 import { useAuthStorage } from "@/lib/hooks/useAuthStorage";
@@ -13,9 +12,11 @@ export function useLogin() {
 
   const login = async ({ email, password }: LoginData) => {
     try {
-      console.log(`➡️ Requesting Login: ${javaAPI.defaults.baseURL}${apiRoutes.login}`); // Log the full URL
+      console.log(
+        `➡️ Requesting Login: ${javaAPI.defaults.baseURL}${apiRoutes.login}`
+      );
       const response = await javaAPI.post(apiRoutes.login, { email, password });
-      console.log(`✅ Response from Login:`, response.data); // Log the response data
+      console.log(`✅ Response from Login:`, response.data);
 
       const token = response.data?.token;
       const userId = response.data?.userId;
@@ -26,7 +27,10 @@ export function useLogin() {
 
       return response.data;
     } catch (error: any) {
-      console.error("❌ Login error:", error.response?.data?.message || error.message);
+      console.error(
+        "❌ Login error:",
+        error.response?.data?.message || error.message
+      );
       throw error;
     }
   };

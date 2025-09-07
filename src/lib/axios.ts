@@ -1,9 +1,9 @@
 import axios from "axios";
+const BACKEND_URL = "https://idiomago.koyeb.app/idiomago";
 
 const javaAPI = axios.create({
-  baseURL: "https://partial-sabine-idiomago-c4716f6f.koyeb.app/idiomago",
+  baseURL: BACKEND_URL,
 });
 
-const javaOauth =
-  "https://partial-sabine-idiomago-c4716f6f.koyeb.app/idiomago/oauth2/authorization";
+const javaOauth = `${BACKEND_URL}/oauth2/authorization`;
 export { javaAPI, javaOauth };
