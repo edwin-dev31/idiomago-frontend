@@ -7,6 +7,25 @@ It is built using **React + Vite**, styled with **Tailwind CSS** and **shadcn/ui
 
 ---
 
+## 🖼️ A Visual Tour of IdiomaGo
+
+Explore the clean, modern, and user-friendly interface of IdiomaGo. The design focuses on providing an intuitive and engaging language-learning experience.
+
+### Welcome to IdiomaGo!
+
+![IdiomaGo Home Page](public/images/home.png)
+
+---
+
+### Share Your Knowledge
+
+Easily share vocabulary with friends or on social media with our beautifully designed word cards. Here’s a preview of how they look:
+
+**Desktop View**
+![Word Card Sharing - Desktop](public/images/share-card.png)
+
+---
+
 ## ✨ Features
 
 - ✅ **OAuth Login**: Authenticate using **Google**, **GitHub**, or **Facebook**
@@ -63,6 +82,7 @@ npm install
 ```
 
 ### 3. Start the development server
+
 ```bash
-npm run build
+npm run dev
 ```
