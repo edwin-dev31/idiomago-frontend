@@ -11,7 +11,7 @@
 
 A modern language learning web application built with **React 19** and **Vite**. It connects to the [IdiomaGo Backend](https://github.com/edwin-dev31/idiomago-backend) for authentication, translations, and AI-powered vocabulary.
 
-> **Live Demo:** [idiomago-frontend on Azure](https://delightful-field-0bf6cfa0f.2.azurestaticapps.net)
+> **Live Demo:** [idiomago-frontend on Azure](https://idiomago.dev-ka.duckdns.org)
 
 ## Features
 
