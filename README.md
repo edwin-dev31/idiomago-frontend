@@ -1,88 +1,81 @@
-# 🌐 IdiomaGo - Language Learning App (Frontend)
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React">
+  <img src="https://img.shields.io/badge/Vite-6-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite">
+  <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
+  <img src="https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS">
+  <img src="https://img.shields.io/badge/shadcn%2Fui-000000?style=for-the-badge&logo=shadcnui&logoColor=white" alt="shadcn/ui">
+  <img src="https://img.shields.io/badge/MIT-License-green?style=for-the-badge" alt="MIT License">
+</p>
 
-This is the frontend for **IdiomaGo**, a modern language learning web application.  
-It is built using **React + Vite**, styled with **Tailwind CSS** and **shadcn/ui**, and communicates with a backend written in **Spring Boot (Java)** using **PostgreSQL** as the database.
+# IdiomaGo Frontend
 
-🌍 Live Demo: [idiomago-frontend on Azure](https://delightful-field-0bf6cfa0f.2.azurestaticapps.net)
+A modern language learning web application built with **React 19** and **Vite**. It connects to the [IdiomaGo Backend](https://github.com/edwin-dev31/idiomago-backend) for authentication, translations, and AI-powered vocabulary.
 
----
+> **Live Demo:** [idiomago-frontend on Azure](https://delightful-field-0bf6cfa0f.2.azurestaticapps.net)
 
-## 🖼️ A Visual Tour of IdiomaGo
+## Features
 
-Explore the clean, modern, and user-friendly interface of IdiomaGo. The design focuses on providing an intuitive and engaging language-learning experience.
+| Feature | Description |
+|---------|-------------|
+| **OAuth Login** | Sign in with Google, GitHub, or Facebook |
+| **Email Verification** | Confirms valid email addresses on registration |
+| **40+ Languages** | Translation and practice support |
+| **AI Vocabulary** | Add new words via OpenAI (up to 4 languages per request) |
+| **Word Management** | Save, search, favorite, and organize learned words |
+| **Protected Routes** | Token-based authentication for secure access |
+| **Word Cards** | Share vocabulary with beautifully designed cards |
 
-### Welcome to IdiomaGo!
+## Tech Stack
 
-![IdiomaGo Home Page](public/images/home.png)
+| Technology | Purpose |
+|------------|---------|
+| **React 19** | UI framework |
+| **TypeScript 5.7** | Type-safe JavaScript |
+| **Vite 6.3** | Build tool and dev server |
+| **Tailwind CSS 3.4** | Utility-first styling |
+| **shadcn/ui + Radix UI** | Accessible component primitives |
+| **MUI Material 7** | UI component library |
+| **Framer Motion 12** | Declarative animations |
+| **Lucide React** | Icon library |
+| **Axios** | HTTP client |
+| **react-router-dom 7** | SPA routing |
+| **react-hot-toast** | Toast notifications |
 
----
+## Screenshots
 
-### Share Your Knowledge
+| Home Page | Word Card Sharing |
+|-----------|-------------------|
+| ![Home](public/images/home.png) | ![Share Card](public/images/share-card.png) |
 
-Easily share vocabulary with friends or on social media with our beautifully designed word cards. Here’s a preview of how they look:
+## Getting Started
 
-**Desktop View**
-![Word Card Sharing - Desktop](public/images/share-card.png)
-
----
-
-## ✨ Features
-
-- ✅ **OAuth Login**: Authenticate using **Google**, **GitHub**, or **Facebook**
-- ✅ **Email verification**: Sends a confirmation email upon registration to ensure valid addresses
-- 🌐 **Supports 40+ languages** for translation and practice
-- 🤖 **AI-Powered Vocabulary Expansion**:
-  - Add new words via AI
-  - Supports up to **4 languages per request**
-- 🧠 **Word management**:
-  - Save, search, favorite, and organize learned words
-- 🔒 **Protected routes** using token-based authentication
-
----
-
-## ⚙️ Technologies Used
-
-- [Vite](https://vitejs.dev/) – Fast build tool
-- [React](https://react.dev/) – UI library
-- [Tailwind CSS](https://tailwindcss.com/) – Utility-first CSS framework
-- [shadcn/ui](https://ui.shadcn.com/) – Styled components for Tailwind
-- [Axios](https://axios-http.com/) – HTTP client to consume the API
-- [react-router-dom](https://reactrouter.com/) – SPA routing
-- [react-hot-toast](https://react-hot-toast.com/) – Toast notifications
-
----
-
-## 🔧 Backend
-
-The frontend connects to a backend service developed with:
-
-- **Spring Boot (Java)** – RESTful API
-- **PostgreSQL** – Persistent database
-- **Spring Security** – Authentication and OAuth
-- **Email service** – To confirm user registration
-
-You can find or connect it via the corresponding backend repository.
-
----
-
-## 🚀 Getting Started
-
-### 1. Clone the repository
+### 1. Clone & install
 
 ```bash
 git clone https://github.com/edwin-dev31/idiomago-frontend.git
-
 cd idiomago-frontend
-```
-
-### 2. Install dependencies
-
-```bash
 npm install
 ```
 
-### 3. Start the development server
+### 2. Run development server
 
 ```bash
 npm run dev
 ```
+
+The app will open at **http://localhost:5173**.
+
+## Backend
+
+This frontend connects to the [**IdiomaGo Backend**](https://github.com/edwin-dev31/idiomago-backend) — a Spring Boot 3 API with JWT + OAuth2, PostgreSQL, and OpenAI integration.
+
+## License
+
+Distributed under the **MIT License**. See [LICENSE](./LICENSE) for more information.
+
+---
+
+<p align="center">
+  <a href="https://github.com/edwin-dev31/idiomago-frontend/issues">Report a bug</a> ·
+  <a href="https://github.com/edwin-dev31/idiomago-frontend/pulls">Request a feature</a>
+</p>
