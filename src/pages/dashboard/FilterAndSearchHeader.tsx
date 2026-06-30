@@ -36,8 +36,8 @@ const FilterAndSearchHeader: React.FC = () => {
             variant="outline"
             className="h-20 w-full flex flex-col items-center justify-center bg-[#D9E6E9] rounded-2xl shadow-lg hover:bg-[#B5CFD4] transition-colors duration-200"
           >
-            <item.icon className="w-6 h-6 mb-2" />
-            <span className="text-[#1B3B48] text-center text-sm" >{item.label}</span>
+            <item.icon className="w-8 h-8 mb-2 text-[#1B3B48] dark:text-white" />
+            <span className="text-[#1B3B48] dark:text-white text-center text-sm" >{item.label}</span>
           </Button>
         </Link>
       ))}

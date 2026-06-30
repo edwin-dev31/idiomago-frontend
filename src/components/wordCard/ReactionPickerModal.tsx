@@ -20,17 +20,17 @@ const ReactionPickerModal: React.FC<Props> = ({
   <Dialog open={open} onOpenChange={onClose}>
     <DialogContent
       className="p-3 bg-gray-900 text-white rounded-full flex gap-2 items-center border border-white/20">
-      {reactionTypes.map(({ key, Icon }) => (
+      {reactionTypes.map(({ emoji, key }) => (
         <button
           key={key}
           onClick={() => onReact(key)}
           className={cn(
-            "transition-transform hover:scale-125 p-1",
+            "text-2xl transition-transform hover:scale-125",
             currentReaction === key && "ring-2 ring-white/70 rounded-full"
           )}
           title={key}
         >
-          <Icon className="w-6 h-6" />
+          {emoji}
         </button>
       ))}
 

@@ -30,8 +30,8 @@ const FilterButtonOptions: React.FC<Props> = ({ activeFilter, onFilterChange }) 
             }`}
             onClick={() => onFilterChange(item.type)}
           >
-            <item.icon className="w-6 h-6 mb-2" />
-            <span className="text-center text-sm">{item.label}</span>
+            <item.icon className={`w-8 h-8 mb-2 ${activeFilter === item.type ? "text-white" : "text-[#1B3B48] dark:text-white"}`} />
+            <span className={`text-center text-sm ${activeFilter === item.type ? "text-white" : "text-[#1B3B48] dark:text-white"}`}>{item.label}</span>
           </Button>
         ))}
       </div>
