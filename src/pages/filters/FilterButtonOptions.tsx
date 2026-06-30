@@ -25,13 +25,13 @@ const FilterButtonOptions: React.FC<Props> = ({ activeFilter, onFilterChange }) 
           <Button
             key={item.type}
             variant="outline"
-            className={`h-20 w-full flex flex-col items-center justify-center rounded-2xl shadow-lg hover:bg-[#B5CFD4] transition-colors duration-200 ${
-              activeFilter === item.type ? "bg-[#1B3B48] text-white" : "bg-[#D9E6E9] text-[#1B3B48]"
+            className={`h-20 w-full flex flex-col items-center justify-center rounded-2xl shadow-lg transition-colors duration-200 ${
+              activeFilter === item.type ? "bg-[#B5CFD4] text-[#1B3B48]" : "bg-[#D9E6E9] text-[#1B3B48]"
             }`}
             onClick={() => onFilterChange(item.type)}
           >
-            <item.icon className={`w-8 h-8 mb-2 ${activeFilter === item.type ? "text-white" : "text-[#1B3B48] dark:text-white"}`} />
-            <span className={`text-center text-sm ${activeFilter === item.type ? "text-white" : "text-[#1B3B48] dark:text-white"}`}>{item.label}</span>
+            <item.icon className="w-8 h-8 mb-2 text-[#1B3B48]" />
+            <span className="text-center text-sm text-[#1B3B48]">{item.label}</span>
           </Button>
         ))}
       </div>
