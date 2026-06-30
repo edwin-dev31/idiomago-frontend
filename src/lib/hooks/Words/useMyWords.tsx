@@ -31,7 +31,7 @@ export function useMyWords() {
 
         setWords(wordsWithFavorites);
       } catch (err) {
-        console.error("❌ Error fetching words:", err);
+        console.error("Error fetching words:", err);
       } finally {
         setLoading(false);
       }

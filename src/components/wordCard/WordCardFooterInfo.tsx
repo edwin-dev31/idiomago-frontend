@@ -1,6 +1,6 @@
-// src/components/WordCardFooterInfo.tsx
 import React from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Globe } from "lucide-react";
 
 interface FooterInfoProps {
   imageUrl: string;
@@ -25,7 +25,8 @@ const WordCardFooterInfo: React.FC<FooterInfoProps> = ({
       <div className="flex flex-col justify-center text-xs leading-tight text-gray-600 dark:text-gray-400">
         <span className="text-sm font-semibold text-blue-900 dark:text-gray-600">{username}</span>
         <div className="flex flex-col sm:flex-row sm:items-center gap-0 sm:gap-1">
-          <span>🌐 {language.toUpperCase()}</span>
+          <Globe className="w-3.5 h-3.5 inline-block mr-1" />
+          <span>{language.toUpperCase()}</span>
           <span className="mt-1 sm:mt-0">· {postedAt}</span>
         </div>
       </div>

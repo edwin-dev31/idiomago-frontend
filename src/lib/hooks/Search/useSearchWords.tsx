@@ -4,7 +4,7 @@ import { apiRoutes } from "@/lib/constants/apiRoutes";
 import { Word } from "@/types/WordView";
 import { SaveSingleWordDTO } from "@/types/SaveSingleWordDTO";
 import { useAuthStorage } from "@/lib/hooks/useAuthStorage";
-import { getFavorites } from "@/lib/hooks/Favorites/useFavoriteActions"; // ✅ Import directo
+import { getFavorites } from "@/lib/hooks/Favorites/useFavoriteActions";
 import toast from "react-hot-toast";
 
 export function useSearchWords() {
@@ -47,7 +47,7 @@ export function useSearchWords() {
       setResults(enriched);
       return enriched;
     } catch (err) {
-      console.error("❌ Error saving multiple words:", err);
+      console.error("Error saving multiple words:", err);
       return [];
     } finally {
       setLoading(false);

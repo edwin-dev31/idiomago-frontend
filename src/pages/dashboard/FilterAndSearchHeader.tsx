@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Bot, BookMarked, Book, Search, PenSquare } from "lucide-react";
 
 const FilterAndSearchHeader: React.FC = () => {
   return (
@@ -23,19 +24,19 @@ const FilterAndSearchHeader: React.FC = () => {
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
       {[
-        { label: "Search with IA", icon: "📚", path: "/search" },
-        { label: "Save Personal word", icon: "🚀", path: "/save" },
+        { label: "Search with IA", icon: Bot, path: "/search" },
+        { label: "Save Personal word", icon: BookMarked, path: "/save" },
 
-        { label: "By Language", icon: "📖", path: "/filter?type=language" },
-        { label: "By Categories", icon: "🔍", path: "/filter?type=category" },
-        { label: "By Example", icon: "✏️", path: "/filter?type=example" },
+        { label: "By Language", icon: Book, path: "/filter?type=language" },
+        { label: "By Categories", icon: Search, path: "/filter?type=category" },
+        { label: "By Example", icon: PenSquare, path: "/filter?type=example" },
       ].map((item) => (
         <Link to={item.path} key={item.label}>
           <Button
             variant="outline"
             className="h-20 w-full flex flex-col items-center justify-center bg-[#D9E6E9] rounded-2xl shadow-lg hover:bg-[#B5CFD4] transition-colors duration-200"
           >
-            <span className="text-xl md:text-2xl mb-2">{item.icon}</span>
+            <item.icon className="w-6 h-6 mb-2" />
             <span className="text-[#1B3B48] text-center text-sm" >{item.label}</span>
           </Button>
         </Link>

@@ -26,7 +26,7 @@ const FavoritePage: React.FC = () => {
         prev.filter((word) => word.wordTranslationId !== wordTranslationId)
       );
     } catch (error) {
-      console.error("❌ Error removing favorite:", error);
+      console.error("Error removing favorite:", error);
     }
   };
 

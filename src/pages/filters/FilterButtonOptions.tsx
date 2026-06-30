@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { BookOpen, Search, Book, PenSquare } from "lucide-react";
 
 type FilterType = "language" | "category" | "description" | "example";
 
@@ -8,11 +9,11 @@ interface Props {
   onFilterChange: (filter: FilterType) => void;
 }
 
-const options: { label: string; icon: string; type: FilterType }[] = [
-  { label: "Word Language", icon: "📚", type: "language" },
-  { label: "Word Categories", icon: "🔍", type: "category" },
-  { label: "Word Description", icon: "📖", type: "description" },
-  { label: "Word Example", icon: "✏️", type: "example" },
+const options: { label: string; icon: typeof BookOpen; type: FilterType }[] = [
+  { label: "Word Language", icon: BookOpen, type: "language" },
+  { label: "Word Categories", icon: Search, type: "category" },
+  { label: "Word Description", icon: Book, type: "description" },
+  { label: "Word Example", icon: PenSquare, type: "example" },
 ];
 
 const FilterButtonOptions: React.FC<Props> = ({ activeFilter, onFilterChange }) => {
@@ -29,7 +30,7 @@ const FilterButtonOptions: React.FC<Props> = ({ activeFilter, onFilterChange }) 
             }`}
             onClick={() => onFilterChange(item.type)}
           >
-            <span className="text-xl md:text-2xl mb-2">{item.icon}</span>
+            <item.icon className="w-6 h-6 mb-2" />
             <span className="text-center text-sm">{item.label}</span>
           </Button>
         ))}

@@ -25,7 +25,7 @@ export function useLanguages() {
 
         setLanguages(enriched);
       } catch (error) {
-        console.error("❌ Error loading languages:", error);
+        console.error("Error loading languages:", error);
       } finally {
         setLoading(false);
       }

@@ -11,7 +11,7 @@ export function useCategories() {
   const [loading, setLoading] = useState(true);
   const { authHeaders } = useAuthStorage();
 
-  // 👇 encapsulamos la lógica de carga para poder reutilizarla
+  // encapsulamos la lógica de carga para poder reutilizarla
   const fetchCategories = useCallback(async () => {
     setLoading(true);
     try {
@@ -27,7 +27,7 @@ export function useCategories() {
 
       setCategories(enriched);
     } catch (error) {
-      console.error("❌ Error loading categories", error);
+      console.error("Error loading categories", error);
     } finally {
       setLoading(false);
     }
@@ -59,7 +59,7 @@ export function useSaveCategory() {
       toast.success("Category Saved");
       return response.data as Category;
     } catch (error) {
-      console.error("❌ Error saving category:", error);
+      console.error("Error saving category:", error);
       return null;
     } finally {
       setLoading(false);

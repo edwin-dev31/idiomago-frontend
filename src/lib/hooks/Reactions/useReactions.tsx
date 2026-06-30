@@ -24,7 +24,7 @@ async function addReaction(wordTranslationId: number, emoji: string) {
       }
     );
   } catch (error) {
-    console.error("❌ Failed to send reaction:", error);
+    console.error("Failed to send reaction:", error);
   }
 }
 
@@ -36,7 +36,7 @@ async function deleteReaction(reactionId: number) {
       headers: authHeaders,
     });
   } catch (error) {
-    console.error("❌ Failed to delete reaction:", error);
+    console.error("Failed to delete reaction:", error);
   }
 }
 
@@ -49,7 +49,7 @@ async function getReactionsByWord(wordTranslationId: number): Promise<any[]> {
     });
     return res.data;
   } catch (err) {
-    console.error("❌ Failed to fetch reactions:", err);
+    console.error("Failed to fetch reactions:", err);
     return [];
   }
 }

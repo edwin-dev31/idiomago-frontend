@@ -21,7 +21,7 @@ export function useUserInfo() {
 
         setUser(response.data);
       } catch (error) {
-        console.error("❌ Error fetching user info:", error);
+        console.error("Error fetching user info:", error);
       } finally {
         setLoading(false);
       }

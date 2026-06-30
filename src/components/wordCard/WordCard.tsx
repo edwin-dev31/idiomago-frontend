@@ -40,7 +40,7 @@ const WordCard: React.FC<WordCardProps> = ({
       await deleteTranslation(word.wordTranslationId);
       onDelete();
     } catch (err) {
-      console.error("❌ Failed to delete word card:", err);
+      console.error("Failed to delete word card:", err);
     }
   };
 

@@ -41,7 +41,7 @@ export const LanguageSelector: React.FC<Props> = ({ onLanguageChange,  className
         return prev.filter((c) => c !== code);
       } else {
         if (prev.length >= 4) {
-          toast.error("❌ Only 4 languages max");
+          toast.error("Only 4 languages max");
           return prev;
         }
         return [...prev, code];

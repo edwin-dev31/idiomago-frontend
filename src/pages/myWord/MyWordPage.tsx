@@ -35,7 +35,7 @@ const MyWordsPage: React.FC = () =>{
             )
           );
         } catch (error) {
-          console.error("❌ Error updating favorite:", error);
+          console.error("Error updating favorite:", error);
         }
       };
     

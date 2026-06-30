@@ -54,7 +54,7 @@ const SavePage: React.FC = () => {
         )
       );
     } catch (err) {
-      console.error("❌ Error updating favorite:", err);
+      console.error("Error updating favorite:", err);
     }
   };
 

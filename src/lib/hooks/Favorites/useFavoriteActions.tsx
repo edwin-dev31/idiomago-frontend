@@ -18,9 +18,9 @@ async function addFavorite(wordTranslationId: number) {
       { userId: Number(userId), wordTranslationId },
       { headers: authHeaders }
     );
-    toast.success("Added to favorites 🧡");
+    toast.success("Added to favorites");
   } catch (error) {
-    toast.error("Failed to add to favorites ❌");
+    toast.error("Failed to add to favorites");
   }
 }
 
@@ -37,9 +37,9 @@ async function deleteFavorite(wordTranslationId: number) {
       apiRoutes.favorites.byUserAndWord(Number(userId), wordTranslationId),
       { headers: authHeaders }
     );
-    toast.success("Removed from favorites 💔");
+    toast.success("Removed from favorites");
   } catch (error) {
-    toast.error("Failed to remove from favorites ❌");
+    toast.error("Failed to remove from favorites");
   }
 }
 
@@ -54,7 +54,7 @@ async function getFavorites(): Promise<number[]> {
     });
     return res.data.map((fav: any) => fav.wordTranslationId);
   } catch (err) {
-    console.error("❌ Failed to get favorites", err);
+    console.error("Failed to get favorites", err);
     return [];
   }
 }

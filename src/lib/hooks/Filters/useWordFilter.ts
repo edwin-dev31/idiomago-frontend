@@ -10,7 +10,7 @@ export function useWordFilter() {
       const response = await javaAPI.get(url, { headers: authHeaders });
       return response.data;
     } catch (err) {
-      console.error(`❌ Error filtering from: ${url}`, err);
+      console.error(`Error filtering from: ${url}`, err);
       return [];
     }
   };
@@ -23,7 +23,7 @@ export function useWordFilter() {
         const response = await javaAPI.get(url, { headers: authHeaders });
         results.push(...response.data);
       } catch (err) {
-        console.error(`❌ Error filtering from: ${url}`, err);
+      console.error(`Error filtering from: ${url}`, err);
       }
     }
 

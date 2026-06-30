@@ -65,10 +65,10 @@ const WordShareModal: React.FC<Props> = ({ word, onClose, open }) => {
     try {
       const clipboardItem = new ClipboardItem({ [blob.type]: blob });
       await navigator.clipboard.write([clipboardItem]);
-      toast.success("✅ Copiado al portapapeles!");
+      toast.success("Copiado al portapapeles!");
     } catch (err) {
-      console.error("❌ Error copiando imagen:", err);
-      toast.error("❌ No se pudo copiar la imagen");
+      console.error("Error copiando imagen:", err);
+      toast.error("No se pudo copiar la imagen");
     }
   };
 

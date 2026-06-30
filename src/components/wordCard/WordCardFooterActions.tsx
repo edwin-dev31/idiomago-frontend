@@ -13,8 +13,9 @@ const WordCardFooterActions: React.FC<Props> = ({ word, hideReactions }) => {
   const { reactions, addReaction, deleteReaction } = useReactions(word.wordTranslationId);
 
   const topReactions = reactionTypes
-    .map(({ emoji }) => ({
+    .map(({ emoji, Icon }) => ({
       emoji,
+      Icon,
       count: reactions.filter((r) => r.emoji === emoji).length,
     }))
     .filter((r) => r.count > 0)
@@ -28,14 +29,12 @@ const WordCardFooterActions: React.FC<Props> = ({ word, hideReactions }) => {
       {!hideReactions && (
         <>
           <div className="flex -space-x-1">
-            {topReactions.map(({ emoji }) => (
+            {topReactions.map(({ emoji, Icon }) => (
               <span
                 key={emoji}
-                className="w-6 h-6 flex items-center justify-center bg-white rounded-full border border-gray-300 font-emoji text-[14px] leading-none relative"
+                className="w-6 h-6 flex items-center justify-center bg-white rounded-full border border-gray-300 relative"
               >
-                <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                  {emoji}
-                </span>
+                <Icon className="w-3.5 h-3.5" />
               </span>
             ))}
           </div>

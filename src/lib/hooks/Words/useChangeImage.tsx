@@ -19,11 +19,11 @@ export async function changeImage(wordTranslationId: number): Promise<string | n
       { headers: authHeaders }
     );
 
-    toast.success("Image updated successfully 📷");
+    toast.success("Image updated successfully");
     return response.data.message;
   } catch (error) {
     toast.error("Failed to change image");
-    console.error("❌ Error changing image:", error);
+    console.error("Error changing image:", error);
     return null;
   }
 }

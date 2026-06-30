@@ -15,11 +15,11 @@ function useWordsFromEndpoint(endpoint: string) {
   useEffect(() => {
     const fetchWords = async () => {
       try {
-        console.log(`➡️ Requesting: ${javaAPI.defaults.baseURL}${endpoint}`); // Log the full URL
+        console.log(`Requesting: ${javaAPI.defaults.baseURL}${endpoint}`);
         const response = await javaAPI.get(endpoint, {
           headers: authHeaders,
         });
-        console.log(`✅ Response from ${endpoint}:`, response.data); // Log the response data
+        console.log(`Response from ${endpoint}:`, response.data);
 
         const wordsWithFavorites: Word[] = response.data.map((word: any) => ({
           ...word,
@@ -30,7 +30,7 @@ function useWordsFromEndpoint(endpoint: string) {
 
         setWords(wordsWithFavorites);
       } catch (err) {
-        console.error(`❌ Error fetching words from ${endpoint}:`, err);
+        console.error(`Error fetching words from ${endpoint}:`, err);
       } finally {
         setLoading(false);
       }

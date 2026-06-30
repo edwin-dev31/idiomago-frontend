@@ -104,7 +104,7 @@ const handleChangeImage = async (wordTranslationId: number) => {
 
       setResults(applyFavoritesToWords(filtered));
     } catch (err) {
-      console.error("❌ Error filtering:", err);
+      console.error("Error filtering:", err);
     }
   };
 
@@ -126,7 +126,7 @@ const handleChangeImage = async (wordTranslationId: number) => {
         )
       );
     } catch (err) {
-      console.error("❌ Error toggling favorite:", err);
+      console.error("Error toggling favorite:", err);
     }
   };
 

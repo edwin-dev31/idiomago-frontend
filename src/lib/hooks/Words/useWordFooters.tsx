@@ -21,7 +21,7 @@ export function useWordFooters() {
         console.log(response);
         setFooters(response.data);
       } catch (err) {
-        console.error("❌ Error fetching word footers:", err);
+        console.error("Error fetching word footers:", err);
       } finally {
         setLoading(false);
       }

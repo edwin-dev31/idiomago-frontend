@@ -13,10 +13,10 @@ export function useLogin() {
   const login = async ({ email, password }: LoginData) => {
     try {
       console.log(
-        `➡️ Requesting Login: ${javaAPI.defaults.baseURL}${apiRoutes.login}`
+        `Requesting Login: ${javaAPI.defaults.baseURL}${apiRoutes.login}`
       );
       const response = await javaAPI.post(apiRoutes.login, { email, password });
-      console.log(`✅ Response from Login:`, response.data);
+      console.log(`Response from Login:`, response.data);
 
       const token = response.data?.token;
       const userId = response.data?.userId;
@@ -28,7 +28,7 @@ export function useLogin() {
       return response.data;
     } catch (error: any) {
       console.error(
-        "❌ Login error:",
+        "Login error:",
         error.response?.data?.message || error.message
       );
       throw error;

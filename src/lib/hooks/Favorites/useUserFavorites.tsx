@@ -22,7 +22,7 @@ export function useUserFavorites() {
 
         setFavorites(response.data);
       } catch (err) {
-        console.error("❌ Error fetching favorites:", err);
+        console.error("Error fetching favorites:", err);
       } finally {
         setLoading(false);
       }
